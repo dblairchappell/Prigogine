@@ -3,9 +3,7 @@
 ###########################################################################################################
 
 from ModelBuilder import ModelBuilder
-from antlr4 import *
 from PrigogineParser import PrigogineParser
-from PrigogineLexer import PrigogineLexer
 from PrigogineListener import PrigogineListener
 
 ###########################################################################################################
@@ -67,14 +65,14 @@ class PrigogineDirector(PrigogineListener):
 
     #########################
 
-    def getOderedTokens(self, expression):
-        orderedTokenList = []
-        for node in expression.children:
-            #orderedTokenList.append(node)
-            if node.getChildCount() > 0:
-                self.getOderedTokens(node)
-            else:
-                print node
+    # def getOderedTokens(self, expression):
+    #     orderedTokenList = []
+    #     for node in expression.children:
+    #         #orderedTokenList.append(node)
+    #         if node.getChildCount() > 0:
+    #             self.getOderedTokens(node)
+    #         else:
+    #             print node
 
     #########################
 
@@ -162,33 +160,6 @@ class PrigogineDirector(PrigogineListener):
             # print attr.getPayload().expression().getPayload().getChild(0).getChildCount()
 
     #########################
-
-###########################################################################################################
-###########################################################################################################
-
-def loadModel(modelFileName, setupFileName):
-
-    filenames = [modelFileName, setupFileName]
-
-    with open('tmpmodel.prt', 'w') as outfile:
-        for fname in filenames:
-            with open(fname) as infile:
-                for line in infile:
-                    outfile.write(line)
-
-    #print open('tmpmodel.prt', "r").read()
-    input_stream = FileStream('tmpmodel.prt')
-    lexer = PrigogineLexer(input_stream)
-    token_stream = CommonTokenStream(lexer)
-    parser = PrigogineParser(token_stream)
-    tree = parser.filestart()
-
-    listener = PrigogineDirector(token_stream)
-    walker = ParseTreeWalker()
-    walker.walk(listener, tree)
-    model = listener.getModel()
-
-    return model
 
 ###########################################################################################################
 ###########################################################################################################
