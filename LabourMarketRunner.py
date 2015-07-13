@@ -1,6 +1,6 @@
 
 
-from Prigogine import loadModel
+from PrigogineDirector import loadModel
 
 model = loadModel("LabourMarketModel.prm", "LabourMarketSetup.prs")
 model.runModel(50)
