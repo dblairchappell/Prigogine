@@ -1,0 +1,31 @@
+
+messageboards
+	sharedRandomVars
+end
+
+agent RandomWalker 10
+
+	init randomVar random 100
+	init receivedVar 1
+
+	state increasing
+		transition decreasing if (random 100) < 30
+		update randomVar randomVar[t-1] + random 10
+		post sharedRandomVars randomVar[t]
+	end
+
+	state decreasing
+		transition increasing if (random 100) < 50 begin
+			update randomVar randomVar[t] + random 10
+		end
+		update receivedVar begin
+			let this 100
+			nof 10 (messages sharedRandomVars)
+			| sort low
+			| first
+			| print
+			print receivedVar[t]
+		end
+	end
+
+end

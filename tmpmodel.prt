@@ -1,0 +1,42 @@
+
+population households
+
+	attributes
+		reserveWages
+		numJobs
+		poops
+	end
+
+	state employed
+		transition to unemployed if uniform(1,100) >= 75
+		update reserveWages print "updating reserveWages" # reserveWages[t] * 1.1
+	end
+
+	state unemployed
+
+		transition to employed if reserveWages[t] < 15 begin
+			update numJobs print "updating numJobs" # numJobs[t] + 1 * 7
+		end
+
+		update reserveWages begin
+			var = np.random.randint(20, size=10)
+			print "updating reserveWages " + str(var)
+			#minWage = reserveWages[t].copy()
+			#minWage[:] = 10
+			#maximum((reserveWages[t] * 0.9), minWage)
+		end
+
+		update poops print "updating poops" # poops[t-1] + 2 / 3
+
+	end
+
+end
+
+
+create households 10
+	startstate employed
+	init reserveWages[t] function(2,4) * 3
+	init numJobs[t] this.that()
+	init poops[t-1] [6 for x in array]
+end
+
