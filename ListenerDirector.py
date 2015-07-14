@@ -9,37 +9,16 @@ from PrigogineListener import PrigogineListener
 ###########################################################################################################
 ###########################################################################################################
 
-class PrigogineDirector(PrigogineListener):
+class ListenerDirector(PrigogineListener):
 
     #########################
 
     def __init__(self, tokens):
-        self.model = ModelBuilder()
+
+        self.model = None
+        self.modelBuilder = ModelBuilder()
         self.tokens = tokens
         self.currentPopulation = ""
-
-    #########################
-
-    def getAttributeNames(self, ctx):
-        numAttrs = ctx.attributelist().getPayload().getChildCount() - 2
-        attrList = []
-        for i in range(numAttrs):
-            attrList.append(str(ctx.attributelist().getPayload().getChild(i+1).getText()))
-        #print attrList
-        return attrList
-
-    #########################
-
-    def getStateNames(self, ctx):
-        stateList = []
-        for state in ctx.statedef():
-            stateList.append(str(state.getPayload().getChild(1)))
-        return stateList
-
-    #########################
-
-    def getModel(self):
-        return self.model
 
     #########################
 
@@ -160,6 +139,30 @@ class PrigogineDirector(PrigogineListener):
             # print attr.getPayload().expression().getPayload().getChild(0).getChildCount()
 
     #########################
+
+    #########################
+
+    def getAttributeNames(self, ctx):
+        numAttrs = ctx.attributelist().getPayload().getChildCount() - 2
+        attrList = []
+        for i in range(numAttrs):
+            attrList.append(str(ctx.attributelist().getPayload().getChild(i+1).getText()))
+        #print attrList
+        return attrList
+
+    #########################
+
+    def getStateNames(self, ctx):
+        stateList = []
+        for state in ctx.statedef():
+            stateList.append(str(state.getPayload().getChild(1)))
+        return stateList
+
+    #########################
+
+    def getModel(self):
+        return self.model
+
 
 ###########################################################################################################
 ###########################################################################################################

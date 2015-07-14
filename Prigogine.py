@@ -3,7 +3,7 @@
 ###########################################################################################################
 
 import sys
-from PrigogineDirector import PrigogineDirector
+from ListenerDirector import ListenerDirector
 from PrigogineLexer import PrigogineLexer
 from PrigogineParser import PrigogineParser
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
@@ -11,28 +11,42 @@ from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 ###########################################################################################################
 ###########################################################################################################
 
-class Prigogine():
+class Prigogine:
 
-    def __init__(self, inputStream):
+    def __init__(self):
+        self.model = None
 
-        self.model = self.buildModel(inputStream)
+    @staticmethod
+    def buildLexer(inputStream):
+        return PrigogineLexer(inputStream)
+
+    @staticmethod
+    def buildTokenStream(lexer):
+        return CommonTokenStream(lexer)
+
+    @staticmethod
+    def buildParser(tokenStream):
+        return PrigogineParser(tokenStream)
+
+    @staticmethod
+    def buildListener(tokenStream):
+        return ListenerDirector(tokenStream)
+
+    @staticmethod
+    def buildWalker():
+        return ParseTreeWalker()
 
     def buildModel(self, inputStream):
-
-        lexer = PrigogineLexer(inputStream)
-        tokenStream = CommonTokenStream(lexer)
-        parser = PrigogineParser(tokenStream)
+        lexer = self.buildLexer(inputStream)
+        tokenStream = self.buildTokenStream(lexer)
+        parser = self.buildParser(tokenStream)
         tree = parser.filestart()
-
-        listener = PrigogineDirector(tokenStream)
-        walker = ParseTreeWalker()
+        listener = self.buildListener(tokenStream)
+        walker = self.buildWalker()
         walker.walk(listener, tree)
-        model = listener.getModel()
-
-        return model
+        self.model = listener.getModel()
 
     def runModel(self, numIterations):
-
         self.model.runModel(numIterations)
 
 ###########################################################################################################
@@ -41,7 +55,8 @@ class Prigogine():
 def main(argv):
 
     inputStream = FileStream(argv[1])
-    prigogine = Prigogine(inputStream)
+    prigogine = Prigogine()
+    prigogine.buildModel(inputStream)
     prigogine.runModel(50)
 
 if __name__ == '__main__':
