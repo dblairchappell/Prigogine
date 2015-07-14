@@ -10,6 +10,7 @@ class Population:
         self.attributes = {}
         self.stateMasks = {}
         self.codeToEval = []
+        self.startstate = ""
 
     def addAttribute(self, attributeName):
         self.attributes[attributeName] = zeros((self.timeStepMem, self.populationSize))

@@ -40,3 +40,11 @@ population households
 
 end
 
+create households 10 begin
+
+	startstate = "employed"
+	attributes["reserveWages"][t] = [random.uniform(1, 100) for x in range(10)]
+	attributes["numJobs"][t] = [1 for x in range(10)]
+	attributes["minWage"][t] = [5 for x in range(10)]
+
+end

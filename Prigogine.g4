@@ -13,13 +13,17 @@ population
     : 'population' ID attributelist statedef* 'end'
     ;
 
+//createpopulation
+//    : 'create' ID INT startstate initvar* 'end'
+//    ;
+
 createpopulation
-    : 'create' ID INT startstate initvar* 'end'
+    : 'create' ID INT codeblock*
     ;
 
-startstate
-    : 'startstate' ID
-    ;
+//startstate
+  //  : 'startstate' ID
+    //;
 
 //runmodel
 //    : 'runmodel' INT ('[' expression* ']')*
@@ -34,7 +38,7 @@ attributelist
     ;
 
 listcomp
-    : '[' expression 'for' ID 'in' ID ']'
+    : '[' expression 'for' ID 'in' expression ']'
     ;
 
 attribute
@@ -76,6 +80,7 @@ expression
      | expression op=PIPE expression
      | 'print' string
      | 'print' expression
+     | string
      | number
      | attrsget
      | func

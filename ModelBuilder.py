@@ -12,9 +12,15 @@ import numpy as np
 class ModelBuilder:
 
     def __init__(self):
+        self.populationData = {}
         self.model = Model()
 
+    @staticmethod
+    def buildModel():
+        return 0
+
     def getModel(self):
+        print self.populationData
         return self.model
 
     # def runModel(self, numIterations):
@@ -23,11 +29,12 @@ class ModelBuilder:
     #         self.updateData()
     #         self.t += 1
 
-    # def addPopulation(self, populationName):
-    #     self.populations[populationName] = {}
-    #     self.populations[populationName]["attrs"] = {}
-    #     self.populations[populationName]["states"] = {}
-
+    def declarePopulation(self, populationName):
+        self.populationData[populationName] = {}
+        self.populationData[populationName]["attributeData"] = {}
+        self.populationData[populationName]["stateData"] = []
+        self.populationData[populationName]["populationSize"] = 0
+        self.populationData[populationName]["initialisationData"] = []
 
     # def createPopulation(self, populationName, numAgents):
     #
@@ -38,14 +45,20 @@ class ModelBuilder:
     #     for stateName, val in self.populations[populationName]["states"].items():
     #         self.populations[populationName]["states"][stateName] = np.zeros((1, numAgents))
     #
-    # def addAttribute(self, populationName, attrName): # declare that an attibutes exists
-    #     self.populations[populationName]["attrs"][attrName] = {}
-    #     self.populations[populationName]["attrs"][attrName]["code"] = []
-    #     self.populations[populationName]["attrs"][attrName]["data"] = np.zeros((1, 1))
-    #
-    #
-    # def addState(self, populationName, stateName):
-    #     self.populations[populationName]["states"][stateName] = np.zeros((1, 1))
+
+    def declareAttribute(self, populationName, attrName): # declare that an attibutes exists
+         self.populationData[populationName]["attributeData"][attrName] = {}
+         self.populationData[populationName]["attributeData"][attrName]["code"] = []
+
+    def declareState(self, populationName, stateName):
+         self.populationData[populationName]["stateData"].append(stateName)
+
+    def setPopulationSize(self, populationName, populationSize):
+        self.populationData[populationName]["populationSize"] = populationSize
+
+    #def setState(self, populationName, stateName):
+    #    self.populationData[populationName]["stateData"].append(stateName)
+
     #
     # def initAttrsRand(self, populationName, attrName, min, max):
     #     for j in range(len(self.populations[populationName]["attrs"][attrName]["data"][0])):
