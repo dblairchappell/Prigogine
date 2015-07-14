@@ -21,14 +21,13 @@ population households
 			update numJobs begin
 				print "updating numJobs"
 				attributes["numJobs"][t] + 1
+				get(numjobs, t) + 1
 			end
 		end
 
 		update reserveWages begin
 			print "updating reserveWages"
-			rw = attributes["reserveWages"][t]
-			mw = attributes["minWage"][t]
-			maximum((rw * 0.9), mw)
+			maximum( (attributes["reserveWages"][t] * 0.9), attributes["minWage"][t] )
 		end
 
 		update minWage begin
@@ -41,10 +40,12 @@ population households
 end
 
 create households 10 begin
-
 	startstate = "employed"
 	attributes["reserveWages"][t] = [random.uniform(1, 100) for x in range(10)]
 	attributes["numJobs"][t] = [1 for x in range(10)]
 	attributes["minWage"][t] = [5 for x in range(10)]
-
 end
+
+
+
+
