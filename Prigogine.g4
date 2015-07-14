@@ -42,12 +42,16 @@ attribute
     ;
 
 attrsget
-    : ID timeindex
+    : 'attributes' dictindex timeindex
     ;
 
 timeindex
     : '[' 't' (('-'|'+') INT)* ']'
     | '[:]'
+    ;
+
+dictindex
+    : ('[' string ']')
     ;
 
 statedef
@@ -79,7 +83,6 @@ expression
      | ID
      | lparen expression rparen
      ;
-
 
 assignment
     : (ID|attrsget) '=' expression

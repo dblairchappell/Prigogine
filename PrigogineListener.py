@@ -94,6 +94,15 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#dictindex.
+    def enterDictindex(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#dictindex.
+    def exitDictindex(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#statedef.
     def enterStatedef(self, ctx):
         pass

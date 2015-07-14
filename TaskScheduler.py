@@ -1,1 +1,7 @@
-__author__ = 'David'
+
+from Population import *
+
+class TaskScheduler:
+
+    def __init__(self, populationSize):
+        self.codeToEval = []

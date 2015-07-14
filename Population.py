@@ -1,16 +1,25 @@
 
-from TimeSeries import TimeSeries
+from numpy import *
 
 class Population:
 
     def __init__(self, populationSize):
-        
+
         self.populationSize = populationSize
-        self.timeSteps = 2
-        self.timeSeries = {}
-        self.t = 1
+        self.timeStepMem = 10
+        self.attributes = {}
+        self.stateMasks = {}
+        self.codeToEval = []
 
     def addAttribute(self, attributeName):
-        self.timeSeries[attributeName] = TimeSeries(attributeName, self.timeSteps)
+        self.attributes[attributeName] = zeros((self.timeStepMem, self.populationSize))
+
+    def addState(self, stateName):
+        self.stateMasks[stateName] = zeros((self.timeStepMem, self.populationSize))
+
+    def updateAttributes(self, attributes, t):
+        for codeline in self.codeToEval:
+            exec codeline
+
 
 
