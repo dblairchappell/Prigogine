@@ -9,10 +9,7 @@ population households
 
 	state employed
 		transition to unemployed if uniform(1,100) >= 75
-		update reserveWages begin
-			print "updating reserveWages"
-			attributes["reserveWages"][t] * 1.1
-		end
+		update reserveWages attributes["reserveWages"][t] * 1.1
 	end
 
 	state unemployed
@@ -21,7 +18,7 @@ population households
 			update numJobs begin
 				print "updating numJobs"
 				attributes["numJobs"][t] + 1
-				get(numjobs, t) + 1
+				#get(numjobs, t) + 1
 			end
 		end
 
@@ -32,7 +29,8 @@ population households
 
 		update minWage begin
 			print "updating minWage"
-			attributes["minWage"][t-1] + 2 / 3
+			attributes["minWage"][t] = attributes["minWage"][t] + 1
+			print "min wage now: " + str(attributes["minWage"][t])
 		end
 
 	end

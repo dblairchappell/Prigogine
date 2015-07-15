@@ -47,6 +47,7 @@ class Prigogine:
         self.model = listener.getModel()
 
     def runModel(self, numIterations):
+        #print self.model.populations["households"].updateCode
         self.model.runModel(numIterations)
 
 ###########################################################################################################
@@ -57,7 +58,7 @@ def main(argv):
     inputStream = FileStream(argv[1])
     prigogine = Prigogine()
     prigogine.buildModel(inputStream)
-    prigogine.runModel(50)
+    prigogine.runModel(10)
 
 if __name__ == '__main__':
 

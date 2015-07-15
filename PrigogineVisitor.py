@@ -50,6 +50,11 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#timevar.
+    def visitTimevar(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#dictindex.
     def visitDictindex(self, ctx):
         return self.visitChildren(ctx)

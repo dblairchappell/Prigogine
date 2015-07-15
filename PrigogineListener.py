@@ -85,6 +85,15 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#timevar.
+    def enterTimevar(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#timevar.
+    def exitTimevar(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#dictindex.
     def enterDictindex(self, ctx):
         pass

@@ -52,6 +52,11 @@ attrsget
 timeindex
     : '[' 't' (('-'|'+') INT)* ']'
     | '[:]'
+
+    ;
+
+timevar
+    : 't'
     ;
 
 dictindex
@@ -86,6 +91,7 @@ expression
      | func
      | listcomp
      | ID
+     | timevar
      | lparen expression rparen
      ;
 
