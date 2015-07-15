@@ -7,7 +7,7 @@ class Model:
 
     def __init__(self):
         self.populations = {}
-        self.timeStepMem = 10
+        self.timeStepMem = 100
         self.t = 0
 
     #########################
@@ -43,18 +43,31 @@ class Model:
     #########################
 
     def updateModel(self):
-        for population, val in self.populations.items():
+        for population in self.populations:
             attributes = self.populations[population].attributes
             self.populations[population].updateAttributes(attributes, self.t)
 
     #########################
 
+    def initialiseModel(self):
+        for population in self.populations:
+            attributes = self.populations[population].attributes
+            self.populations[population].initialiseAttributes(attributes, self.t)
+
+    #########################
+
     def runModel(self, numIterations):
         print "running model"
+        itno = 0
+        self.initialiseModel()
         for each in range(numIterations):
-            print "------------------\niteration number: " + str(self.t) + "\n------------------"
+            itno +=1
+            print "------------------\niteration number: " + str(itno) + "\n------------------"
             self.updateModel()
             self.t += 1
+            print "--------------------------------------------"
+            if self.t >= self.timeStepMem:
+                self.t = 0
 
     #########################
 

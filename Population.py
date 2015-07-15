@@ -8,7 +8,7 @@ class Population:
     def __init__(self, populationSize):
 
         self.populationSize = populationSize
-        self.timeStepMem = 10
+        self.timeStepMem = 100
         self.attributes = {}
         self.stateMasks = {}
         self.updateCode = []
@@ -40,6 +40,13 @@ class Population:
     def updateAttributes(self, attributes, t):
         for codeline in self.updateCode:
             exec codeline
+
+
+    #########################
+
+    def initialiseAttributes(self, attributes, t):
+        for codeblock in self.initialisationCode:
+            exec codeblock
 
     #########################
 

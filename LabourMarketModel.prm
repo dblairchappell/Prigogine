@@ -23,14 +23,13 @@ population households
 		end
 
 		update reserveWages begin
-			print "updating reserveWages"
+			print "updating reserveWages: " + str(attributes["reserveWages"][t])
 			maximum( (attributes["reserveWages"][t] * 0.9), attributes["minWage"][t] )
 		end
 
 		update minWage begin
 			print "updating minWage"
 			attributes["minWage"][t] = attributes["minWage"][t] + 1
-			print "min wage now: " + str(attributes["minWage"][t])
 		end
 
 	end
