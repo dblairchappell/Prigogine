@@ -2,6 +2,7 @@
 ###########################################################################################################
 ###########################################################################################################
 
+import time
 import sys
 from ListenerDirector import ListenerDirector
 from PrigogineLexer import PrigogineLexer
@@ -58,7 +59,11 @@ def main(argv):
     inputStream = FileStream(argv[1])
     prigogine = Prigogine()
     prigogine.buildModel(inputStream)
+
+    start = time.clock()
     prigogine.runModel(100)
+    end = time.clock()
+    print "time elapsed: " + str(end - start) + "s"
 
 if __name__ == '__main__':
 

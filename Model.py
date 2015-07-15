@@ -7,7 +7,7 @@ class Model:
 
     def __init__(self):
         self.populations = {}
-        self.timeStepMem = 4
+        self.timeStepMem = 2
         self.t = 0
 
     #########################

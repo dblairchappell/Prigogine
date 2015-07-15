@@ -38,11 +38,11 @@ population households
 
 end
 
-create households 500000 begin
+create households 1000000 begin
 	startstate("employed")
-	init("reserveWages", [random.uniform(1, 100) for x in range(500000)])
-	init("numJobs", [1 for x in range(500000)])
-	init("minWage", [5 for x in range(500000)])
+	init("reserveWages", random.uniform(1,100,1000000))
+	init("numJobs", ones(1000000))
+	init("minWage", ones(1000000) * 5)
 end
 
 

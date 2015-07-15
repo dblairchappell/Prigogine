@@ -8,7 +8,7 @@ class Population:
     def __init__(self, populationSize):
 
         self.populationSize = populationSize
-        self.timeStepMem = 4
+        self.timeStepMem = 2
         self.attributes = {}
         self.stateMasks = {}
         self.updateCode = []
