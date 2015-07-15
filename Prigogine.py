@@ -48,7 +48,7 @@ class Prigogine:
 
     def runModel(self, numIterations):
         self.model.runModel(numIterations)
-        print self.model.populations["households"].attributes["reserveWages"]
+        #print self.model.populations["households"].attributes["reserveWages"]
 
 ###########################################################################################################
 ###########################################################################################################
@@ -58,7 +58,7 @@ def main(argv):
     inputStream = FileStream(argv[1])
     prigogine = Prigogine()
     prigogine.buildModel(inputStream)
-    prigogine.runModel(20)
+    prigogine.runModel(100)
 
 if __name__ == '__main__':
 

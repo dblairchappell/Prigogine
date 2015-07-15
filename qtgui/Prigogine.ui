@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1322</width>
-    <height>784</height>
+    <width>1377</width>
+    <height>853</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,280 +27,283 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>Interface</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="1" column="0">
-         <widget class="QWebView" name="webView_2">
-          <property name="url">
-           <url>
-            <string>about:blank</string>
-           </url>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="title">
-           <string/>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="18">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="19">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>View Updates</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="16">
-            <widget class="QLabel" name="label">
-             <property name="minimumSize">
-              <size>
-               <width>110</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Simulation Speed</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="12">
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>Setup</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="10">
-            <widget class="QPushButton" name="pushButton">
-             <property name="text">
-              <string>Run</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="13">
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="11">
-            <widget class="QPushButton" name="pushButton_7">
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_6">
-             <property name="text">
-              <string>Delete</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton_5">
-             <property name="text">
-              <string>Edit</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="7">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Iterations</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QComboBox" name="comboBox">
-             <property name="accessibleName">
-              <string/>
-             </property>
-             <item>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="tabShape">
+        <enum>QTabWidget::Rounded</enum>
+       </property>
+       <property name="currentIndex">
+        <number>2</number>
+       </property>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Interface</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="18">
+             <widget class="QCheckBox" name="checkBox">
               <property name="text">
-               <string>Button</string>
+               <string/>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="19">
+             <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>Slider</string>
+               <string>View Updates</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="16">
+             <widget class="QLabel" name="label">
+              <property name="minimumSize">
+               <size>
+                <width>110</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="text">
-               <string>Switch</string>
+               <string>Simulation Speed</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="12">
+             <widget class="QPushButton" name="pushButton_2">
               <property name="text">
-               <string>Chooser</string>
+               <string>Setup</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="10">
+             <widget class="QPushButton" name="pushButton">
               <property name="text">
-               <string>Input</string>
+               <string>Run</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="13">
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="11">
+             <widget class="QPushButton" name="pushButton_7">
               <property name="text">
-               <string>Monitor</string>
+               <string>Stop</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_6">
               <property name="text">
-               <string>Plot</string>
+               <string>Delete</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QPushButton" name="pushButton_5">
               <property name="text">
-               <string>Output</string>
+               <string>Edit</string>
               </property>
-             </item>
-             <item>
+             </widget>
+            </item>
+            <item row="0" column="7">
+             <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>Note</string>
+               <string>Iterations</string>
               </property>
-             </item>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="8">
-            <widget class="QSpinBox" name="spinBox">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>9999999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="pushButton_3">
-             <property name="text">
-              <string>Add</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="17">
-            <widget class="QSlider" name="horizontalSlider">
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QComboBox" name="comboBox">
+              <property name="accessibleName">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Button</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Slider</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Switch</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Chooser</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Input</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Monitor</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Plot</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Output</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Note</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="8">
+             <widget class="QSpinBox" name="spinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>9999999</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="17">
+             <widget class="QSlider" name="horizontalSlider">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QWebView" name="webView_2">
+           <property name="url">
+            <url>
+             <string>about:blank</string>
+            </url>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_2">
+        <attribute name="title">
+         <string>Code</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QTextEdit" name="textEdit">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="tabStopWidth">
+            <number>30</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_3">
+        <attribute name="title">
+         <string>Notebook</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="0" column="0">
+          <widget class="QWebView" name="webView">
+           <property name="url">
+            <url>
+             <string>about:blank</string>
+            </url>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Code</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <widget class="QTextEdit" name="textEdit">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="tabStopWidth">
-           <number>30</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
+      <widget class="QTextEdit" name="consoleOutput">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="tabStopWidth">
+        <number>30</number>
+       </property>
       </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Notebook</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_7">
-        <item row="0" column="0">
-         <widget class="QWebView" name="webView">
-          <property name="url">
-           <url>
-            <string>about:blank</string>
-           </url>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QTextEdit" name="consoleOutput">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>150</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-      <property name="tabStopWidth">
-       <number>30</number>
-      </property>
      </widget>
     </item>
    </layout>
@@ -310,7 +313,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1322</width>
+     <width>1377</width>
      <height>26</height>
     </rect>
    </property>

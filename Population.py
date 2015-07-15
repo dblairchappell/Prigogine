@@ -8,7 +8,7 @@ class Population:
     def __init__(self, populationSize):
 
         self.populationSize = populationSize
-        self.timeStepMem = 100
+        self.timeStepMem = 10
         self.attributes = {}
         self.stateMasks = {}
         self.updateCode = []
@@ -17,13 +17,24 @@ class Population:
 
     #########################
 
+    # def get(self, attributeName, timestamp):
+    #     print self.timeStepMem - 1
+    #     if timestamp >= self.timeStepMem - 1:
+    #         timestamp = timestamp - self.timeStepMem
+    #     print timestamp
+    #     return self.attributes[str(attributeName)][timestamp]
+
+    #########################
+
     def addAttribute(self, attributeName):
         self.attributes[attributeName] = zeros((self.timeStepMem, self.populationSize))
+        #self.attributes[attributeName] = zeros((self.populationSize + 1, self.populationSize))
 
     #########################
 
     def addState(self, stateName):
         self.stateMasks[stateName] = zeros((self.timeStepMem, self.populationSize))
+        #self.stateMasks[stateName] = zeros((self.populationSize + 1, self.populationSize))
 
     #########################
 
@@ -38,9 +49,12 @@ class Population:
     #########################
 
     def updateAttributes(self, attributes, t):
-        for codeline in self.updateCode:
-            exec codeline
-
+        get = lambda attributeName, timeStamp : attributes[str(attributeName)][timeStamp]
+        for codeblock in self.updateCode:
+            #print codeblock
+            code = compile(codeblock, "<string>", "exec")
+            exec code in globals(), locals()
+            #print "====="
 
     #########################
 
