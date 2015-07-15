@@ -7,7 +7,7 @@ class Model:
 
     def __init__(self):
         self.populations = {}
-        self.timeStepMem = 10
+        self.timeStepMem = 4
         self.t = 0
 
     #########################
@@ -66,7 +66,7 @@ class Model:
             self.updateModel()
             self.t += 1
             #print "--------------------------------------------"
-            if self.t >= self.timeStepMem - 1:
+            if self.t >= self.timeStepMem:
                 self.t = 0
 
     #########################

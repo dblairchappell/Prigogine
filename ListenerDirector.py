@@ -72,8 +72,8 @@ class ListenerDirector(PrigogineListener):
             self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codelineString)
             #print self.model.populations[populationName]["attrs"][attributeName]["code"]
             #print "line update " + attributeName + ": " + codelineString
-            #print codelineString
-            #print "----------"
+            print codelineString
+            print "----------"
 
         if codeType == PrigogineParser.CodeblockContext:
             attributeName = str(ctx.getChild(1).getText())
@@ -97,8 +97,8 @@ class ListenerDirector(PrigogineListener):
                 codeblockString = codeblockString + codelineString + "\n"
 
             self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codeblockString)
-            #print self.modelBuilder.populationData[populationName]["attributeUpdateData"]
-            #print "----------"
+            print self.modelBuilder.populationData[populationName]["attributeUpdateData"]
+            print "----------"
 
     #########################
 

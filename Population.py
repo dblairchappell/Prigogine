@@ -8,7 +8,7 @@ class Population:
     def __init__(self, populationSize):
 
         self.populationSize = populationSize
-        self.timeStepMem = 10
+        self.timeStepMem = 4
         self.attributes = {}
         self.stateMasks = {}
         self.updateCode = []
@@ -21,10 +21,16 @@ class Population:
         print statename
 
     def getDef(self, attributeName, t):
-        return self.attributes[attributeName][t]
+        readIndex = t
+        while readIndex >= (self.timeStepMem):
+            readIndex -= self.timeStepMem
+        return self.attributes[attributeName][readIndex]
 
     def updateDef(self, attributeName, newValue, t):
-        self.attributes[attributeName][t] = newValue
+        writeIndex = t + 1
+        while writeIndex >= (self.timeStepMem):
+            writeIndex -= self.timeStepMem
+        self.attributes[attributeName][writeIndex] = newValue
 
     def initDef(self, attributeName, value):
         self.attributes[attributeName][0] = value
