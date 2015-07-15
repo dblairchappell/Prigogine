@@ -29,9 +29,9 @@ createpopulation
 //    : 'runmodel' INT ('[' expression* ']')*
 //    ;
 
-initvar
-    : 'init' attrsget (codeline | codeblock)
-    ;
+//initvar
+  //  : 'init' attrsget (codeline | codeblock)
+    //;
 
 attributelist
     : 'attributes' attribute* 'end'
@@ -64,16 +64,16 @@ dictindex
     ;
 
 statedef
-    : 'state' ID transition* update* 'end'
+    : 'state' ID transition* action* 'end'
     ;
 
 transition
     : 'transition to' ID 'if' conditional
-    | 'transition to' ID 'if' conditional 'begin' update* 'end'
+    | 'transition to' ID 'if' conditional 'begin' action* 'end'
     ;
 
-update
-    : 'update' ID (codeline | codeblock)
+action
+    : 'action' (codeline | codeblock)
     ;
 
 expression

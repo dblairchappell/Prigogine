@@ -15,119 +15,115 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write(u"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3")
-        buf.write(u".\u0108\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t")
+        buf.write(u"-\u00ff\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t")
         buf.write(u"\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r")
         buf.write(u"\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4")
         buf.write(u"\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30")
-        buf.write(u"\t\30\4\31\t\31\4\32\t\32\3\2\6\2\66\n\2\r\2\16\2\67")
-        buf.write(u"\3\2\7\2;\n\2\f\2\16\2>\13\2\3\3\3\3\3\3\3\3\7\3D\n\3")
-        buf.write(u"\f\3\16\3G\13\3\3\3\3\3\3\4\3\4\3\4\3\4\7\4O\n\4\f\4")
-        buf.write(u"\16\4R\13\4\3\5\3\5\3\5\3\5\5\5X\n\5\3\6\3\6\7\6\\\n")
-        buf.write(u"\6\f\6\16\6_\13\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7")
-        buf.write(u"\3\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\7\nu\n\n")
-        buf.write(u"\f\n\16\nx\13\n\3\n\3\n\5\n|\n\n\3\13\3\13\3\f\3\f\3")
-        buf.write(u"\f\3\f\3\r\3\r\3\r\7\r\u0087\n\r\f\r\16\r\u008a\13\r")
-        buf.write(u"\3\r\7\r\u008d\n\r\f\r\16\r\u0090\13\r\3\r\3\r\3\16\3")
-        buf.write(u"\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\7\16\u009e")
-        buf.write(u"\n\16\f\16\16\16\u00a1\13\16\3\16\3\16\5\16\u00a5\n\16")
-        buf.write(u"\3\17\3\17\3\17\3\17\5\17\u00ab\n\17\3\20\3\20\3\20\3")
-        buf.write(u"\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20")
-        buf.write(u"\3\20\3\20\3\20\5\20\u00be\n\20\3\20\3\20\3\20\3\20\3")
-        buf.write(u"\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20")
-        buf.write(u"\7\20\u00cf\n\20\f\20\16\20\u00d2\13\20\3\21\3\21\5\21")
-        buf.write(u"\u00d6\n\21\3\21\3\21\3\21\3\22\3\22\7\22\u00dd\n\22")
-        buf.write(u"\f\22\16\22\u00e0\13\22\3\22\3\22\3\23\3\23\3\24\3\24")
-        buf.write(u"\3\25\3\25\3\25\3\25\3\26\3\26\3\27\3\27\3\30\3\30\3")
-        buf.write(u"\30\3\30\3\30\7\30\u00f5\n\30\f\30\16\30\u00f8\13\30")
-        buf.write(u"\7\30\u00fa\n\30\f\30\16\30\u00fd\13\30\3\30\3\30\3\31")
-        buf.write(u"\3\31\3\31\5\31\u0104\n\31\3\32\3\32\3\32\2\3\36\33\2")
-        buf.write(u"\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62")
-        buf.write(u"\2\6\3\2()\3\2&\'\3\2\26\33\3\2\"#\u0110\2\65\3\2\2\2")
-        buf.write(u"\4?\3\2\2\2\6J\3\2\2\2\bS\3\2\2\2\nY\3\2\2\2\fb\3\2\2")
-        buf.write(u"\2\16j\3\2\2\2\20l\3\2\2\2\22{\3\2\2\2\24}\3\2\2\2\26")
-        buf.write(u"\177\3\2\2\2\30\u0083\3\2\2\2\32\u00a4\3\2\2\2\34\u00a6")
-        buf.write(u"\3\2\2\2\36\u00bd\3\2\2\2 \u00d5\3\2\2\2\"\u00da\3\2")
-        buf.write(u"\2\2$\u00e3\3\2\2\2&\u00e5\3\2\2\2(\u00e7\3\2\2\2*\u00eb")
-        buf.write(u"\3\2\2\2,\u00ed\3\2\2\2.\u00ef\3\2\2\2\60\u0103\3\2\2")
-        buf.write(u"\2\62\u0105\3\2\2\2\64\66\5\4\3\2\65\64\3\2\2\2\66\67")
-        buf.write(u"\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28<\3\2\2\29;\5\6\4")
-        buf.write(u"\2:9\3\2\2\2;>\3\2\2\2<:\3\2\2\2<=\3\2\2\2=\3\3\2\2\2")
-        buf.write(u"><\3\2\2\2?@\7\3\2\2@A\7$\2\2AE\5\n\6\2BD\5\30\r\2CB")
-        buf.write(u"\3\2\2\2DG\3\2\2\2EC\3\2\2\2EF\3\2\2\2FH\3\2\2\2GE\3")
-        buf.write(u"\2\2\2HI\7\4\2\2I\5\3\2\2\2JK\7\5\2\2KL\7$\2\2LP\7\"")
-        buf.write(u"\2\2MO\5\"\22\2NM\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2")
-        buf.write(u"\2Q\7\3\2\2\2RP\3\2\2\2ST\7\6\2\2TW\5\20\t\2UX\5$\23")
-        buf.write(u"\2VX\5\"\22\2WU\3\2\2\2WV\3\2\2\2X\t\3\2\2\2Y]\7\7\2")
-        buf.write(u"\2Z\\\5\16\b\2[Z\3\2\2\2\\_\3\2\2\2][\3\2\2\2]^\3\2\2")
-        buf.write(u"\2^`\3\2\2\2_]\3\2\2\2`a\7\4\2\2a\13\3\2\2\2bc\7\b\2")
-        buf.write(u"\2cd\5\36\20\2de\7\t\2\2ef\7$\2\2fg\7\n\2\2gh\5\36\20")
-        buf.write(u"\2hi\7\13\2\2i\r\3\2\2\2jk\7$\2\2k\17\3\2\2\2lm\7\7\2")
-        buf.write(u"\2mn\5\26\f\2no\5\22\n\2o\21\3\2\2\2pq\7\b\2\2qv\7\f")
-        buf.write(u"\2\2rs\t\2\2\2su\7\"\2\2tr\3\2\2\2ux\3\2\2\2vt\3\2\2")
-        buf.write(u"\2vw\3\2\2\2wy\3\2\2\2xv\3\2\2\2y|\7\13\2\2z|\7\r\2\2")
-        buf.write(u"{p\3\2\2\2{z\3\2\2\2|\23\3\2\2\2}~\7\f\2\2~\25\3\2\2")
-        buf.write(u"\2\177\u0080\7\b\2\2\u0080\u0081\5&\24\2\u0081\u0082")
-        buf.write(u"\7\13\2\2\u0082\27\3\2\2\2\u0083\u0084\7\16\2\2\u0084")
-        buf.write(u"\u0088\7$\2\2\u0085\u0087\5\32\16\2\u0086\u0085\3\2\2")
-        buf.write(u"\2\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0089")
-        buf.write(u"\3\2\2\2\u0089\u008e\3\2\2\2\u008a\u0088\3\2\2\2\u008b")
-        buf.write(u"\u008d\5\34\17\2\u008c\u008b\3\2\2\2\u008d\u0090\3\2")
-        buf.write(u"\2\2\u008e\u008c\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0091")
-        buf.write(u"\3\2\2\2\u0090\u008e\3\2\2\2\u0091\u0092\7\4\2\2\u0092")
-        buf.write(u"\31\3\2\2\2\u0093\u0094\7\17\2\2\u0094\u0095\7$\2\2\u0095")
-        buf.write(u"\u0096\7\20\2\2\u0096\u00a5\5(\25\2\u0097\u0098\7\17")
-        buf.write(u"\2\2\u0098\u0099\7$\2\2\u0099\u009a\7\20\2\2\u009a\u009b")
-        buf.write(u"\5(\25\2\u009b\u009f\7\21\2\2\u009c\u009e\5\34\17\2\u009d")
-        buf.write(u"\u009c\3\2\2\2\u009e\u00a1\3\2\2\2\u009f\u009d\3\2\2")
-        buf.write(u"\2\u009f\u00a0\3\2\2\2\u00a0\u00a2\3\2\2\2\u00a1\u009f")
-        buf.write(u"\3\2\2\2\u00a2\u00a3\7\4\2\2\u00a3\u00a5\3\2\2\2\u00a4")
-        buf.write(u"\u0093\3\2\2\2\u00a4\u0097\3\2\2\2\u00a5\33\3\2\2\2\u00a6")
-        buf.write(u"\u00a7\7\22\2\2\u00a7\u00aa\7$\2\2\u00a8\u00ab\5$\23")
-        buf.write(u"\2\u00a9\u00ab\5\"\22\2\u00aa\u00a8\3\2\2\2\u00aa\u00a9")
-        buf.write(u"\3\2\2\2\u00ab\35\3\2\2\2\u00ac\u00ad\b\20\1\2\u00ad")
-        buf.write(u"\u00ae\7\24\2\2\u00ae\u00be\5\36\20\13\u00af\u00be\5")
-        buf.write(u" \21\2\u00b0\u00b1\7\24\2\2\u00b1\u00be\5&\24\2\u00b2")
-        buf.write(u"\u00be\5&\24\2\u00b3\u00be\5\62\32\2\u00b4\u00be\5\20")
-        buf.write(u"\t\2\u00b5\u00be\5.\30\2\u00b6\u00be\5\f\7\2\u00b7\u00be")
-        buf.write(u"\7$\2\2\u00b8\u00be\5\24\13\2\u00b9\u00ba\5*\26\2\u00ba")
-        buf.write(u"\u00bb\5\36\20\2\u00bb\u00bc\5,\27\2\u00bc\u00be\3\2")
-        buf.write(u"\2\2\u00bd\u00ac\3\2\2\2\u00bd\u00af\3\2\2\2\u00bd\u00b0")
-        buf.write(u"\3\2\2\2\u00bd\u00b2\3\2\2\2\u00bd\u00b3\3\2\2\2\u00bd")
-        buf.write(u"\u00b4\3\2\2\2\u00bd\u00b5\3\2\2\2\u00bd\u00b6\3\2\2")
-        buf.write(u"\2\u00bd\u00b7\3\2\2\2\u00bd\u00b8\3\2\2\2\u00bd\u00b9")
-        buf.write(u"\3\2\2\2\u00be\u00d0\3\2\2\2\u00bf\u00c0\f\21\2\2\u00c0")
-        buf.write(u"\u00c1\7\23\2\2\u00c1\u00cf\5\36\20\22\u00c2\u00c3\f")
-        buf.write(u"\20\2\2\u00c3\u00c4\7+\2\2\u00c4\u00cf\5\36\20\21\u00c5")
-        buf.write(u"\u00c6\f\17\2\2\u00c6\u00c7\t\3\2\2\u00c7\u00cf\5\36")
-        buf.write(u"\20\20\u00c8\u00c9\f\16\2\2\u00c9\u00ca\t\2\2\2\u00ca")
-        buf.write(u"\u00cf\5\36\20\17\u00cb\u00cc\f\r\2\2\u00cc\u00cd\7*")
-        buf.write(u"\2\2\u00cd\u00cf\5\36\20\16\u00ce\u00bf\3\2\2\2\u00ce")
-        buf.write(u"\u00c2\3\2\2\2\u00ce\u00c5\3\2\2\2\u00ce\u00c8\3\2\2")
-        buf.write(u"\2\u00ce\u00cb\3\2\2\2\u00cf\u00d2\3\2\2\2\u00d0\u00ce")
-        buf.write(u"\3\2\2\2\u00d0\u00d1\3\2\2\2\u00d1\37\3\2\2\2\u00d2\u00d0")
-        buf.write(u"\3\2\2\2\u00d3\u00d6\7$\2\2\u00d4\u00d6\5\20\t\2\u00d5")
-        buf.write(u"\u00d3\3\2\2\2\u00d5\u00d4\3\2\2\2\u00d6\u00d7\3\2\2")
-        buf.write(u"\2\u00d7\u00d8\7\25\2\2\u00d8\u00d9\5\36\20\2\u00d9!")
-        buf.write(u"\3\2\2\2\u00da\u00de\7\21\2\2\u00db\u00dd\5$\23\2\u00dc")
-        buf.write(u"\u00db\3\2\2\2\u00dd\u00e0\3\2\2\2\u00de\u00dc\3\2\2")
-        buf.write(u"\2\u00de\u00df\3\2\2\2\u00df\u00e1\3\2\2\2\u00e0\u00de")
-        buf.write(u"\3\2\2\2\u00e1\u00e2\7\4\2\2\u00e2#\3\2\2\2\u00e3\u00e4")
-        buf.write(u"\5\36\20\2\u00e4%\3\2\2\2\u00e5\u00e6\7,\2\2\u00e6\'")
-        buf.write(u"\3\2\2\2\u00e7\u00e8\5\36\20\2\u00e8\u00e9\t\4\2\2\u00e9")
-        buf.write(u"\u00ea\5\36\20\2\u00ea)\3\2\2\2\u00eb\u00ec\7\34\2\2")
-        buf.write(u"\u00ec+\3\2\2\2\u00ed\u00ee\7\35\2\2\u00ee-\3\2\2\2\u00ef")
-        buf.write(u"\u00f0\7$\2\2\u00f0\u00fb\7\34\2\2\u00f1\u00f6\5\36\20")
-        buf.write(u"\2\u00f2\u00f3\7\36\2\2\u00f3\u00f5\5\36\20\2\u00f4\u00f2")
-        buf.write(u"\3\2\2\2\u00f5\u00f8\3\2\2\2\u00f6\u00f4\3\2\2\2\u00f6")
-        buf.write(u"\u00f7\3\2\2\2\u00f7\u00fa\3\2\2\2\u00f8\u00f6\3\2\2")
-        buf.write(u"\2\u00f9\u00f1\3\2\2\2\u00fa\u00fd\3\2\2\2\u00fb\u00f9")
-        buf.write(u"\3\2\2\2\u00fb\u00fc\3\2\2\2\u00fc\u00fe\3\2\2\2\u00fd")
-        buf.write(u"\u00fb\3\2\2\2\u00fe\u00ff\7\35\2\2\u00ff/\3\2\2\2\u0100")
-        buf.write(u"\u0104\5\62\32\2\u0101\u0104\7$\2\2\u0102\u0104\5.\30")
-        buf.write(u"\2\u0103\u0100\3\2\2\2\u0103\u0101\3\2\2\2\u0103\u0102")
-        buf.write(u"\3\2\2\2\u0104\61\3\2\2\2\u0105\u0106\t\5\2\2\u0106\63")
-        buf.write(u"\3\2\2\2\27\67<EPW]v{\u0088\u008e\u009f\u00a4\u00aa\u00bd")
-        buf.write(u"\u00ce\u00d0\u00d5\u00de\u00f6\u00fb\u0103")
+        buf.write(u"\t\30\4\31\t\31\3\2\6\2\64\n\2\r\2\16\2\65\3\2\7\29\n")
+        buf.write(u"\2\f\2\16\2<\13\2\3\3\3\3\3\3\3\3\7\3B\n\3\f\3\16\3E")
+        buf.write(u"\13\3\3\3\3\3\3\4\3\4\3\4\3\4\7\4M\n\4\f\4\16\4P\13\4")
+        buf.write(u"\3\5\3\5\7\5T\n\5\f\5\16\5W\13\5\3\5\3\5\3\6\3\6\3\6")
+        buf.write(u"\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t")
+        buf.write(u"\3\t\3\t\7\tm\n\t\f\t\16\tp\13\t\3\t\3\t\5\tt\n\t\3\n")
+        buf.write(u"\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\f\177\n\f\f\f")
+        buf.write(u"\16\f\u0082\13\f\3\f\7\f\u0085\n\f\f\f\16\f\u0088\13")
+        buf.write(u"\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7")
+        buf.write(u"\r\u0096\n\r\f\r\16\r\u0099\13\r\3\r\3\r\5\r\u009d\n")
+        buf.write(u"\r\3\16\3\16\3\16\5\16\u00a2\n\16\3\17\3\17\3\17\3\17")
+        buf.write(u"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3")
+        buf.write(u"\17\3\17\3\17\5\17\u00b5\n\17\3\17\3\17\3\17\3\17\3\17")
+        buf.write(u"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\7")
+        buf.write(u"\17\u00c6\n\17\f\17\16\17\u00c9\13\17\3\20\3\20\5\20")
+        buf.write(u"\u00cd\n\20\3\20\3\20\3\20\3\21\3\21\7\21\u00d4\n\21")
+        buf.write(u"\f\21\16\21\u00d7\13\21\3\21\3\21\3\22\3\22\3\23\3\23")
+        buf.write(u"\3\24\3\24\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3")
+        buf.write(u"\27\3\27\3\27\7\27\u00ec\n\27\f\27\16\27\u00ef\13\27")
+        buf.write(u"\7\27\u00f1\n\27\f\27\16\27\u00f4\13\27\3\27\3\27\3\30")
+        buf.write(u"\3\30\3\30\5\30\u00fb\n\30\3\31\3\31\3\31\2\3\34\32\2")
+        buf.write(u"\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\2\6")
+        buf.write(u"\3\2\'(\3\2%&\3\2\25\32\3\2!\"\u0107\2\63\3\2\2\2\4=")
+        buf.write(u"\3\2\2\2\6H\3\2\2\2\bQ\3\2\2\2\nZ\3\2\2\2\fb\3\2\2\2")
+        buf.write(u"\16d\3\2\2\2\20s\3\2\2\2\22u\3\2\2\2\24w\3\2\2\2\26{")
+        buf.write(u"\3\2\2\2\30\u009c\3\2\2\2\32\u009e\3\2\2\2\34\u00b4\3")
+        buf.write(u"\2\2\2\36\u00cc\3\2\2\2 \u00d1\3\2\2\2\"\u00da\3\2\2")
+        buf.write(u"\2$\u00dc\3\2\2\2&\u00de\3\2\2\2(\u00e2\3\2\2\2*\u00e4")
+        buf.write(u"\3\2\2\2,\u00e6\3\2\2\2.\u00fa\3\2\2\2\60\u00fc\3\2\2")
+        buf.write(u"\2\62\64\5\4\3\2\63\62\3\2\2\2\64\65\3\2\2\2\65\63\3")
+        buf.write(u"\2\2\2\65\66\3\2\2\2\66:\3\2\2\2\679\5\6\4\28\67\3\2")
+        buf.write(u"\2\29<\3\2\2\2:8\3\2\2\2:;\3\2\2\2;\3\3\2\2\2<:\3\2\2")
+        buf.write(u"\2=>\7\3\2\2>?\7#\2\2?C\5\b\5\2@B\5\26\f\2A@\3\2\2\2")
+        buf.write(u"BE\3\2\2\2CA\3\2\2\2CD\3\2\2\2DF\3\2\2\2EC\3\2\2\2FG")
+        buf.write(u"\7\4\2\2G\5\3\2\2\2HI\7\5\2\2IJ\7#\2\2JN\7!\2\2KM\5 ")
+        buf.write(u"\21\2LK\3\2\2\2MP\3\2\2\2NL\3\2\2\2NO\3\2\2\2O\7\3\2")
+        buf.write(u"\2\2PN\3\2\2\2QU\7\6\2\2RT\5\f\7\2SR\3\2\2\2TW\3\2\2")
+        buf.write(u"\2US\3\2\2\2UV\3\2\2\2VX\3\2\2\2WU\3\2\2\2XY\7\4\2\2")
+        buf.write(u"Y\t\3\2\2\2Z[\7\7\2\2[\\\5\34\17\2\\]\7\b\2\2]^\7#\2")
+        buf.write(u"\2^_\7\t\2\2_`\5\34\17\2`a\7\n\2\2a\13\3\2\2\2bc\7#\2")
+        buf.write(u"\2c\r\3\2\2\2de\7\6\2\2ef\5\24\13\2fg\5\20\t\2g\17\3")
+        buf.write(u"\2\2\2hi\7\7\2\2in\7\13\2\2jk\t\2\2\2km\7!\2\2lj\3\2")
+        buf.write(u"\2\2mp\3\2\2\2nl\3\2\2\2no\3\2\2\2oq\3\2\2\2pn\3\2\2")
+        buf.write(u"\2qt\7\n\2\2rt\7\f\2\2sh\3\2\2\2sr\3\2\2\2t\21\3\2\2")
+        buf.write(u"\2uv\7\13\2\2v\23\3\2\2\2wx\7\7\2\2xy\5$\23\2yz\7\n\2")
+        buf.write(u"\2z\25\3\2\2\2{|\7\r\2\2|\u0080\7#\2\2}\177\5\30\r\2")
+        buf.write(u"~}\3\2\2\2\177\u0082\3\2\2\2\u0080~\3\2\2\2\u0080\u0081")
+        buf.write(u"\3\2\2\2\u0081\u0086\3\2\2\2\u0082\u0080\3\2\2\2\u0083")
+        buf.write(u"\u0085\5\32\16\2\u0084\u0083\3\2\2\2\u0085\u0088\3\2")
+        buf.write(u"\2\2\u0086\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0089")
+        buf.write(u"\3\2\2\2\u0088\u0086\3\2\2\2\u0089\u008a\7\4\2\2\u008a")
+        buf.write(u"\27\3\2\2\2\u008b\u008c\7\16\2\2\u008c\u008d\7#\2\2\u008d")
+        buf.write(u"\u008e\7\17\2\2\u008e\u009d\5&\24\2\u008f\u0090\7\16")
+        buf.write(u"\2\2\u0090\u0091\7#\2\2\u0091\u0092\7\17\2\2\u0092\u0093")
+        buf.write(u"\5&\24\2\u0093\u0097\7\20\2\2\u0094\u0096\5\32\16\2\u0095")
+        buf.write(u"\u0094\3\2\2\2\u0096\u0099\3\2\2\2\u0097\u0095\3\2\2")
+        buf.write(u"\2\u0097\u0098\3\2\2\2\u0098\u009a\3\2\2\2\u0099\u0097")
+        buf.write(u"\3\2\2\2\u009a\u009b\7\4\2\2\u009b\u009d\3\2\2\2\u009c")
+        buf.write(u"\u008b\3\2\2\2\u009c\u008f\3\2\2\2\u009d\31\3\2\2\2\u009e")
+        buf.write(u"\u00a1\7\21\2\2\u009f\u00a2\5\"\22\2\u00a0\u00a2\5 \21")
+        buf.write(u"\2\u00a1\u009f\3\2\2\2\u00a1\u00a0\3\2\2\2\u00a2\33\3")
+        buf.write(u"\2\2\2\u00a3\u00a4\b\17\1\2\u00a4\u00a5\7\23\2\2\u00a5")
+        buf.write(u"\u00b5\5\34\17\13\u00a6\u00b5\5\36\20\2\u00a7\u00a8\7")
+        buf.write(u"\23\2\2\u00a8\u00b5\5$\23\2\u00a9\u00b5\5$\23\2\u00aa")
+        buf.write(u"\u00b5\5\60\31\2\u00ab\u00b5\5\16\b\2\u00ac\u00b5\5,")
+        buf.write(u"\27\2\u00ad\u00b5\5\n\6\2\u00ae\u00b5\7#\2\2\u00af\u00b5")
+        buf.write(u"\5\22\n\2\u00b0\u00b1\5(\25\2\u00b1\u00b2\5\34\17\2\u00b2")
+        buf.write(u"\u00b3\5*\26\2\u00b3\u00b5\3\2\2\2\u00b4\u00a3\3\2\2")
+        buf.write(u"\2\u00b4\u00a6\3\2\2\2\u00b4\u00a7\3\2\2\2\u00b4\u00a9")
+        buf.write(u"\3\2\2\2\u00b4\u00aa\3\2\2\2\u00b4\u00ab\3\2\2\2\u00b4")
+        buf.write(u"\u00ac\3\2\2\2\u00b4\u00ad\3\2\2\2\u00b4\u00ae\3\2\2")
+        buf.write(u"\2\u00b4\u00af\3\2\2\2\u00b4\u00b0\3\2\2\2\u00b5\u00c7")
+        buf.write(u"\3\2\2\2\u00b6\u00b7\f\21\2\2\u00b7\u00b8\7\22\2\2\u00b8")
+        buf.write(u"\u00c6\5\34\17\22\u00b9\u00ba\f\20\2\2\u00ba\u00bb\7")
+        buf.write(u"*\2\2\u00bb\u00c6\5\34\17\21\u00bc\u00bd\f\17\2\2\u00bd")
+        buf.write(u"\u00be\t\3\2\2\u00be\u00c6\5\34\17\20\u00bf\u00c0\f\16")
+        buf.write(u"\2\2\u00c0\u00c1\t\2\2\2\u00c1\u00c6\5\34\17\17\u00c2")
+        buf.write(u"\u00c3\f\r\2\2\u00c3\u00c4\7)\2\2\u00c4\u00c6\5\34\17")
+        buf.write(u"\16\u00c5\u00b6\3\2\2\2\u00c5\u00b9\3\2\2\2\u00c5\u00bc")
+        buf.write(u"\3\2\2\2\u00c5\u00bf\3\2\2\2\u00c5\u00c2\3\2\2\2\u00c6")
+        buf.write(u"\u00c9\3\2\2\2\u00c7\u00c5\3\2\2\2\u00c7\u00c8\3\2\2")
+        buf.write(u"\2\u00c8\35\3\2\2\2\u00c9\u00c7\3\2\2\2\u00ca\u00cd\7")
+        buf.write(u"#\2\2\u00cb\u00cd\5\16\b\2\u00cc\u00ca\3\2\2\2\u00cc")
+        buf.write(u"\u00cb\3\2\2\2\u00cd\u00ce\3\2\2\2\u00ce\u00cf\7\24\2")
+        buf.write(u"\2\u00cf\u00d0\5\34\17\2\u00d0\37\3\2\2\2\u00d1\u00d5")
+        buf.write(u"\7\20\2\2\u00d2\u00d4\5\"\22\2\u00d3\u00d2\3\2\2\2\u00d4")
+        buf.write(u"\u00d7\3\2\2\2\u00d5\u00d3\3\2\2\2\u00d5\u00d6\3\2\2")
+        buf.write(u"\2\u00d6\u00d8\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d8\u00d9")
+        buf.write(u"\7\4\2\2\u00d9!\3\2\2\2\u00da\u00db\5\34\17\2\u00db#")
+        buf.write(u"\3\2\2\2\u00dc\u00dd\7+\2\2\u00dd%\3\2\2\2\u00de\u00df")
+        buf.write(u"\5\34\17\2\u00df\u00e0\t\4\2\2\u00e0\u00e1\5\34\17\2")
+        buf.write(u"\u00e1\'\3\2\2\2\u00e2\u00e3\7\33\2\2\u00e3)\3\2\2\2")
+        buf.write(u"\u00e4\u00e5\7\34\2\2\u00e5+\3\2\2\2\u00e6\u00e7\7#\2")
+        buf.write(u"\2\u00e7\u00f2\7\33\2\2\u00e8\u00ed\5\34\17\2\u00e9\u00ea")
+        buf.write(u"\7\35\2\2\u00ea\u00ec\5\34\17\2\u00eb\u00e9\3\2\2\2\u00ec")
+        buf.write(u"\u00ef\3\2\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2")
+        buf.write(u"\2\u00ee\u00f1\3\2\2\2\u00ef\u00ed\3\2\2\2\u00f0\u00e8")
+        buf.write(u"\3\2\2\2\u00f1\u00f4\3\2\2\2\u00f2\u00f0\3\2\2\2\u00f2")
+        buf.write(u"\u00f3\3\2\2\2\u00f3\u00f5\3\2\2\2\u00f4\u00f2\3\2\2")
+        buf.write(u"\2\u00f5\u00f6\7\34\2\2\u00f6-\3\2\2\2\u00f7\u00fb\5")
+        buf.write(u"\60\31\2\u00f8\u00fb\7#\2\2\u00f9\u00fb\5,\27\2\u00fa")
+        buf.write(u"\u00f7\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fa\u00f9\3\2\2")
+        buf.write(u"\2\u00fb/\3\2\2\2\u00fc\u00fd\t\5\2\2\u00fd\61\3\2\2")
+        buf.write(u"\2\26\65:CNUns\u0080\u0086\u0097\u009c\u00a1\u00b4\u00c5")
+        buf.write(u"\u00c7\u00cc\u00d5\u00ed\u00f2\u00fa")
         return buf.getvalue()
 		
 
@@ -142,11 +138,11 @@ class PrigogineParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ u"<INVALID>", u"'population'", u"'end'", u"'create'", 
-                     u"'init'", u"'attributes'", u"'['", u"'for'", u"'in'", 
-                     u"']'", u"'t'", u"'[:]'", u"'state'", u"'transition to'", 
-                     u"'if'", u"'begin'", u"'update'", u"'.'", u"'print'", 
-                     u"'='", u"'<'", u"'>'", u"'>='", u"'<='", u"'=='", 
-                     u"'!='", u"'('", u"')'", u"','", u"<INVALID>", u"<INVALID>", 
+                     u"'attributes'", u"'['", u"'for'", u"'in'", u"']'", 
+                     u"'t'", u"'[:]'", u"'state'", u"'transition to'", u"'if'", 
+                     u"'begin'", u"'action'", u"'.'", u"'print'", u"'='", 
+                     u"'<'", u"'>'", u"'>='", u"'<='", u"'=='", u"'!='", 
+                     u"'('", u"')'", u"','", u"<INVALID>", u"<INVALID>", 
                      u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
                      u"<INVALID>", u"'*'", u"'/'", u"'+'", u"'-'", u"'|'", 
                      u"'^'" ]
@@ -158,42 +154,41 @@ class PrigogineParser ( Parser ):
                       u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
                       u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
                       u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
-                      u"<INVALID>", u"LineComment", u"NEWLINE", u"ML_COMMENT", 
-                      u"INT", u"FLOAT", u"ID", u"WS", u"MUL", u"DIV", u"ADD", 
-                      u"SUB", u"PIPE", u"POWER", u"STRING", u"ESC", u"SPACE" ]
+                      u"LineComment", u"NEWLINE", u"ML_COMMENT", u"INT", 
+                      u"FLOAT", u"ID", u"WS", u"MUL", u"DIV", u"ADD", u"SUB", 
+                      u"PIPE", u"POWER", u"STRING", u"ESC", u"SPACE" ]
 
     RULE_filestart = 0
     RULE_population = 1
     RULE_createpopulation = 2
-    RULE_initvar = 3
-    RULE_attributelist = 4
-    RULE_listcomp = 5
-    RULE_attribute = 6
-    RULE_attrsget = 7
-    RULE_timeindex = 8
-    RULE_timevar = 9
-    RULE_dictindex = 10
-    RULE_statedef = 11
-    RULE_transition = 12
-    RULE_update = 13
-    RULE_expression = 14
-    RULE_assignment = 15
-    RULE_codeblock = 16
-    RULE_codeline = 17
-    RULE_string = 18
-    RULE_conditional = 19
-    RULE_lparen = 20
-    RULE_rparen = 21
-    RULE_func = 22
-    RULE_argument = 23
-    RULE_number = 24
+    RULE_attributelist = 3
+    RULE_listcomp = 4
+    RULE_attribute = 5
+    RULE_attrsget = 6
+    RULE_timeindex = 7
+    RULE_timevar = 8
+    RULE_dictindex = 9
+    RULE_statedef = 10
+    RULE_transition = 11
+    RULE_action = 12
+    RULE_expression = 13
+    RULE_assignment = 14
+    RULE_codeblock = 15
+    RULE_codeline = 16
+    RULE_string = 17
+    RULE_conditional = 18
+    RULE_lparen = 19
+    RULE_rparen = 20
+    RULE_func = 21
+    RULE_argument = 22
+    RULE_number = 23
 
-    ruleNames =  [ u"filestart", u"population", u"createpopulation", u"initvar", 
-                   u"attributelist", u"listcomp", u"attribute", u"attrsget", 
-                   u"timeindex", u"timevar", u"dictindex", u"statedef", 
-                   u"transition", u"update", u"expression", u"assignment", 
-                   u"codeblock", u"codeline", u"string", u"conditional", 
-                   u"lparen", u"rparen", u"func", u"argument", u"number" ]
+    ruleNames =  [ u"filestart", u"population", u"createpopulation", u"attributelist", 
+                   u"listcomp", u"attribute", u"attrsget", u"timeindex", 
+                   u"timevar", u"dictindex", u"statedef", u"transition", 
+                   u"action", u"expression", u"assignment", u"codeblock", 
+                   u"codeline", u"string", u"conditional", u"lparen", u"rparen", 
+                   u"func", u"argument", u"number" ]
 
     EOF = Token.EOF
     T__0=1
@@ -223,23 +218,22 @@ class PrigogineParser ( Parser ):
     T__24=25
     T__25=26
     T__26=27
-    T__27=28
-    LineComment=29
-    NEWLINE=30
-    ML_COMMENT=31
-    INT=32
-    FLOAT=33
-    ID=34
-    WS=35
-    MUL=36
-    DIV=37
-    ADD=38
-    SUB=39
-    PIPE=40
-    POWER=41
-    STRING=42
-    ESC=43
-    SPACE=44
+    LineComment=28
+    NEWLINE=29
+    ML_COMMENT=30
+    INT=31
+    FLOAT=32
+    ID=33
+    WS=34
+    MUL=35
+    DIV=36
+    ADD=37
+    SUB=38
+    PIPE=39
+    POWER=40
+    STRING=41
+    ESC=42
+    SPACE=43
 
     def __init__(self, input):
         super(PrigogineParser, self).__init__(input)
@@ -296,25 +290,25 @@ class PrigogineParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 51 
+            self.state = 49 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 50 
+                self.state = 48 
                 self.population()
-                self.state = 53 
+                self.state = 51 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==PrigogineParser.T__0):
                     break
 
-            self.state = 58
+            self.state = 56
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==PrigogineParser.T__2:
-                self.state = 55 
+                self.state = 53 
                 self.createpopulation()
-                self.state = 60
+                self.state = 58
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -373,23 +367,23 @@ class PrigogineParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 61
+            self.state = 59
             self.match(PrigogineParser.T__0)
-            self.state = 62
+            self.state = 60
             self.match(PrigogineParser.ID)
-            self.state = 63 
+            self.state = 61 
             self.attributelist()
-            self.state = 67
+            self.state = 65
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==PrigogineParser.T__11:
-                self.state = 64 
+            while _la==PrigogineParser.T__10:
+                self.state = 62 
                 self.statedef()
-                self.state = 69
+                self.state = 67
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 70
+            self.state = 68
             self.match(PrigogineParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -445,90 +439,21 @@ class PrigogineParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 72
+            self.state = 70
             self.match(PrigogineParser.T__2)
-            self.state = 73
+            self.state = 71
             self.match(PrigogineParser.ID)
-            self.state = 74
+            self.state = 72
             self.match(PrigogineParser.INT)
-            self.state = 78
+            self.state = 76
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==PrigogineParser.T__14:
-                self.state = 75 
+            while _la==PrigogineParser.T__13:
+                self.state = 73 
                 self.codeblock()
-                self.state = 80
+                self.state = 78
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-    class InitvarContext(ParserRuleContext):
-
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(PrigogineParser.InitvarContext, self).__init__(parent, invokingState)
-            self.parser = parser
-
-        def attrsget(self):
-            return self.getTypedRuleContext(PrigogineParser.AttrsgetContext,0)
-
-
-        def codeline(self):
-            return self.getTypedRuleContext(PrigogineParser.CodelineContext,0)
-
-
-        def codeblock(self):
-            return self.getTypedRuleContext(PrigogineParser.CodeblockContext,0)
-
-
-        def getRuleIndex(self):
-            return PrigogineParser.RULE_initvar
-
-        def enterRule(self, listener):
-            if isinstance( listener, PrigogineListener ):
-                listener.enterInitvar(self)
-
-        def exitRule(self, listener):
-            if isinstance( listener, PrigogineListener ):
-                listener.exitInitvar(self)
-
-        def accept(self, visitor):
-            if isinstance( visitor, PrigogineVisitor ):
-                return visitor.visitInitvar(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def initvar(self):
-
-        localctx = PrigogineParser.InitvarContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_initvar)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 81
-            self.match(PrigogineParser.T__3)
-            self.state = 82 
-            self.attrsget()
-            self.state = 85
-            token = self._input.LA(1)
-            if token in [PrigogineParser.T__4, PrigogineParser.T__5, PrigogineParser.T__9, PrigogineParser.T__17, PrigogineParser.T__25, PrigogineParser.INT, PrigogineParser.FLOAT, PrigogineParser.ID, PrigogineParser.STRING]:
-                self.state = 83 
-                self.codeline()
-
-            elif token in [PrigogineParser.T__14]:
-                self.state = 84 
-                self.codeblock()
-
-            else:
-                raise NoViableAltException(self)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -574,23 +499,23 @@ class PrigogineParser ( Parser ):
     def attributelist(self):
 
         localctx = PrigogineParser.AttributelistContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_attributelist)
+        self.enterRule(localctx, 6, self.RULE_attributelist)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 87
-            self.match(PrigogineParser.T__4)
-            self.state = 91
+            self.state = 79
+            self.match(PrigogineParser.T__3)
+            self.state = 83
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==PrigogineParser.ID:
-                self.state = 88 
+                self.state = 80 
                 self.attribute()
-                self.state = 93
+                self.state = 85
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 94
+            self.state = 86
             self.match(PrigogineParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -639,23 +564,23 @@ class PrigogineParser ( Parser ):
     def listcomp(self):
 
         localctx = PrigogineParser.ListcompContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_listcomp)
+        self.enterRule(localctx, 8, self.RULE_listcomp)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 96
+            self.state = 88
+            self.match(PrigogineParser.T__4)
+            self.state = 89 
+            self.expression(0)
+            self.state = 90
             self.match(PrigogineParser.T__5)
-            self.state = 97 
-            self.expression(0)
-            self.state = 98
-            self.match(PrigogineParser.T__6)
-            self.state = 99
+            self.state = 91
             self.match(PrigogineParser.ID)
-            self.state = 100
-            self.match(PrigogineParser.T__7)
-            self.state = 101 
+            self.state = 92
+            self.match(PrigogineParser.T__6)
+            self.state = 93 
             self.expression(0)
-            self.state = 102
-            self.match(PrigogineParser.T__8)
+            self.state = 94
+            self.match(PrigogineParser.T__7)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -696,10 +621,10 @@ class PrigogineParser ( Parser ):
     def attribute(self):
 
         localctx = PrigogineParser.AttributeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_attribute)
+        self.enterRule(localctx, 10, self.RULE_attribute)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 104
+            self.state = 96
             self.match(PrigogineParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -746,14 +671,14 @@ class PrigogineParser ( Parser ):
     def attrsget(self):
 
         localctx = PrigogineParser.AttrsgetContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_attrsget)
+        self.enterRule(localctx, 12, self.RULE_attrsget)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 106
-            self.match(PrigogineParser.T__4)
-            self.state = 107 
+            self.state = 98
+            self.match(PrigogineParser.T__3)
+            self.state = 99 
             self.dictindex()
-            self.state = 108 
+            self.state = 100 
             self.timeindex()
         except RecognitionException as re:
             localctx.exception = re
@@ -798,39 +723,39 @@ class PrigogineParser ( Parser ):
     def timeindex(self):
 
         localctx = PrigogineParser.TimeindexContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_timeindex)
+        self.enterRule(localctx, 14, self.RULE_timeindex)
         self._la = 0 # Token type
         try:
-            self.state = 121
+            self.state = 113
             token = self._input.LA(1)
-            if token in [PrigogineParser.T__5]:
+            if token in [PrigogineParser.T__4]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 110
-                self.match(PrigogineParser.T__5)
-                self.state = 111
-                self.match(PrigogineParser.T__9)
-                self.state = 116
+                self.state = 102
+                self.match(PrigogineParser.T__4)
+                self.state = 103
+                self.match(PrigogineParser.T__8)
+                self.state = 108
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==PrigogineParser.ADD or _la==PrigogineParser.SUB:
-                    self.state = 112
+                    self.state = 104
                     _la = self._input.LA(1)
                     if not(_la==PrigogineParser.ADD or _la==PrigogineParser.SUB):
                         self._errHandler.recoverInline(self)
                     self.consume()
-                    self.state = 113
+                    self.state = 105
                     self.match(PrigogineParser.INT)
-                    self.state = 118
+                    self.state = 110
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 119
-                self.match(PrigogineParser.T__8)
+                self.state = 111
+                self.match(PrigogineParser.T__7)
 
-            elif token in [PrigogineParser.T__10]:
+            elif token in [PrigogineParser.T__9]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 120
-                self.match(PrigogineParser.T__10)
+                self.state = 112
+                self.match(PrigogineParser.T__9)
 
             else:
                 raise NoViableAltException(self)
@@ -873,11 +798,11 @@ class PrigogineParser ( Parser ):
     def timevar(self):
 
         localctx = PrigogineParser.TimevarContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_timevar)
+        self.enterRule(localctx, 16, self.RULE_timevar)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 123
-            self.match(PrigogineParser.T__9)
+            self.state = 115
+            self.match(PrigogineParser.T__8)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -919,15 +844,15 @@ class PrigogineParser ( Parser ):
     def dictindex(self):
 
         localctx = PrigogineParser.DictindexContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_dictindex)
+        self.enterRule(localctx, 18, self.RULE_dictindex)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 125
-            self.match(PrigogineParser.T__5)
-            self.state = 126 
+            self.state = 117
+            self.match(PrigogineParser.T__4)
+            self.state = 118 
             self.string()
-            self.state = 127
-            self.match(PrigogineParser.T__8)
+            self.state = 119
+            self.match(PrigogineParser.T__7)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -952,11 +877,11 @@ class PrigogineParser ( Parser ):
                 return self.getTypedRuleContext(PrigogineParser.TransitionContext,i)
 
 
-        def update(self, i=None):
+        def action(self, i=None):
             if i is None:
-                return self.getTypedRuleContexts(PrigogineParser.UpdateContext)
+                return self.getTypedRuleContexts(PrigogineParser.ActionContext)
             else:
-                return self.getTypedRuleContext(PrigogineParser.UpdateContext,i)
+                return self.getTypedRuleContext(PrigogineParser.ActionContext,i)
 
 
         def getRuleIndex(self):
@@ -982,35 +907,35 @@ class PrigogineParser ( Parser ):
     def statedef(self):
 
         localctx = PrigogineParser.StatedefContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_statedef)
+        self.enterRule(localctx, 20, self.RULE_statedef)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 129
-            self.match(PrigogineParser.T__11)
-            self.state = 130
+            self.state = 121
+            self.match(PrigogineParser.T__10)
+            self.state = 122
             self.match(PrigogineParser.ID)
-            self.state = 134
+            self.state = 126
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==PrigogineParser.T__12:
-                self.state = 131 
+            while _la==PrigogineParser.T__11:
+                self.state = 123 
                 self.transition()
-                self.state = 136
+                self.state = 128
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 140
+            self.state = 132
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==PrigogineParser.T__15:
-                self.state = 137 
-                self.update()
-                self.state = 142
+            while _la==PrigogineParser.T__14:
+                self.state = 129 
+                self.action()
+                self.state = 134
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 143
+            self.state = 135
             self.match(PrigogineParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1033,11 +958,11 @@ class PrigogineParser ( Parser ):
             return self.getTypedRuleContext(PrigogineParser.ConditionalContext,0)
 
 
-        def update(self, i=None):
+        def action(self, i=None):
             if i is None:
-                return self.getTypedRuleContexts(PrigogineParser.UpdateContext)
+                return self.getTypedRuleContexts(PrigogineParser.ActionContext)
             else:
-                return self.getTypedRuleContext(PrigogineParser.UpdateContext,i)
+                return self.getTypedRuleContext(PrigogineParser.ActionContext,i)
 
 
         def getRuleIndex(self):
@@ -1063,46 +988,46 @@ class PrigogineParser ( Parser ):
     def transition(self):
 
         localctx = PrigogineParser.TransitionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_transition)
+        self.enterRule(localctx, 22, self.RULE_transition)
         self._la = 0 # Token type
         try:
-            self.state = 162
-            la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
+            self.state = 154
+            la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 145
-                self.match(PrigogineParser.T__12)
-                self.state = 146
+                self.state = 137
+                self.match(PrigogineParser.T__11)
+                self.state = 138
                 self.match(PrigogineParser.ID)
-                self.state = 147
-                self.match(PrigogineParser.T__13)
-                self.state = 148 
+                self.state = 139
+                self.match(PrigogineParser.T__12)
+                self.state = 140 
                 self.conditional()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 149
-                self.match(PrigogineParser.T__12)
-                self.state = 150
+                self.state = 141
+                self.match(PrigogineParser.T__11)
+                self.state = 142
                 self.match(PrigogineParser.ID)
-                self.state = 151
-                self.match(PrigogineParser.T__13)
-                self.state = 152 
+                self.state = 143
+                self.match(PrigogineParser.T__12)
+                self.state = 144 
                 self.conditional()
-                self.state = 153
-                self.match(PrigogineParser.T__14)
-                self.state = 157
+                self.state = 145
+                self.match(PrigogineParser.T__13)
+                self.state = 149
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==PrigogineParser.T__15:
-                    self.state = 154 
-                    self.update()
-                    self.state = 159
+                while _la==PrigogineParser.T__14:
+                    self.state = 146 
+                    self.action()
+                    self.state = 151
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 160
+                self.state = 152
                 self.match(PrigogineParser.T__1)
                 pass
 
@@ -1115,14 +1040,11 @@ class PrigogineParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class UpdateContext(ParserRuleContext):
+    class ActionContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(PrigogineParser.UpdateContext, self).__init__(parent, invokingState)
+            super(PrigogineParser.ActionContext, self).__init__(parent, invokingState)
             self.parser = parser
-
-        def ID(self):
-            return self.getToken(PrigogineParser.ID, 0)
 
         def codeline(self):
             return self.getTypedRuleContext(PrigogineParser.CodelineContext,0)
@@ -1133,43 +1055,41 @@ class PrigogineParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return PrigogineParser.RULE_update
+            return PrigogineParser.RULE_action
 
         def enterRule(self, listener):
             if isinstance( listener, PrigogineListener ):
-                listener.enterUpdate(self)
+                listener.enterAction(self)
 
         def exitRule(self, listener):
             if isinstance( listener, PrigogineListener ):
-                listener.exitUpdate(self)
+                listener.exitAction(self)
 
         def accept(self, visitor):
             if isinstance( visitor, PrigogineVisitor ):
-                return visitor.visitUpdate(self)
+                return visitor.visitAction(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def update(self):
+    def action(self):
 
-        localctx = PrigogineParser.UpdateContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_update)
+        localctx = PrigogineParser.ActionContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_action)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 164
-            self.match(PrigogineParser.T__15)
-            self.state = 165
-            self.match(PrigogineParser.ID)
-            self.state = 168
+            self.state = 156
+            self.match(PrigogineParser.T__14)
+            self.state = 159
             token = self._input.LA(1)
-            if token in [PrigogineParser.T__4, PrigogineParser.T__5, PrigogineParser.T__9, PrigogineParser.T__17, PrigogineParser.T__25, PrigogineParser.INT, PrigogineParser.FLOAT, PrigogineParser.ID, PrigogineParser.STRING]:
-                self.state = 166 
+            if token in [PrigogineParser.T__3, PrigogineParser.T__4, PrigogineParser.T__8, PrigogineParser.T__16, PrigogineParser.T__24, PrigogineParser.INT, PrigogineParser.FLOAT, PrigogineParser.ID, PrigogineParser.STRING]:
+                self.state = 157 
                 self.codeline()
 
-            elif token in [PrigogineParser.T__14]:
-                self.state = 167 
+            elif token in [PrigogineParser.T__13]:
+                self.state = 158 
                 self.codeblock()
 
             else:
@@ -1278,165 +1198,165 @@ class PrigogineParser ( Parser ):
         _parentState = self.state
         localctx = PrigogineParser.ExpressionContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 28
-        self.enterRecursionRule(localctx, 28, self.RULE_expression, _p)
+        _startState = 26
+        self.enterRecursionRule(localctx, 26, self.RULE_expression, _p)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 187
-            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            self.state = 178
+            la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
             if la_ == 1:
-                self.state = 171
-                self.match(PrigogineParser.T__17)
-                self.state = 172 
+                self.state = 162
+                self.match(PrigogineParser.T__16)
+                self.state = 163 
                 self.expression(9)
                 pass
 
             elif la_ == 2:
-                self.state = 173 
+                self.state = 164 
                 self.assignment()
                 pass
 
             elif la_ == 3:
-                self.state = 174
-                self.match(PrigogineParser.T__17)
-                self.state = 175 
+                self.state = 165
+                self.match(PrigogineParser.T__16)
+                self.state = 166 
                 self.string()
                 pass
 
             elif la_ == 4:
-                self.state = 176 
+                self.state = 167 
                 self.string()
                 pass
 
             elif la_ == 5:
-                self.state = 177 
+                self.state = 168 
                 self.number()
                 pass
 
             elif la_ == 6:
-                self.state = 178 
+                self.state = 169 
                 self.attrsget()
                 pass
 
             elif la_ == 7:
-                self.state = 179 
+                self.state = 170 
                 self.func()
                 pass
 
             elif la_ == 8:
-                self.state = 180 
+                self.state = 171 
                 self.listcomp()
                 pass
 
             elif la_ == 9:
-                self.state = 181
+                self.state = 172
                 self.match(PrigogineParser.ID)
                 pass
 
             elif la_ == 10:
-                self.state = 182 
+                self.state = 173 
                 self.timevar()
                 pass
 
             elif la_ == 11:
-                self.state = 183 
+                self.state = 174 
                 self.lparen()
-                self.state = 184 
+                self.state = 175 
                 self.expression(0)
-                self.state = 185 
+                self.state = 176 
                 self.rparen()
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 206
+            self.state = 197
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 204
-                    la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
+                    self.state = 195
+                    la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
                     if la_ == 1:
                         localctx = PrigogineParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 189
+                        self.state = 180
                         if not self.precpred(self._ctx, 15):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 15)")
-                        self.state = 190
-                        self.match(PrigogineParser.T__16)
-                        self.state = 191 
+                        self.state = 181
+                        self.match(PrigogineParser.T__15)
+                        self.state = 182 
                         self.expression(16)
                         pass
 
                     elif la_ == 2:
                         localctx = PrigogineParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 192
+                        self.state = 183
                         if not self.precpred(self._ctx, 14):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
-                        self.state = 193
+                        self.state = 184
                         self.match(PrigogineParser.POWER)
-                        self.state = 194 
+                        self.state = 185 
                         self.expression(15)
                         pass
 
                     elif la_ == 3:
                         localctx = PrigogineParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 195
+                        self.state = 186
                         if not self.precpred(self._ctx, 13):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
-                        self.state = 196
+                        self.state = 187
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==PrigogineParser.MUL or _la==PrigogineParser.DIV):
                             localctx.op = self._errHandler.recoverInline(self)
                         self.consume()
-                        self.state = 197 
+                        self.state = 188 
                         self.expression(14)
                         pass
 
                     elif la_ == 4:
                         localctx = PrigogineParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 198
+                        self.state = 189
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
-                        self.state = 199
+                        self.state = 190
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==PrigogineParser.ADD or _la==PrigogineParser.SUB):
                             localctx.op = self._errHandler.recoverInline(self)
                         self.consume()
-                        self.state = 200 
+                        self.state = 191 
                         self.expression(13)
                         pass
 
                     elif la_ == 5:
                         localctx = PrigogineParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 201
+                        self.state = 192
                         if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
-                        self.state = 202
+                        self.state = 193
                         localctx.op = self.match(PrigogineParser.PIPE)
-                        self.state = 203 
+                        self.state = 194 
                         self.expression(12)
                         pass
 
              
-                self.state = 208
+                self.state = 199
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1486,25 +1406,25 @@ class PrigogineParser ( Parser ):
     def assignment(self):
 
         localctx = PrigogineParser.AssignmentContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_assignment)
+        self.enterRule(localctx, 28, self.RULE_assignment)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 211
+            self.state = 202
             token = self._input.LA(1)
             if token in [PrigogineParser.ID]:
-                self.state = 209
+                self.state = 200
                 self.match(PrigogineParser.ID)
 
-            elif token in [PrigogineParser.T__4]:
-                self.state = 210 
+            elif token in [PrigogineParser.T__3]:
+                self.state = 201 
                 self.attrsget()
 
             else:
                 raise NoViableAltException(self)
 
-            self.state = 213
-            self.match(PrigogineParser.T__18)
-            self.state = 214 
+            self.state = 204
+            self.match(PrigogineParser.T__17)
+            self.state = 205 
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1550,23 +1470,23 @@ class PrigogineParser ( Parser ):
     def codeblock(self):
 
         localctx = PrigogineParser.CodeblockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_codeblock)
+        self.enterRule(localctx, 30, self.RULE_codeblock)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 216
-            self.match(PrigogineParser.T__14)
-            self.state = 220
+            self.state = 207
+            self.match(PrigogineParser.T__13)
+            self.state = 211
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PrigogineParser.T__4) | (1 << PrigogineParser.T__5) | (1 << PrigogineParser.T__9) | (1 << PrigogineParser.T__17) | (1 << PrigogineParser.T__25) | (1 << PrigogineParser.INT) | (1 << PrigogineParser.FLOAT) | (1 << PrigogineParser.ID) | (1 << PrigogineParser.STRING))) != 0):
-                self.state = 217 
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PrigogineParser.T__3) | (1 << PrigogineParser.T__4) | (1 << PrigogineParser.T__8) | (1 << PrigogineParser.T__16) | (1 << PrigogineParser.T__24) | (1 << PrigogineParser.INT) | (1 << PrigogineParser.FLOAT) | (1 << PrigogineParser.ID) | (1 << PrigogineParser.STRING))) != 0):
+                self.state = 208 
                 self.codeline()
-                self.state = 222
+                self.state = 213
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 223
+            self.state = 214
             self.match(PrigogineParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1609,10 +1529,10 @@ class PrigogineParser ( Parser ):
     def codeline(self):
 
         localctx = PrigogineParser.CodelineContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_codeline)
+        self.enterRule(localctx, 32, self.RULE_codeline)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 225 
+            self.state = 216 
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1654,10 +1574,10 @@ class PrigogineParser ( Parser ):
     def string(self):
 
         localctx = PrigogineParser.StringContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_string)
+        self.enterRule(localctx, 34, self.RULE_string)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 227
+            self.state = 218
             self.match(PrigogineParser.STRING)
         except RecognitionException as re:
             localctx.exception = re
@@ -1704,19 +1624,19 @@ class PrigogineParser ( Parser ):
     def conditional(self):
 
         localctx = PrigogineParser.ConditionalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_conditional)
+        self.enterRule(localctx, 36, self.RULE_conditional)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 229 
+            self.state = 220 
             self.expression(0)
-            self.state = 230
+            self.state = 221
             localctx.op = self._input.LT(1)
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PrigogineParser.T__19) | (1 << PrigogineParser.T__20) | (1 << PrigogineParser.T__21) | (1 << PrigogineParser.T__22) | (1 << PrigogineParser.T__23) | (1 << PrigogineParser.T__24))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PrigogineParser.T__18) | (1 << PrigogineParser.T__19) | (1 << PrigogineParser.T__20) | (1 << PrigogineParser.T__21) | (1 << PrigogineParser.T__22) | (1 << PrigogineParser.T__23))) != 0)):
                 localctx.op = self._errHandler.recoverInline(self)
             self.consume()
-            self.state = 231 
+            self.state = 222 
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1756,11 +1676,11 @@ class PrigogineParser ( Parser ):
     def lparen(self):
 
         localctx = PrigogineParser.LparenContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_lparen)
+        self.enterRule(localctx, 38, self.RULE_lparen)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 233
-            self.match(PrigogineParser.T__25)
+            self.state = 224
+            self.match(PrigogineParser.T__24)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1799,11 +1719,11 @@ class PrigogineParser ( Parser ):
     def rparen(self):
 
         localctx = PrigogineParser.RparenContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_rparen)
+        self.enterRule(localctx, 40, self.RULE_rparen)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 235
-            self.match(PrigogineParser.T__26)
+            self.state = 226
+            self.match(PrigogineParser.T__25)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1851,38 +1771,38 @@ class PrigogineParser ( Parser ):
     def func(self):
 
         localctx = PrigogineParser.FuncContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_func)
+        self.enterRule(localctx, 42, self.RULE_func)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 237
+            self.state = 228
             self.match(PrigogineParser.ID)
-            self.state = 238
-            self.match(PrigogineParser.T__25)
-            self.state = 249
+            self.state = 229
+            self.match(PrigogineParser.T__24)
+            self.state = 240
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PrigogineParser.T__4) | (1 << PrigogineParser.T__5) | (1 << PrigogineParser.T__9) | (1 << PrigogineParser.T__17) | (1 << PrigogineParser.T__25) | (1 << PrigogineParser.INT) | (1 << PrigogineParser.FLOAT) | (1 << PrigogineParser.ID) | (1 << PrigogineParser.STRING))) != 0):
-                self.state = 239 
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PrigogineParser.T__3) | (1 << PrigogineParser.T__4) | (1 << PrigogineParser.T__8) | (1 << PrigogineParser.T__16) | (1 << PrigogineParser.T__24) | (1 << PrigogineParser.INT) | (1 << PrigogineParser.FLOAT) | (1 << PrigogineParser.ID) | (1 << PrigogineParser.STRING))) != 0):
+                self.state = 230 
                 self.expression(0)
-                self.state = 244
+                self.state = 235
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==PrigogineParser.T__27:
-                    self.state = 240
-                    self.match(PrigogineParser.T__27)
-                    self.state = 241 
+                while _la==PrigogineParser.T__26:
+                    self.state = 231
+                    self.match(PrigogineParser.T__26)
+                    self.state = 232 
                     self.expression(0)
-                    self.state = 246
+                    self.state = 237
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 251
+                self.state = 242
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 252
-            self.match(PrigogineParser.T__26)
+            self.state = 243
+            self.match(PrigogineParser.T__25)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1931,25 +1851,25 @@ class PrigogineParser ( Parser ):
     def argument(self):
 
         localctx = PrigogineParser.ArgumentContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_argument)
+        self.enterRule(localctx, 44, self.RULE_argument)
         try:
-            self.state = 257
-            la_ = self._interp.adaptivePredict(self._input,20,self._ctx)
+            self.state = 248
+            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 254 
+                self.state = 245 
                 self.number()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 255
+                self.state = 246
                 self.match(PrigogineParser.ID)
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 256 
+                self.state = 247 
                 self.func()
                 pass
 
@@ -1997,11 +1917,11 @@ class PrigogineParser ( Parser ):
     def number(self):
 
         localctx = PrigogineParser.NumberContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_number)
+        self.enterRule(localctx, 46, self.RULE_number)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 259
+            self.state = 250
             _la = self._input.LA(1)
             if not(_la==PrigogineParser.INT or _la==PrigogineParser.FLOAT):
                 self._errHandler.recoverInline(self)
@@ -2019,7 +1939,7 @@ class PrigogineParser ( Parser ):
     def sempred(self, localctx, ruleIndex, predIndex):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[14] = self.expression_sempred
+        self._predicates[13] = self.expression_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))

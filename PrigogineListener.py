@@ -31,15 +31,6 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#initvar.
-    def enterInitvar(self, ctx):
-        pass
-
-    # Exit a parse tree produced by PrigogineParser#initvar.
-    def exitInitvar(self, ctx):
-        pass
-
-
     # Enter a parse tree produced by PrigogineParser#attributelist.
     def enterAttributelist(self, ctx):
         pass
@@ -121,12 +112,12 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#update.
-    def enterUpdate(self, ctx):
+    # Enter a parse tree produced by PrigogineParser#action.
+    def enterAction(self, ctx):
         pass
 
-    # Exit a parse tree produced by PrigogineParser#update.
-    def exitUpdate(self, ctx):
+    # Exit a parse tree produced by PrigogineParser#action.
+    def exitAction(self, ctx):
         pass
 
 

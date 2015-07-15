@@ -17,12 +17,17 @@ class Population:
 
     #########################
 
-    # def get(self, attributeName, timestamp):
-    #     print self.timeStepMem - 1
-    #     if timestamp >= self.timeStepMem - 1:
-    #         timestamp = timestamp - self.timeStepMem
-    #     print timestamp
-    #     return self.attributes[str(attributeName)][timestamp]
+    def startstateDef(self, statename):
+        print statename
+
+    def getDef(self, attributeName, t):
+        return self.attributes[attributeName][t]
+
+    def updateDef(self, attributeName, newValue, t):
+        self.attributes[attributeName][t] = newValue
+
+    def initDef(self, attributeName, value):
+        self.attributes[attributeName][0] = value
 
     #########################
 
@@ -49,7 +54,8 @@ class Population:
     #########################
 
     def updateAttributes(self, attributes, t):
-        get = lambda attributeName, timeStamp : attributes[str(attributeName)][timeStamp]
+        update = lambda attributeName, value : self.updateDef(attributeName, value, t)
+        get = lambda attributeName : self.getDef(attributeName, t)
         for codeblock in self.updateCode:
             #print codeblock
             code = compile(codeblock, "<string>", "exec")
@@ -59,8 +65,11 @@ class Population:
     #########################
 
     def initialiseAttributes(self, attributes, t):
+        startstate = lambda statename : self.startstateDef(statename)
+        init = lambda attributeName, value : self.initDef(attributeName, value)
         for codeblock in self.initialisationCode:
-            exec codeblock
+            code = compile(codeblock, "<string>", "exec")
+            exec code in globals(), locals()
 
     #########################
 

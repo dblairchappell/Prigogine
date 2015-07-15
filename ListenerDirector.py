@@ -56,9 +56,9 @@ class ListenerDirector(PrigogineListener):
 
     ########################
 
-    def enterUpdate(self, ctx):
+    def enterAction(self, ctx):
 
-        codeType = type(ctx.getChild(2)) # detect whether code is in a single line or a block
+        codeType = type(ctx.getChild(1)) # detect whether code is in a single line or a block
         populationName = self.currentPopulation
 
         if codeType == PrigogineParser.CodelineContext:
@@ -77,7 +77,7 @@ class ListenerDirector(PrigogineListener):
 
         if codeType == PrigogineParser.CodeblockContext:
             attributeName = str(ctx.getChild(1).getText())
-            codeblock = ctx.getChild(2) #.children
+            codeblock = ctx.getChild(1) #.children
             #tokenInterval = codeblock.getSourceInterval()
             #tokenInterval = (tokenInterval[0] + 1, tokenInterval[1] -1) # get rid of 'begin' and 'end' tokens
             #codeblockString = str(self.tokens.getText(tokenInterval))

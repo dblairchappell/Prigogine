@@ -20,11 +20,6 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#initvar.
-    def visitInitvar(self, ctx):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by PrigogineParser#attributelist.
     def visitAttributelist(self, ctx):
         return self.visitChildren(ctx)
@@ -70,8 +65,8 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#update.
-    def visitUpdate(self, ctx):
+    # Visit a parse tree produced by PrigogineParser#action.
+    def visitAction(self, ctx):
         return self.visitChildren(ctx)
 
 

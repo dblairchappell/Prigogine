@@ -9,38 +9,40 @@ population households
 
 	state employed
 		transition to unemployed if uniform(1,100) >= 75
-		#update reserveWages attributes["reserveWages"][t] * 1.1
+		action update("reserveWages", get("reserveWages") * 1.1)
 	end
 
 	state unemployed
 
-		transition to employed if attributes["reserveWages"][t] < 15 begin
-			update numJobs begin
-				print "updating numJobs: " + str(attributes["numJobs"][t].mean())
-				attributes["numJobs"][t+1] = attributes["numJobs"][t] * 1.1
+		transition to employed if get("reserveWages") < 15 begin
+			action begin
+				print "updating numJobs: " + str(get("numJobs").mean())
+				newValues = get("numJobs") * 1.1
+				update("numJobs", newValues)
 			end
 		end
 
-		update reserveWages begin
-			print "updating reserveWages: " + str(attributes["reserveWages"][t].mean())
-			attributes["reserveWages"][t+1] = maximum( (attributes["reserveWages"][t] * 0.9), attributes["minWage"][t] )
-			#get("reserveWages", t+1)
+		action begin
+			print "updating reserveWages: " + str(get("reserveWages").mean())
+			newValues = maximum( (get("reserveWages") * 0.9), get("minWage") )
+			update("reserveWages", newValues)
 		end
 
-		update minWage begin
-			print "updating minWage: " + str(attributes["minWage"][t].mean())
-			attributes["minWage"][t+1] = attributes["minWage"][t] + 1
+		action begin
+			print "updating minWage: " + str(get("minWage").mean())
+			newValues = get("minWage") + 1
+			update("minWage", newValues)
 		end
 
 	end
 
 end
 
-create households 500000 begin
-	startstate = "employed"
-	attributes["reserveWages"][t] = [random.uniform(1, 100) for x in range(500000)]
-	attributes["numJobs"][t] = [1 for x in range(500000)]
-	attributes["minWage"][t] = [5 for x in range(500000)]
+create households 5 begin
+	startstate("employed")
+	init("reserveWages", [random.uniform(1, 100) for x in range(5)])
+	init("numJobs", [1 for x in range(5)])
+	init("minWage", [5 for x in range(5)])
 end
 
 

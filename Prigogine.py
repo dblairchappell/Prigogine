@@ -48,7 +48,7 @@ class Prigogine:
 
     def runModel(self, numIterations):
         self.model.runModel(numIterations)
-        #print self.model.populations["households"].attributes["reserveWages"]
+        print self.model.populations["households"].attributes["numJobs"]
 
 ###########################################################################################################
 ###########################################################################################################
