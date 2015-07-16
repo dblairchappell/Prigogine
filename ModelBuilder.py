@@ -57,6 +57,7 @@ class ModelBuilder:
 
     def declareAttribute(self, populationName, attributeName): # declare that an attibutes exists
          self.populationData[populationName]["attributeNames"].append(attributeName)
+         #print self.populationData[populationName]["attributeNames"]
          #self.populationData[populationName]["attributeData"][attrName]["code"] = []
 
     #########################

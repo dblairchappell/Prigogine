@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1377</width>
-    <height>853</height>
+    <width>1327</width>
+    <height>843</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,7 +36,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -55,89 +55,61 @@
             <string/>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
-            <item row="0" column="18">
-             <widget class="QCheckBox" name="checkBox">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="19">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>View Updates</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="16">
-             <widget class="QLabel" name="label">
-              <property name="minimumSize">
-               <size>
-                <width>110</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Simulation Speed</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="12">
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="text">
-               <string>Setup</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="10">
-             <widget class="QPushButton" name="pushButton">
-              <property name="text">
-               <string>Run</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="13">
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="11">
+            <item row="0" column="4">
              <widget class="QPushButton" name="pushButton_7">
               <property name="text">
                <string>Stop</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_6">
-              <property name="text">
-               <string>Delete</string>
+            <item row="0" column="11">
+             <widget class="QSlider" name="horizontalSlider">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="value">
+               <number>99</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton_5">
-              <property name="text">
-               <string>Edit</string>
+            <item row="0" column="6">
+             <widget class="QSpinBox" name="spinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>9999999</number>
               </property>
              </widget>
             </item>
-            <item row="0" column="7">
+            <item row="0" column="5">
              <widget class="QLabel" name="label_2">
               <property name="text">
                <string>Iterations</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="3">
+            <item row="0" column="8">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>View Updates</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="24">
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="text">
+               <string>Edit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="27">
              <widget class="QComboBox" name="comboBox">
               <property name="accessibleName">
                <string/>
@@ -189,7 +161,21 @@
               </item>
              </widget>
             </item>
-            <item row="0" column="4">
+            <item row="0" column="25">
+             <widget class="QPushButton" name="pushButton_6">
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="26">
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="23">
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -202,33 +188,53 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="8">
-             <widget class="QSpinBox" name="spinBox">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>9999999</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_3">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="pushButton_2">
               <property name="text">
-               <string>Add</string>
+               <string>Setup</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="17">
-             <widget class="QSlider" name="horizontalSlider">
+            <item row="0" column="10">
+             <widget class="QLabel" name="label">
               <property name="minimumSize">
                <size>
-                <width>150</width>
+                <width>110</width>
                 <height>0</height>
                </size>
               </property>
+              <property name="text">
+               <string>Simulation Speed</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Run</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="7">
+             <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="9">
+             <widget class="QCheckBox" name="checkBox">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -237,6 +243,15 @@
          </item>
          <item row="1" column="0">
           <widget class="QWebView" name="webView_2" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
            <property name="url" stdset="0">
             <url>
              <string>about:blank</string>
@@ -282,28 +297,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QTextEdit" name="consoleOutput">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="tabStopWidth">
-        <number>30</number>
-       </property>
-      </widget>
+      <widget class="QTextEdit" name="textEdit_2"/>
      </widget>
     </item>
    </layout>
@@ -313,7 +307,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1377</width>
+     <width>1327</width>
      <height>26</height>
     </rect>
    </property>

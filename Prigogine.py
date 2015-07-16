@@ -56,11 +56,12 @@ class Prigogine:
 
 def main(argv):
 
+    start = time.clock()
     inputStream = FileStream(argv[1])
     prigogine = Prigogine()
     prigogine.buildModel(inputStream)
 
-    start = time.clock()
+
     prigogine.runModel(100)
     end = time.clock()
     print "time elapsed: " + str(end - start) + "s"

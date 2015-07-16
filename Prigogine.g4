@@ -10,7 +10,7 @@ filestart
     ;
 
 population
-    : 'population' ID attributelist statedef* 'end'
+    : 'population' string '[' attributelist statedef* ']'
     ;
 
 //createpopulation
@@ -18,7 +18,7 @@ population
 //    ;
 
 createpopulation
-    : 'create' ID INT codeblock*
+    : 'create' string INT codeblock*
     ;
 
 //startstate
@@ -34,7 +34,7 @@ createpopulation
     //;
 
 attributelist
-    : 'attributes' attribute* 'end'
+    : 'attributes' '[' attribute* ']'
     ;
 
 listcomp
@@ -42,7 +42,7 @@ listcomp
     ;
 
 attribute
-    : ID
+    : string
     ;
 
 attrsget
@@ -64,12 +64,12 @@ dictindex
     ;
 
 statedef
-    : 'state' ID transition* action* 'end'
+    : 'state' string '[' transition* action* ']'
     ;
 
 transition
-    : 'transition to' ID 'if' conditional
-    | 'transition to' ID 'if' conditional 'begin' action* 'end'
+    : 'transition to' string 'if' conditional
+    | 'transition to' string 'if' conditional '[' action* ']'
     ;
 
 action
@@ -100,7 +100,7 @@ assignment
     ;
 
 codeblock
-    : 'begin' codeline* 'end'
+    : '[' codeline* ']'
     ;
 
 codeline

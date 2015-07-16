@@ -26,7 +26,12 @@ class ListenerDirector(PrigogineListener):
         numAttrs = ctx.attributelist().getPayload().getChildCount() - 2
         attrList = []
         for i in range(numAttrs):
-            attrList.append(str(ctx.attributelist().getPayload().getChild(i+1).getText()))
+            attrName = ctx.attributelist().getPayload().getChild(i+2).getText().encode('ascii')
+            attrName = attrName.replace("\"", "")
+            #print type(attrName)
+            #print attrName
+            attrList.append(attrName)
+        #print attrList
         return attrList
 
     #########################
@@ -42,7 +47,9 @@ class ListenerDirector(PrigogineListener):
 
     def enterPopulation(self, ctx):
 
-        populationName = str(ctx.ID())
+        populationName = ctx.getChild(1).getText().encode("ascii")
+        populationName = populationName.replace("\"", "")
+        #print populationName
         self.currentPopulation = populationName
         self.modelBuilder.declarePopulation(populationName)
 
@@ -72,11 +79,11 @@ class ListenerDirector(PrigogineListener):
             self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codelineString)
             #print self.model.populations[populationName]["attrs"][attributeName]["code"]
             #print "line update " + attributeName + ": " + codelineString
-            print codelineString
-            print "----------"
+            #print codelineString
+            #print "----------"
 
         if codeType == PrigogineParser.CodeblockContext:
-            attributeName = str(ctx.getChild(1).getText())
+            #attributeName = str(ctx.getChild(1).getText())
             codeblock = ctx.getChild(1) #.children
             #tokenInterval = codeblock.getSourceInterval()
             #tokenInterval = (tokenInterval[0] + 1, tokenInterval[1] -1) # get rid of 'begin' and 'end' tokens
@@ -97,8 +104,8 @@ class ListenerDirector(PrigogineListener):
                 codeblockString = codeblockString + codelineString + "\n"
 
             self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codeblockString)
-            print self.modelBuilder.populationData[populationName]["attributeUpdateData"]
-            print "----------"
+            #print self.modelBuilder.populationData[populationName]["attributeUpdateData"]
+            #print "----------"
 
     #########################
 
@@ -106,15 +113,17 @@ class ListenerDirector(PrigogineListener):
 
         # create data necessary to instantiate populations
 
-        populationName = str(ctx.getPayload().ID())
+        populationName = ctx.getPayload().getChild(1).getText().encode("ascii")
+        populationName = populationName.replace("\"", "")
         self.currentPopulation = populationName
         numAgents = int(ctx.getPayload().INT().getText())
+        #print populationName
         self.modelBuilder.setPopulationSize(populationName, numAgents)
         #print "creating " + str(numAgents) + " " + populationName + " agents"
 
         # create data neccessary to initialise attribute values
 
-        attributeName = str(ctx.getChild(1).getText())
+        #attributeName = ctx.getChild(1).getText().encode("ascii")
         codeblock = ctx.getChild(3) #.children
         codeblockString = ""
         blockLen = len(codeblock.children) - 2

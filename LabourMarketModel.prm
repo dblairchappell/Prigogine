@@ -1,49 +1,52 @@
 
-population households
+population "households" [
 
-	attributes
-		reserveWages
-		numJobs
-		minWage
-	end
+	attributes [
+		"reserveWages"
+		"numJobs"
+		"minWage"
+	]
 
-	state employed
-		transition to unemployed if uniform(1,100) >= 75
-		action update("reserveWages", get("reserveWages") * 1.1)
-	end
+	state "employed" [
+		transition to "unemployed" if uniform(1,100) >= 75
+		action [
+			#print "activity whilst employed"
+			#update("reserveWages", get("reserveWages") * 1.1)
+		]
+	]
 
-	state unemployed
+	state "unemployed" [
 
-		transition to employed if get("reserveWages") < 15 begin
-			action begin
+		transition to "employed" if get("reserveWages") < 15 [
+			action [
 				print "updating numJobs: " + str(get("numJobs").mean())
 				newValues = get("numJobs") * 1.1
 				update("numJobs", newValues)
-			end
-		end
+			]
+		]
 
-		action begin
+		action [
 			print "updating reserveWages: " + str(get("reserveWages").mean())
 			newValues = maximum( (get("reserveWages") * 0.9), get("minWage") )
 			update("reserveWages", newValues)
-		end
+		]
 
-		action begin
+		action [
 			print "updating minWage: " + str(get("minWage").mean())
 			newValues = get("minWage") + 1
 			update("minWage", newValues)
-		end
+		]
 
-	end
+	]
 
-end
+]
 
-create households 1000000 begin
+create "households" 10000 [
 	startstate("employed")
-	init("reserveWages", random.uniform(1,100,1000000))
-	init("numJobs", ones(1000000))
-	init("minWage", ones(1000000) * 5)
-end
+	init("reserveWages", random.uniform(1,100,10000))
+	init("numJobs", ones(10000))
+	init("minWage", ones(10000) * 5)
+]
 
 
 

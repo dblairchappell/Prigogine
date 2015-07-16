@@ -33,6 +33,8 @@ class Population:
         self.attributes[attributeName][writeIndex] = newValue
 
     def initDef(self, attributeName, value):
+        #print attributeName
+        #print self.attributes['reserveWages']
         self.attributes[attributeName][0] = value
 
     #########################
