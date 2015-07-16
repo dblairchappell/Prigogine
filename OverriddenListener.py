@@ -3,7 +3,7 @@ from ModelBuilder import ModelBuilder
 from PrigogineParser import PrigogineParser
 from PrigogineListener import PrigogineListener
 
-class ListenerDirector(PrigogineListener):
+class OverriddenListener(PrigogineListener):
 
     #########################
 
@@ -12,6 +12,7 @@ class ListenerDirector(PrigogineListener):
         self.modelBuilder = ModelBuilder()
         self.tokens = tokens
         self.currentPopulation = ""
+        self.currentModel = ""
 
     #########################
 
@@ -23,7 +24,7 @@ class ListenerDirector(PrigogineListener):
 
     @staticmethod
     def getAttributeNames(ctx):
-        numAttrs = ctx.attributelist().getPayload().getChildCount() - 2
+        numAttrs = ctx.attributelist().getPayload().getChildCount() - 3
         attrList = []
         for i in range(numAttrs):
             attrName = ctx.attributelist().getPayload().getChild(i+2).getText().encode('ascii')
@@ -31,7 +32,7 @@ class ListenerDirector(PrigogineListener):
             #print type(attrName)
             #print attrName
             attrList.append(attrName)
-        #print attrList
+        print attrList
         return attrList
 
     #########################
@@ -109,25 +110,34 @@ class ListenerDirector(PrigogineListener):
 
     #########################
 
-    def enterCreatepopulation(self, ctx):
+    def enterModeldef(self, ctx):
+        modelName = ctx.getChild(1).getText().encode("ascii")
+        modelName = modelName.replace("\"", "")
+        #print populationName
+        self.modelBuilder.declareModel(modelName)
+        self.currentModel = modelName
+
+    #########################
+
+    def enterExperiment(self, ctx):
 
         # create data necessary to instantiate populations
 
-        populationName = ctx.getPayload().getChild(1).getText().encode("ascii")
-        populationName = populationName.replace("\"", "")
-        self.currentPopulation = populationName
-        numAgents = int(ctx.getPayload().INT().getText())
-        #print populationName
-        self.modelBuilder.setPopulationSize(populationName, numAgents)
+        modelName = ctx.getPayload().getChild(1).getText().encode("ascii")
+        modelName = modelName.replace("\"", "")
+        self.currentModel = modelName
+        #numAgents = int(ctx.getPayload().INT().getText())
+        print modelName
+        #self.modelBuilder.setPopulationSize(populationName, numAgents)
         #print "creating " + str(numAgents) + " " + populationName + " agents"
 
         # create data neccessary to initialise attribute values
 
         #attributeName = ctx.getChild(1).getText().encode("ascii")
-        codeblock = ctx.getChild(3) #.children
+        codeblock = ctx.getChild(2) #getChild(2).children
         codeblockString = ""
+        #print codeblock.getText()
         blockLen = len(codeblock.children) - 2
-
         for i in range(blockLen):
             lineNum = i + 1
             codeline = codeblock.children[lineNum]
@@ -136,9 +146,9 @@ class ListenerDirector(PrigogineListener):
 
             codelineString = str(self.tokens.getText(tokenInterval))
             codeblockString = codeblockString + codelineString + "\n"
-            self.modelBuilder.populationData[populationName]["initialisationData"].append(codelineString)
-        #print codeblockString
-        #print "----------"
+            self.modelBuilder.modelData[modelName]["initialisationData"].append(codelineString)
+        print codeblockString
+        print "----------"
 
     #########################
 

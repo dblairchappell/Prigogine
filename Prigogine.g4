@@ -6,7 +6,11 @@ SPACES = 2
 }
 
 filestart
-    : population+ createpopulation*
+    : modeldef+ experiment*
+    ;
+
+modeldef
+    : 'model' string '[' population+ ']'
     ;
 
 population
@@ -17,8 +21,8 @@ population
 //    : 'create' ID INT startstate initvar* 'end'
 //    ;
 
-createpopulation
-    : 'create' string INT codeblock*
+experiment
+    : 'experiment' string codeblock*
     ;
 
 //startstate

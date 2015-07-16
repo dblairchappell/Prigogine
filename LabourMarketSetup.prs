@@ -1,8 +1,0 @@
-
-create households 10
-	startstate employed
-	init reserveWages[t] function(2,4) * 3
-	init numJobs[t] this.that()
-	init poops[t-1] [6 for x in array]
-end
-

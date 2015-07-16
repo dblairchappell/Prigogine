@@ -13,6 +13,15 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#modeldef.
+    def enterModeldef(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#modeldef.
+    def exitModeldef(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#population.
     def enterPopulation(self, ctx):
         pass
@@ -22,12 +31,12 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#createpopulation.
-    def enterCreatepopulation(self, ctx):
+    # Enter a parse tree produced by PrigogineParser#experiment.
+    def enterExperiment(self, ctx):
         pass
 
-    # Exit a parse tree produced by PrigogineParser#createpopulation.
-    def exitCreatepopulation(self, ctx):
+    # Exit a parse tree produced by PrigogineParser#experiment.
+    def exitExperiment(self, ctx):
         pass
 
 

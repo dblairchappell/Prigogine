@@ -17,9 +17,6 @@ class Population:
 
     #########################
 
-    def startstateDef(self, statename):
-        print statename
-
     def getDef(self, attributeName, t):
         readIndex = t
         while readIndex >= (self.timeStepMem):
@@ -31,11 +28,6 @@ class Population:
         while writeIndex >= (self.timeStepMem):
             writeIndex -= self.timeStepMem
         self.attributes[attributeName][writeIndex] = newValue
-
-    def initDef(self, attributeName, value):
-        #print attributeName
-        #print self.attributes['reserveWages']
-        self.attributes[attributeName][0] = value
 
     #########################
 

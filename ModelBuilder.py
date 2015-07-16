@@ -8,6 +8,7 @@ class ModelBuilder:
 
     def __init__(self):
 
+        self.modelData = {}
         self.populationData = {}
         self.model = Model()
 
@@ -37,11 +38,19 @@ class ModelBuilder:
             for attributeName in data["attributeNames"]:
                 self.model.addAttribute(populationName, attributeName)
 
-            for codeString in data["initialisationData"]:
-                self.model.addInitialisationCode(populationName, codeString)
-
             for codeString in data["attributeUpdateData"]:
                 self.model.addUpdateCode(populationName, codeString)
+
+        for modelName, data in self.modelData.items():
+            for codeString in data["initialisationData"]:
+                self.model.addInitialisationCode(modelName, codeString)
+
+    #########################
+
+    def declareModel(self, modelName):
+        self.modelName = modelName
+        self.modelData[modelName] = {}
+        self.modelData[modelName]["initialisationData"] = []
 
     #########################
 
@@ -57,7 +66,7 @@ class ModelBuilder:
 
     def declareAttribute(self, populationName, attributeName): # declare that an attibutes exists
          self.populationData[populationName]["attributeNames"].append(attributeName)
-         #print self.populationData[populationName]["attributeNames"]
+         print self.populationData[populationName]["attributeNames"]
          #self.populationData[populationName]["attributeData"][attrName]["code"] = []
 
     #########################
