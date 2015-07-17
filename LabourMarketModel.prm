@@ -18,22 +18,22 @@ population "households" [
             action [
                 #print "updating numJobs: " + str(get("numJobs").mean())
                 newValues = get("numJobs") + (random.random_sample() -0.5)
-                setglobal("numJobs", append(getglobal("numJobs"), newValues))
+                setglobal("numJobs", append(getglobal("numJobs"), newValues.mean()))
                 update("numJobs", newValues) # update num jobs
             ]
         ]
 
-        action [ # update resrve wages
+        action [ # update reserve wages
             #print "updating reserveWages: " + str(get("reserveWages").mean())
             newValues = maximum( (get("reserveWages") * 0.9), get("minWage") ) / 2
-            setglobal("averageWages", append(getglobal("averageWages"), newValues))
+            setglobal("averageWages", append(getglobal("averageWages"), newValues.mean()))
             update("reserveWages", newValues)
         ]
 
         action [ # update minimum wages
             #print "updating minWage: " + str(get("minWage").mean())
             newValues = get("minWage") + (random.random_sample() -0.5)
-            setglobal("minWage", append(getglobal("minWage"), newValues))
+            setglobal("minWage", append(getglobal("minWage"), newValues.mean()))
             update("minWage", newValues)
         ]
     ]

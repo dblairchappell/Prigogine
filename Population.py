@@ -26,6 +26,12 @@ class Population:
 
     #########################
 
+    def getFromDef(self, populationName, attributeName, t):
+        readIndex = t
+        return self.model.populations[populationName].attributes[attributeName][readIndex]
+
+    #########################
+
     def getDef(self, attributeName, t):
         readIndex = t
         while readIndex >= self.timeStepMem:
@@ -62,6 +68,7 @@ class Population:
         update = lambda attributeName, value : self.updateDef(attributeName, value, t)
         get = lambda attributeName : self.getDef(attributeName, t)
         getglobal = lambda attributeName : self.getGlobalDef(attributeName)
+        getfrom = lambda populationName, attributeName : self.getFromDef(populationName, attributeName, t)
         for codeblock in self.updateCode:
             code = compile(codeblock, "<string>", "exec")
             exec code in globals(), locals()
