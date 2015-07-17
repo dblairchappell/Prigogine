@@ -1,27 +1,33 @@
 
 ##############################################
+##############################################
 
 from numpy import *
-from OverriddenListener import OverriddenListener
+from ListenerBuilder import ListenerBuilder
 from PrigogineLexer import PrigogineLexer
 from PrigogineParser import PrigogineParser
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
 ##############################################
-
+##############################################
 
 class Prigogine:
+
+    ##############################################
 
     def __init__(self):
         self.model = None
 
-    def buildModel(self, inputStream):
+    ##############################################
+
+    @staticmethod
+    def buildModel(inputStream):
 
         lexer = PrigogineLexer(inputStream)
         tokenStream = CommonTokenStream(lexer)
         parser = PrigogineParser(tokenStream)
         walker = ParseTreeWalker()
-        listener = OverriddenListener(tokenStream)
+        listener = ListenerBuilder(tokenStream)
         tree = parser.filestart()
         walker.walk(listener, tree)
 
@@ -30,17 +36,17 @@ class Prigogine:
     ##############################################
 
     def create(self, populationName, populationSize):
-        return
+        self.model.create(populationName, populationSize)
 
     ##############################################
 
     def startstate(self, populationName, stateName):
-        return
+        self.model.startstate(populationName, stateName)
 
     ##############################################
 
     def init(self, populationName, attributeName, value):
-        return
+        self.model.init(populationName, attributeName, value)
 
     ##############################################
 
@@ -54,6 +60,17 @@ class Prigogine:
         self.model.runModel(numIterations)
         print self.model.populations["households"].attributes["numJobs"]
 
-    ##############################################
+
+##############################################
+##############################################
 
 prigogine = Prigogine()
+
+##############################################
+##############################################
+
+
+
+
+
+

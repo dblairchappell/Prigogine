@@ -10,18 +10,8 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#modeldef.
-    def visitModeldef(self, ctx):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by PrigogineParser#population.
     def visitPopulation(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#experiment.
-    def visitExperiment(self, ctx):
         return self.visitChildren(ctx)
 
 

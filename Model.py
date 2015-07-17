@@ -29,8 +29,22 @@ class Model:
     def getModelName(self):
         return self.modelName
 
-    def addPopulation(self, populationName, populationSize):
-        self.populations[populationName] = Population(populationSize)
+    #########################
+
+    def startstate(self, populationName, stateName):
+        self.populations[populationName].startState = stateName
+
+    #########################
+
+    def create(self, populationName, populationSize):
+        self.populations[populationName].populationSize = populationSize
+        print "population size"
+        print self.populations[populationName].populationSize
+
+    #########################
+
+    def declarePopulation(self, populationName):
+        self.populations[populationName] = Population(1)
 
     #########################
 
@@ -50,8 +64,8 @@ class Model:
 
     #########################
 
-    def addInitialisationCode(self, modelName, codeString):
-        self.initialisationCode.append(codeString)
+    # def addInitialisationCode(self, modelName, codeString):
+    #     self.initialisationCode.append(codeString)
 
     #########################
 
@@ -67,7 +81,7 @@ class Model:
         print self.populations["households"].attributes
         print self.populations["households"].attributes["reserveWages"]
         itno = 0
-        self.initialiseModel()
+        #self.initialiseModel()
         for each in range(numIterations):
             itno +=1
             print "------------------\niteration number: " + str(itno) + "\n------------------"
@@ -79,32 +93,33 @@ class Model:
 
     #########################
 
-    def startstateDef(self, populationName, statename):
-        self.populations[populationName].startstate = statename
-
-    #########################
-
-    def initDef(self, populationName, attributeName, value):
+    # def startstateDef(self, populationName, statename):
+    #     self.populations[populationName].startstate = statename
+    #
+    # #########################
+    #
+    def init(self, populationName, attributeName, value):
+        print "init def"
         print attributeName
         print type(attributeName)
         print self.populations["households"].attributes
         print self.populations[populationName].attributes
-        print "init def"
-        self.populations[populationName].attributes[attributeName][0] = value
 
-    #########################
-
-    def initialiseModel(self):
-        print "initialiseModel()"
-        print self.populations["households"].attributes
-        create = lambda populationName, numAgents : self.addPopulation(populationName, numAgents)
-        runmodel = lambda numIterations : self.runModel(numIterations)
-        startstate = lambda populationName, statename : self.startstateDef(populationName, statename)
-        init = lambda populationName, attributeName, value : self.initDef(populationName, attributeName, value)
-
-        for codeblock in self.initialisationCode:
-            code = compile(codeblock, "<string>", "exec")
-            exec code in globals(), locals()
+        self.populations[populationName].attributes[attributeName] = value
+    #
+    # #########################
+    #
+    # def initialiseModel(self):
+    #     print "initialiseModel()"
+    #     print self.populations["households"].attributes
+    #     create = lambda populationName, numAgents : self.addPopulation(populationName, numAgents)
+    #     runmodel = lambda numIterations : self.runModel(numIterations)
+    #     startstate = lambda populationName, statename : self.startstateDef(populationName, statename)
+    #     init = lambda populationName, attributeName, value : self.initDef(populationName, attributeName, value)
+    #
+    #     for codeblock in self.initialisationCode:
+    #         code = compile(codeblock, "<string>", "exec")
+    #         exec code in globals(), locals()
 
         #for population in self.populations:
         #    attributes = self.populations[population].attributes

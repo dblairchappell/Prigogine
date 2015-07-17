@@ -8,6 +8,8 @@ class Population:
     def __init__(self, populationSize):
 
         self.populationSize = populationSize
+        print "DDDDDDDDD"
+        print self.populationSize
         self.timeStepMem = 2
         self.attributes = {}
         self.stateMasks = {}
@@ -32,7 +34,20 @@ class Population:
     #########################
 
     def addAttribute(self, attributeName):
+        #print "wwwwwwwwwww"
+        #print type(attributeName)
+        #print self.attributes
+
+        #timeSteps = self.timeStepMem
+
+        #print self.populationSize
+        #print zeros((timeSteps, numAgents))
+
         self.attributes[attributeName] = zeros((self.timeStepMem, self.populationSize))
+
+        #print "xxxxxxxxxxxxx"
+        #print self.attributes[attributeName]
+
         #self.attributes[attributeName] = zeros((self.populationSize + 1, self.populationSize))
 
     #########################

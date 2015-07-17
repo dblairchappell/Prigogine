@@ -1,15 +1,17 @@
 
-from ModelBuilder import ModelBuilder
+#from ModelBuilder import ModelBuilder
+from Model import Model
 from PrigogineParser import PrigogineParser
 from PrigogineListener import PrigogineListener
 
-class OverriddenListener(PrigogineListener):
+class ListenerBuilder(PrigogineListener):
 
     #########################
 
     def __init__(self, tokens):
 
-        self.modelBuilder = ModelBuilder()
+        #self.modelBuilder = ModelBuilder()
+        self.model = Model()
         self.tokens = tokens
         self.currentPopulation = ""
         self.currentModel = ""
@@ -17,8 +19,8 @@ class OverriddenListener(PrigogineListener):
     #########################
 
     def getModel(self):
-        self.modelBuilder.assembleModelPieces()
-        return self.modelBuilder.getModel()
+        #self.modelBuilder.assembleModelPieces()
+        return self.model
 
     #########################
 
@@ -52,15 +54,17 @@ class OverriddenListener(PrigogineListener):
         populationName = populationName.replace("\"", "")
         #print populationName
         self.currentPopulation = populationName
-        self.modelBuilder.declarePopulation(populationName)
+        #self.modelBuilder.declarePopulation(populationName)
+        self.model.declarePopulation(populationName)
 
         agentAttributeNames = self.getAttributeNames(ctx)
         for attrName in agentAttributeNames:
-            self.modelBuilder.declareAttribute(populationName, attrName)
+            #self.modelBuilder.declareAttribute(populationName, attrName)
+            self.model.addAttribute(populationName, attrName)
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
-             self.modelBuilder.declareState(populationName, stateName)
+             self.model.addState(populationName, stateName)
 
     ########################
 
@@ -77,7 +81,8 @@ class OverriddenListener(PrigogineListener):
             tokenInterval = expression.getSourceInterval()
             codelineString = str(self.tokens.getText(tokenInterval))
             #self.model.populations[populationName]["attrs"][attributeName]["code"].append(codelineString)
-            self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codelineString)
+            #self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codelineString)
+            self.model.populations[populationName].updateCode.append(codelineString)
             #print self.model.populations[populationName]["attrs"][attributeName]["code"]
             #print "line update " + attributeName + ": " + codelineString
             #print codelineString
@@ -104,56 +109,51 @@ class OverriddenListener(PrigogineListener):
                 codelineString = str(self.tokens.getText(tokenInterval))
                 codeblockString = codeblockString + codelineString + "\n"
 
-            self.modelBuilder.populationData[populationName]["attributeUpdateData"].append(codeblockString)
+            self.model.populations[populationName].updateCode.append(codeblockString)
             #print self.modelBuilder.populationData[populationName]["attributeUpdateData"]
             #print "----------"
 
     #########################
 
-    def enterModeldef(self, ctx):
-        modelName = ctx.getChild(1).getText().encode("ascii")
-        modelName = modelName.replace("\"", "")
-        #print populationName
-        self.modelBuilder.declareModel(modelName)
-        self.currentModel = modelName
+    # def enterModeldef(self, ctx):
+    #     modelName = ctx.getChild(1).getText().encode("ascii")
+    #     modelName = modelName.replace("\"", "")
+    #     #print populationName
+    #     self.modelBuilder.declareModel(modelName)
+    #     self.currentModel = modelName
 
     #########################
 
-    def enterExperiment(self, ctx):
-
-        # create data necessary to instantiate populations
-
-        modelName = ctx.getPayload().getChild(1).getText().encode("ascii")
-        modelName = modelName.replace("\"", "")
-        self.currentModel = modelName
-        #numAgents = int(ctx.getPayload().INT().getText())
-        print modelName
-        #self.modelBuilder.setPopulationSize(populationName, numAgents)
-        #print "creating " + str(numAgents) + " " + populationName + " agents"
-
-        # create data neccessary to initialise attribute values
-
-        #attributeName = ctx.getChild(1).getText().encode("ascii")
-        codeblock = ctx.getChild(2) #getChild(2).children
-        codeblockString = ""
-        #print codeblock.getText()
-        blockLen = len(codeblock.children) - 2
-        for i in range(blockLen):
-            lineNum = i + 1
-            codeline = codeblock.children[lineNum]
-            expression = codeline.expression()
-            tokenInterval = expression.getSourceInterval()
-
-            codelineString = str(self.tokens.getText(tokenInterval))
-            codeblockString = codeblockString + codelineString + "\n"
-            self.modelBuilder.modelData[modelName]["initialisationData"].append(codelineString)
-        print codeblockString
-        print "----------"
-
-    #########################
-
-    #def assembleModelPieces(self):
-    #    self.modelBuilder.assembleModelPieces()
+    # def enterExperiment(self, ctx):
+    #
+    #     # create data necessary to instantiate populations
+    #
+    #     modelName = ctx.getPayload().getChild(1).getText().encode("ascii")
+    #     modelName = modelName.replace("\"", "")
+    #     self.currentModel = modelName
+    #     #numAgents = int(ctx.getPayload().INT().getText())
+    #     print modelName
+    #     #self.modelBuilder.setPopulationSize(populationName, numAgents)
+    #     #print "creating " + str(numAgents) + " " + populationName + " agents"
+    #
+    #     # create data neccessary to initialise attribute values
+    #
+    #     #attributeName = ctx.getChild(1).getText().encode("ascii")
+    #     codeblock = ctx.getChild(2) #getChild(2).children
+    #     codeblockString = ""
+    #     #print codeblock.getText()
+    #     blockLen = len(codeblock.children) - 2
+    #     for i in range(blockLen):
+    #         lineNum = i + 1
+    #         codeline = codeblock.children[lineNum]
+    #         expression = codeline.expression()
+    #         tokenInterval = expression.getSourceInterval()
+    #
+    #         codelineString = str(self.tokens.getText(tokenInterval))
+    #         codeblockString = codeblockString + codelineString + "\n"
+    #         self.modelBuilder.modelData[modelName]["initialisationData"].append(codelineString)
+    #     print codeblockString
+    #     print "----------"
 
     #########################
 
