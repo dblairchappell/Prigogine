@@ -6,15 +6,11 @@ class Population:
     #########################
 
     def __init__(self, populationSize):
-
         self.populationSize = populationSize
-        print "DDDDDDDDD"
-        print self.populationSize
         self.timeStepMem = 2
         self.attributes = {}
         self.stateMasks = {}
         self.updateCode = []
-        self.initialisationCode= []
         self.startstate = ""
 
     #########################
@@ -33,28 +29,17 @@ class Population:
 
     #########################
 
-    def addAttribute(self, attributeName):
-        #print "wwwwwwwwwww"
-        #print type(attributeName)
-        #print self.attributes
-
-        #timeSteps = self.timeStepMem
-
-        #print self.populationSize
-        #print zeros((timeSteps, numAgents))
-
-        self.attributes[attributeName] = zeros((self.timeStepMem, self.populationSize))
-
-        #print "xxxxxxxxxxxxx"
-        #print self.attributes[attributeName]
-
-        #self.attributes[attributeName] = zeros((self.populationSize + 1, self.populationSize))
+    def declareAttribute(self, attributeName):
+        timeSteps = self.timeStepMem
+        numAgents = self.populationSize
+        #print "pop size: " + str(numAgents)
+        #print "time steps: " + str(timeSteps)
+        self.attributes[attributeName] = None #zeros((self.timeStepMem, self.populationSize))
 
     #########################
 
     def addState(self, stateName):
         self.stateMasks[stateName] = zeros((self.timeStepMem, self.populationSize))
-        #self.stateMasks[stateName] = zeros((self.populationSize + 1, self.populationSize))
 
     #########################
 
@@ -72,10 +57,8 @@ class Population:
         update = lambda attributeName, value : self.updateDef(attributeName, value, t)
         get = lambda attributeName : self.getDef(attributeName, t)
         for codeblock in self.updateCode:
-            #print codeblock
             code = compile(codeblock, "<string>", "exec")
             exec code in globals(), locals()
-            #print "====="
 
     #########################
 

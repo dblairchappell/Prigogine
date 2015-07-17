@@ -22,7 +22,6 @@ class Prigogine:
 
     @staticmethod
     def buildModel(inputStream):
-
         lexer = PrigogineLexer(inputStream)
         tokenStream = CommonTokenStream(lexer)
         parser = PrigogineParser(tokenStream)
@@ -58,8 +57,6 @@ class Prigogine:
 
     def runmodel(self, numIterations):
         self.model.runModel(numIterations)
-        print self.model.populations["households"].attributes["numJobs"]
-
 
 ##############################################
 ##############################################
