@@ -69,15 +69,17 @@ class Model:
     #########################
 
     def runModel(self, numIterations):
-        print "running model"
+        print "-------- running model --------\n"
         itno = 0
         for each in range(numIterations):
             itno +=1
-            print "------------------\niteration number: " + str(itno) + "\n------------------"
+            #print "------------------\niteration number: " + str(itno) + "\n------------------"
+            print str(itno) + ", ",
             self.updateModel()
             self.t += 1
             if self.t >= self.timeStepMem:
                 self.t = 0
+        print "\n\n-------- model run complete  --------\n"
 
     #########################
 
