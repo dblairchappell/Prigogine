@@ -44,12 +44,14 @@ class Population:
         writeIndex = t + 1
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
+        #print self.attributes["minWage"][writeIndex]
         self.attributes[attributeName][writeIndex] = newValue
 
     #########################
 
     def declareAttribute(self, attributeName):
         self.attributes[attributeName] = None
+        #print self.attributes[attributeName]
 
     #########################
 
@@ -75,12 +77,12 @@ class Population:
 
     #########################
 
-    def initialiseAttributes(self, attributes, t):
-        startstate = lambda statename : self.startstateDef(statename)
-        init = lambda attributeName, value : self.initDef(attributeName, value)
-        for codeblock in self.initialisationCode:
-            code = compile(codeblock, "<string>", "exec")
-            exec code in globals(), locals()
+    # def initialiseAttributes(self, attributes, t):
+    #     startstate = lambda statename : self.startstateDef(statename)
+    #     init = lambda attributeName, value : self.initDef(attributeName, value)
+    #     for codeblock in self.initialisationCode:
+    #         code = compile(codeblock, "<string>", "exec")
+    #         exec code in globals(), locals()
 
     #########################
 

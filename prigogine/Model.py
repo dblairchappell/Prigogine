@@ -74,7 +74,8 @@ class Model:
         for each in range(numIterations):
             itno +=1
             #print "------------------\niteration number: " + str(itno) + "\n------------------"
-            print str(itno) + ", ",
+            #print str(itno) + " ",
+            print ".",
             self.updateModel()
             self.t += 1
             if self.t >= self.timeStepMem:
@@ -84,7 +85,8 @@ class Model:
     #########################
 
     def init(self, populationName, attributeName, value):
-        self.populations[populationName].attributes[attributeName] = value
+        self.populations[populationName].attributes[attributeName] = zeros((self.timeStepMem, self.populations[populationName].populationSize))
+        self.populations[populationName].attributes[attributeName][0] = value
 
     #########################
 
