@@ -1,7 +1,7 @@
 
 from Model import Model
-from PrigogineParser import PrigogineParser
-from PrigogineListener import PrigogineListener
+from parser.PrigogineParser import PrigogineParser
+from parser.PrigogineListener import PrigogineListener
 
 class ListenerBuilder(PrigogineListener):
 

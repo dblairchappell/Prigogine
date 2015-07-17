@@ -4,8 +4,8 @@
 
 from numpy import *
 from ListenerBuilder import ListenerBuilder
-from PrigogineLexer import PrigogineLexer
-from PrigogineParser import PrigogineParser
+from parser.PrigogineLexer import PrigogineLexer
+from parser.PrigogineParser import PrigogineParser
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 
 ##############################################

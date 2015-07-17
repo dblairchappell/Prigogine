@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PrigoginePython.iml" filepath="$PROJECT_DIR$/PrigoginePython.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Prigogine.iml" filepath="$PROJECT_DIR$/Prigogine.iml" />
     </modules>
   </component>
 </project>

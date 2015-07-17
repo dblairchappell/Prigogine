@@ -1,5 +1,5 @@
 import time
-from Prigogine import *
+from prigogine.Prigogine import *
 import matplotlib.pyplot as plt
 
 start = time.clock()
