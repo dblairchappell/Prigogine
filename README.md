@@ -1,5 +1,3 @@
-Prigogine aims to be a new scripting language for scientists who want to develop high performance discrete-time and agent-based models.
-The motivation behind this project is the lack of multicore/HPC functionality in the current crop of entry-level ABM tools.
-The hope is that by utilising Python's Multiprocessing module and Numpy libraries as a base upon which to build a new language, high-performance agent-based modelling can be made available to modellers who are not professional programmers.
+Prigogine is a domain-specific language and development environment for scientists wanting to develop large-scale agent-based models but lacking the knowledge neccessary to take advantage of high-performance computing technology. By utilising Python's multiprocessing module and the NumPy package for n-dimensional arrays, it is hoped that the performance capabilities of modelling frameworks such as Repast HPC and FLAME, and the productiveness of high-levels languages such as NetLogo, can be matched in one convenient package.
 
-The project is currently at a very early stage and, as such, is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-september 2015.
+The project is at a relatively early stage and is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-september 2015.
