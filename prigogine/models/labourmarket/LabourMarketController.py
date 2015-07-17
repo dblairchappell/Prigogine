@@ -10,15 +10,15 @@ prigogine.initglobal("averageWages", zeros((1,1)))
 prigogine.initglobal("numJobs", zeros((1,1)))
 prigogine.initglobal("minWage", zeros((1,1)))
 
-prigogine.create("households", 5000000)
+prigogine.create("households", 9000000)
 prigogine.startstate("households", "employed")
-prigogine.init("households", "reserveWages", random.uniform(1,10,5000000))
-prigogine.init("households", "numJobs", ones(5000000) * 1.5)
-prigogine.init("households", "minWage", ones(5000000) * 5)
+prigogine.init("households", "reserveWages", random.uniform(1,10,9000000))
+prigogine.init("households", "numJobs", ones(9000000) * 1.5)
+prigogine.init("households", "minWage", ones(9000000) * 5)
 
 print prigogine.model.populations["households"].attributes
 
-prigogine.runmodel(500)
+prigogine.runmodel(100)
 
 print prigogine.model.populations["households"].attributes
 print "--------------------"
