@@ -17,24 +17,22 @@ class Population:
 
     def getDef(self, attributeName, t):
         readIndex = t
-        while readIndex >= (self.timeStepMem):
+        while readIndex >= self.timeStepMem:
             readIndex -= self.timeStepMem
         return self.attributes[attributeName][readIndex]
 
+    #########################
+
     def updateDef(self, attributeName, newValue, t):
         writeIndex = t + 1
-        while writeIndex >= (self.timeStepMem):
+        while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
         self.attributes[attributeName][writeIndex] = newValue
 
     #########################
 
     def declareAttribute(self, attributeName):
-        timeSteps = self.timeStepMem
-        numAgents = self.populationSize
-        #print "pop size: " + str(numAgents)
-        #print "time steps: " + str(timeSteps)
-        self.attributes[attributeName] = None #zeros((self.timeStepMem, self.populationSize))
+        self.attributes[attributeName] = None
 
     #########################
 
@@ -45,11 +43,6 @@ class Population:
 
     def addUpdateCode(self, codeString):
         self.updateCode.append(codeString)
-
-    #########################
-
-    def addInitialisationCode(self, codeString):
-        self.initialisationCode.append(codeString)
 
     #########################
 

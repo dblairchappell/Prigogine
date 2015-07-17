@@ -5,11 +5,11 @@ start = time.clock()
 
 prigogine.loadmodel("LabourMarketModel.prm")
 
-prigogine.create("households", 100000000)
+prigogine.create("households", 90000000)
 prigogine.startstate("households", "employed")
-prigogine.init("households", "reserveWages", random.uniform(1,10,100000000))
-prigogine.init("households", "numJobs", ones(100000000) * 1.5)
-prigogine.init("households", "minWage", ones(100000000) * 5)
+prigogine.init("households", "reserveWages", random.uniform(1,10,90000000))
+prigogine.init("households", "numJobs", ones(90000000) * 1.5)
+prigogine.init("households", "minWage", ones(90000000) * 5)
 
 print prigogine.model.populations["households"].attributes
 
