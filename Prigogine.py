@@ -34,6 +34,16 @@ class Prigogine:
 
     ##############################################
 
+    def getglobal(self, attributeName):
+        return self.model.globals[attributeName]
+
+    ##############################################
+
+    def initglobal(self, attributeName, value):
+        self.model.globals[attributeName] = value
+
+    ##############################################
+
     def create(self, populationName, populationSize):
         self.model.create(populationName, populationSize)
 

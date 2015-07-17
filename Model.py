@@ -12,6 +12,7 @@ class Model:
         self.populations = {}
         self.timeStepMem = 2
         self.t = 0
+        self.globals = {}
 
     #########################
 
@@ -41,7 +42,7 @@ class Model:
     #########################
 
     def declarePopulation(self, populationName):
-        self.populations[populationName] = Population(1)
+        self.populations[populationName] = Population(1, self)
 
     #########################
 

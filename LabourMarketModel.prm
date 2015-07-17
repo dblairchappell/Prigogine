@@ -25,12 +25,13 @@ population "households" [
         action [ # update resrve wages
             print "updating reserveWages: " + str(get("reserveWages").mean())
             newValues = maximum( (get("reserveWages") * 0.9), get("minWage") )
+            setglobal("averageWages", append(getglobal("averageWages"), newValues))
             update("reserveWages", newValues)
         ]
 
         action [ # update minimum wages
             print "updating minWage: " + str(get("minWage").mean())
-            newValues = get("minWage") * 1.1
+            newValues = get("minWage") + 0.5
             update("minWage", newValues)
         ]
     ]

@@ -5,13 +5,24 @@ class Population:
 
     #########################
 
-    def __init__(self, populationSize):
+    def __init__(self, populationSize, parentModel):
         self.populationSize = populationSize
         self.timeStepMem = 2
         self.attributes = {}
         self.stateMasks = {}
         self.updateCode = []
         self.startstate = ""
+        self.model = parentModel
+
+    #########################
+
+    def setGlobalDef(self, attributeName, value):
+        self.model.globals[attributeName] = value
+
+    #########################
+
+    def getGlobalDef(self, attributeName):
+        return self.model.globals[attributeName]
 
     #########################
 
@@ -47,8 +58,10 @@ class Population:
     #########################
 
     def updateAttributes(self, attributes, t):
+        setglobal = lambda attributeName, value : self.setGlobalDef(attributeName, value)
         update = lambda attributeName, value : self.updateDef(attributeName, value, t)
         get = lambda attributeName : self.getDef(attributeName, t)
+        getglobal = lambda attributeName : self.getGlobalDef(attributeName)
         for codeblock in self.updateCode:
             code = compile(codeblock, "<string>", "exec")
             exec code in globals(), locals()
