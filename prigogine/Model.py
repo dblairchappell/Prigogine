@@ -1,6 +1,7 @@
 
 from Population import Population
-from numpy import *
+import numpy as np
+import dask.array as da
 
 class Model:
 
@@ -51,18 +52,26 @@ class Model:
 
     #########################
 
-    def addState(self, populationName, stateName):
-        self.populations[populationName].addState(stateName)
+    def addState(self, populationName, stateName, stateId):
+        self.populations[populationName].addState(stateName, stateId)
 
     #########################
 
-    def addUpdateCode(self, populationName, codeString):
-        self.populations[populationName].updateCode.append(codeString)
+    # def addUpdateCode(self, populationName, codeString):
+    #     self.populations[populationName].addUpdateCode(codeString)
+
+    def addUpdateCode(self, populationName, stateName, codeString):
+        self.populations[populationName].addUpdateCode(stateName, codeString)
 
     #########################
 
     def updateModel(self):
         for population in self.populations:
+
+            # check for state transition triggers
+
+
+            # update attributes
             attributes = self.populations[population].attributes
             self.populations[population].updateAttributes(attributes, self.t)
 
@@ -73,8 +82,6 @@ class Model:
         itno = 0
         for each in range(numIterations):
             itno +=1
-            #print "------------------\niteration number: " + str(itno) + "\n------------------"
-            #print str(itno) + " ",
             print ".",
             self.updateModel()
             self.t += 1
@@ -85,7 +92,12 @@ class Model:
     #########################
 
     def init(self, populationName, attributeName, value):
-        self.populations[populationName].attributes[attributeName] = zeros((self.timeStepMem, self.populations[populationName].populationSize))
+        self.populations[populationName].attributes[attributeName] = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
+        #x = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
+        #print x
+        #a = da.from_array(x, chunks=(1000, 1000))
+        #print a
+        #self.populations[populationName].attributes[attributeName] = a
         self.populations[populationName].attributes[attributeName][0] = value
 
     #########################

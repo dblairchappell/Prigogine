@@ -12,6 +12,8 @@ class ListenerBuilder(PrigogineListener):
         self.tokens = tokens
         self.currentPopulation = ""
         self.currentModel = ""
+        self.currentState = ""
+        self.currentStateId = 0
 
     #########################
 
@@ -27,7 +29,6 @@ class ListenerBuilder(PrigogineListener):
         for i in range(numAttrs):
             attrName = ctx.attributelist().getPayload().getChild(i+2).getText().encode('ascii')
             attrName = attrName.replace("\"", "")
-
             attrList.append(attrName)
         return attrList
 
@@ -37,7 +38,10 @@ class ListenerBuilder(PrigogineListener):
     def getStateNames(ctx):
         stateList = []
         for state in ctx.statedef():
-            stateList.append(str(state.getPayload().getChild(1)))
+            #print state.getPayload().getChild(1).getText()
+            stateList.append(str(state.getPayload().getChild(1).getText()))
+        #print "states: ",
+        #print stateList
         return stateList
 
     #########################
@@ -55,12 +59,26 @@ class ListenerBuilder(PrigogineListener):
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
-             self.model.addState(populationName, stateName)
+            self.model.addState(populationName, stateName, self.currentStateId)
+            self.currentStateId += 1
+
+    ########################
+
+    def enterStatedef(self, ctx):
+
+        self.currentState = ctx.getChild(1).getText().encode("ascii")
+        #print "current state: " + self.currentState
+
+        # for child in ctx.children:
+        #     print type(child.getChild(0))
+        #     print child.getText()
+        #     print "---------------------"
 
     ########################
 
     def enterAction(self, ctx):
 
+        #print "current state: " + self.currentState
         codeType = type(ctx.getChild(1)) # detect whether code is in a single line or a block
         populationName = self.currentPopulation
 
@@ -70,7 +88,8 @@ class ListenerBuilder(PrigogineListener):
             expression = codeline.expression() # getChild(0)
             tokenInterval = expression.getSourceInterval()
             codelineString = str(self.tokens.getText(tokenInterval))
-            self.model.populations[populationName].updateCode.append(codelineString)
+            #self.model.addUpdateCode(populationName, codelineString)
+            self.model.addUpdateCode(populationName, self.currentState, codelineString)
 
 
         if codeType == PrigogineParser.CodeblockContext:
@@ -87,7 +106,8 @@ class ListenerBuilder(PrigogineListener):
                 codelineString = str(self.tokens.getText(tokenInterval))
                 codeblockString = codeblockString + codelineString + "\n"
 
-            self.model.populations[populationName].updateCode.append(codeblockString)
+            #self.model.addUpdateCode(populationName, codeblockString)
+            self.model.addUpdateCode(populationName, self.currentState, codeblockString)
 
     #########################
 

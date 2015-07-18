@@ -10,8 +10,9 @@ class Population:
         self.timeStepMem = 2
         self.attributes = {}
         self.stateMasks = {}
-        self.updateCode = []
+        #self.updateCode = []
         self.startstate = ""
+        self.states = {}
         self.model = parentModel
 
     #########################
@@ -51,29 +52,40 @@ class Population:
 
     def declareAttribute(self, attributeName):
         self.attributes[attributeName] = None
-        #print self.attributes[attributeName]
 
     #########################
 
-    def addState(self, stateName):
-        self.stateMasks[stateName] = zeros((self.timeStepMem, self.populationSize))
+    def addState(self, stateName, stateId):
+        self.states[stateName] = {}
+        self.states[stateName]["updateCode"] = []
+        self.states[stateName]["stateId"] = stateId
+        #print self.states
 
     #########################
 
-    def addUpdateCode(self, codeString):
-        self.updateCode.append(codeString)
+    # def addUpdateCode(self, codeString):
+    #     self.updateCode.append(codeString)
+
+    def addUpdateCode(self, stateName, codeString):
+        self.states[stateName]["updateCode"].append(codeString)
+        #print self.states[stateName]
 
     #########################
 
     def updateAttributes(self, attributes, t):
+
         setglobal = lambda attributeName, value : self.setGlobalDef(attributeName, value)
         update = lambda attributeName, value : self.updateDef(attributeName, value, t)
         get = lambda attributeName : self.getDef(attributeName, t)
         getglobal = lambda attributeName : self.getGlobalDef(attributeName)
         getfrom = lambda populationName, attributeName : self.getFromDef(populationName, attributeName, t)
-        for codeblock in self.updateCode:
-            code = compile(codeblock, "<string>", "exec")
-            exec code in globals(), locals()
+
+        for stateName, stateData in self.states.items():
+            #print stateName
+            for codeblock in stateData["updateCode"]:
+                #print codeblock
+                code = compile(codeblock, "<string>", "exec")
+                exec code in globals(), locals()
 
     #########################
 

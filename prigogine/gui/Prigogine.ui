@@ -84,21 +84,6 @@
              <string>Population List</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
-             <item row="0" column="1">
-              <widget class="QPushButton" name="pushButton_4">
-               <property name="font">
-                <font>
-                 <family>MS Shell Dlg 2</family>
-                 <pointsize>9</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Add</string>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="2">
               <widget class="QPushButton" name="pushButton_9">
                <property name="font">
@@ -114,8 +99,39 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0" colspan="5">
-              <widget class="QListWidget" name="listWidget">
+             <item row="0" column="1">
+              <widget class="QPushButton" name="pushButton_4">
+               <property name="font">
+                <font>
+                 <family>MS Shell Dlg 2</family>
+                 <pointsize>9</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Add</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="3">
+              <widget class="QLineEdit" name="lineEdit"/>
+             </item>
+             <item row="1" column="0" colspan="6">
+              <widget class="QListView" name="listView">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -129,19 +145,6 @@
                 </font>
                </property>
               </widget>
-             </item>
-             <item row="0" column="3">
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </widget>
@@ -166,7 +169,7 @@
                <property name="font">
                 <font>
                  <family>Courier New</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>9</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                 </font>
@@ -224,7 +227,7 @@
                <property name="font">
                 <font>
                  <family>Courier New</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>9</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                 </font>
@@ -309,7 +312,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QWebView" name="webView_2">
+          <widget class="QWebView" name="webView_2" native="true">
            <property name="minimumSize">
             <size>
              <width>300</width>
@@ -319,7 +322,7 @@
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
-           <property name="url">
+           <property name="url" stdset="0">
             <url>
              <string>about:blank</string>
             </url>
@@ -777,5 +780,70 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>pressed()</signal>
+   <receiver>lineEdit</receiver>
+   <slot>selectAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>127</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>310</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>released()</signal>
+   <receiver>lineEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit</sender>
+   <signal>selectionChanged()</signal>
+   <receiver>lineEdit</receiver>
+   <slot>cut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>335</x>
+     <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>363</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>released()</signal>
+   <receiver>listView</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>59</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

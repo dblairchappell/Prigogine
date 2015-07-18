@@ -72,8 +72,8 @@ statedef
     ;
 
 transition
-    : 'transition to' string 'if' conditional
-    | 'transition to' string 'if' conditional '[' action* ']'
+    : 'transition to' string 'if' conditional codeblock*
+    //| 'transition to' string 'if' conditional '[' action* ']'
     ;
 
 action
