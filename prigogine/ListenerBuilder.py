@@ -39,7 +39,9 @@ class ListenerBuilder(PrigogineListener):
         stateList = []
         for state in ctx.statedef():
             #print state.getPayload().getChild(1).getText()
-            stateList.append(str(state.getPayload().getChild(1).getText()))
+            stateNameString = state.getPayload().getChild(1).getText().encode('ascii')
+            stateNameString = stateNameString.replace("\"", "")
+            stateList.append(stateNameString)
         #print "states: ",
         #print stateList
         return stateList
@@ -65,8 +67,10 @@ class ListenerBuilder(PrigogineListener):
     ########################
 
     def enterStatedef(self, ctx):
+        stateNameString = ctx.getChild(1).getText().encode("ascii")
+        stateNameString = stateNameString.replace("\"", "")
+        self.currentState = stateNameString
 
-        self.currentState = ctx.getChild(1).getText().encode("ascii")
         #print "current state: " + self.currentState
 
         # for child in ctx.children:

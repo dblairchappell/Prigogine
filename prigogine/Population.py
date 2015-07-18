@@ -11,8 +11,13 @@ class Population:
         self.attributes = {}
         self.stateMasks = {}
         #self.updateCode = []
-        self.startstate = ""
-        self.states = {}
+        #self.startstate = ""
+        self.stateData = {}
+        self.currentStates = None #zeros((1, populationSize))
+        #print "populationSize: "
+        #print self.populationSize
+        #print "currentStates: "
+        #print self.currentStates
         self.model = parentModel
 
     #########################
@@ -56,9 +61,9 @@ class Population:
     #########################
 
     def addState(self, stateName, stateId):
-        self.states[stateName] = {}
-        self.states[stateName]["updateCode"] = []
-        self.states[stateName]["stateId"] = stateId
+        self.stateData[stateName] = {}
+        self.stateData[stateName]["updateCode"] = []
+        self.stateData[stateName]["stateId"] = stateId
         #print self.states
 
     #########################
@@ -67,7 +72,7 @@ class Population:
     #     self.updateCode.append(codeString)
 
     def addUpdateCode(self, stateName, codeString):
-        self.states[stateName]["updateCode"].append(codeString)
+        self.stateData[stateName]["updateCode"].append(codeString)
         #print self.states[stateName]
 
     #########################
@@ -80,10 +85,11 @@ class Population:
         getglobal = lambda attributeName : self.getGlobalDef(attributeName)
         getfrom = lambda populationName, attributeName : self.getFromDef(populationName, attributeName, t)
 
-        for stateName, stateData in self.states.items():
-            #print stateName
-            for codeblock in stateData["updateCode"]:
-                #print codeblock
+        for stateKey, data in self.stateData.items():
+            print stateKey
+            print data["stateId"]
+            for codeblock in data["updateCode"]:
+                #print data["stateId"]
                 code = compile(codeblock, "<string>", "exec")
                 exec code in globals(), locals()
 

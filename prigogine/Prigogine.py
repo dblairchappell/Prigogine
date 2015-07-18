@@ -17,6 +17,7 @@ class Prigogine:
 
     def __init__(self):
         self.model = None
+        #self.vinit = vectorize(self.init)
 
     ##############################################
 
@@ -44,17 +45,17 @@ class Prigogine:
 
     ##############################################
 
-    def create(self, populationName, populationSize):
+    def createpop(self, populationName, populationSize):
         self.model.create(populationName, populationSize)
 
     ##############################################
 
-    def startstate(self, populationName, stateName):
-        self.model.startstate(populationName, stateName)
+    def setstates(self, populationName, stateName):
+        self.model.setstates(populationName, stateName)
 
     ##############################################
 
-    def init(self, populationName, attributeName, value):
+    def initattrs(self, populationName, attributeName, value):
         self.model.init(populationName, attributeName, value)
 
     ##############################################

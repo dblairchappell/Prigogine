@@ -14,6 +14,7 @@ class Model:
         self.timeStepMem = 2
         self.t = 0
         self.globals = {}
+        self.vectConvertStateNameToId = np.vectorize(self.convertStateNameToId)
 
     #########################
 
@@ -32,13 +33,23 @@ class Model:
 
     #########################
 
-    def startstate(self, populationName, stateName):
-        self.populations[populationName].startState = stateName
+    def convertStateNameToId(self, populationName, stateName):
+        return self.populations[populationName].stateData[stateName]["stateId"]
+
+    #########################
+
+    def setstates(self, populationName, states):
+        #print self.populations[populationName].stateData
+        #populationSize =  self.populations[populationName].populationSize
+        self.populations[populationName].currentStates = self.vectConvertStateNameToId(populationName, states)
+        print self.populations[populationName].currentStates
 
     #########################
 
     def create(self, populationName, populationSize):
         self.populations[populationName].populationSize = populationSize
+        self.populations[populationName].currentStates = None #np.zeros((1, populationSize))
+        #print self.populations[populationName].currentStates
 
     #########################
 
@@ -82,7 +93,7 @@ class Model:
         itno = 0
         for each in range(numIterations):
             itno +=1
-            print ".",
+            #print ".",
             self.updateModel()
             self.t += 1
             if self.t >= self.timeStepMem:
@@ -99,7 +110,9 @@ class Model:
         #print a
         #self.populations[populationName].attributes[attributeName] = a
         self.populations[populationName].attributes[attributeName][0] = value
-
+        #print "==============="
+        #print self.populations[populationName].attributes[attributeName][0]
+        #print ".........."
     #########################
 
 

@@ -42,6 +42,7 @@ population "households" [
             update("minWage", newValues)
         ]
     ]
+
 ]
 
 

@@ -10,11 +10,11 @@ prigogine.initglobal("averageWages", zeros((1,1)))
 prigogine.initglobal("numJobs", zeros((1,1)))
 prigogine.initglobal("minWage", zeros((1,1)))
 
-prigogine.create("households", 5)
-prigogine.startstate("households", "employed")
-prigogine.init("households", "reserveWages", random.uniform(1,10,5))
-prigogine.init("households", "numJobs", random.uniform(1,10,5))
-prigogine.init("households", "minWage", random.uniform(1,5,5))
+prigogine.createpop("households", 10)
+prigogine.setstates("households", random.choice(["unemployed", "employed"],10))
+prigogine.initattrs("households", "reserveWages", random.uniform(1,10,10))
+prigogine.initattrs("households", "numJobs", random.uniform(1,10,10))
+prigogine.initattrs("households", "minWage", random.uniform(1,5,10))
 
 print prigogine.model.populations["households"].attributes["numJobs"]
 
