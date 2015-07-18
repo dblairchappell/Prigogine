@@ -6,7 +6,7 @@ By utilising Python's multiprocessing module and the NumPy package for n-dimensi
 
 The project is at a relatively early stage and is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-september 2015.
 
-### Example of Proposed Syntax:
+#### Example of Proposed Syntax:
 
     population "workers" [
 
