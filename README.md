@@ -8,28 +8,28 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 ### Example of Proposed Syntax:
 
-'population "workers" [
+    population "workers" [
 
-    attributes [
-        "reserveWages"
-    ]
-
-    state "employed" [
-        transition to "unemployed" if uniform(1,100) >= 75
-        action [
-            newRW = get("reserveWages") * 1.1
-            update("reserveWages", newRW)
+        attributes [
+            "reserveWages"
         ]
-    ]
 
-    state "unemployed" [
-        transition to "employed" if get("reserveWages") < 15
-        action [
-            newRW = get("reserveWages") * 0.9
-            update("reserveWages", newRW)
+        state "employed" [
+            transition to "unemployed" if uniform(1,100) >= 75
+            action [
+                newRW = get("reserveWages") * 1.1
+                update("reserveWages", newRW)
+            ]
         ]
-    ]
 
-]'
+        state "unemployed" [
+            transition to "employed" if get("reserveWages") < 15
+            action [
+                newRW = get("reserveWages") * 0.9
+                update("reserveWages", newRW)
+            ]
+        ]
+
+    ]
 
 
