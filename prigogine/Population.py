@@ -14,6 +14,7 @@ class Population:
         self.updateCode = []
         self.currentstates = []
         self.model = parentModel
+        #self.calculateNewArray_vect = vectorize(self.calculateNewArray)
 
     #########################
 
@@ -48,13 +49,15 @@ class Population:
 
     def calculateNewArray(self, oldValues, newValues, trueFalseMask):
         resultArray = oldValues
-        for index, value in enumerate(newValues):
-            print trueFalseMask
-            if trueFalseMask[index] == True:
-                resultArray[index] = newValues[index]
-            #else:
-            #    resultArray.append(oldValues[index])
-
+        #print resultArray
+        #for index, value in enumerate(newValues):
+        #oneZeroMask = trueFalseMask.astype(int)
+        #print oneZeroMask
+        i = 0
+        for value in nditer(newValues):
+            if trueFalseMask[i]:
+                resultArray[i] = newValues[i]
+            i += 1
         return resultArray
 
     #########################
@@ -68,10 +71,10 @@ class Population:
 
         result = self.calculateNewArray(oldValues, newValues, trueFalseMask)
 
-        print "old " + attributeName + ": " + str(oldValues)
-        print "new " + attributeName + ": " + str(newValues)
-        print "mask " + attributeName + ": " + str(maskedArray)
-        print "result " + attributeName + ": " + str(result)
+        #print "old " + attributeName + ": " + str(oldValues)
+        #print "new " + attributeName + ": " + str(newValues)
+        #print "mask " + attributeName + ": " + str(maskedArray)
+        #print "result " + attributeName + ": " + str(result)
 
         self.attributes[attributeName][writeIndex] = result
 

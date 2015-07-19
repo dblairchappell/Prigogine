@@ -10,12 +10,12 @@ prigogine.initglobal("reserveWages", [] ) #np.empty((1,1)))
 prigogine.initglobal("weeksEmployed", [] ) #np.empty((1,1)))
 prigogine.initglobal("minWage", [] ) #np.empty((1,1)))
 
-prigogine.createpop("households", 1)
+prigogine.createpop("households", 1000)
 
-prigogine.setstates("households", np.random.choice(['unemployed'], size=1,))
-prigogine.initattrs("households", "reserveWages", np.ones((1,1)) * 100 ) #np.random.uniform(1,10,1))
-prigogine.initattrs("households", "weeksEmployed", np.random.randint(2, size=1))
-prigogine.initattrs("households", "minWage", np.ones((1,1)) * 60 ) #np.random.uniform(1,5,1))
+prigogine.setstates("households", np.random.choice(['unemployed', 'employed'], size=1000))
+prigogine.initattrs("households", "reserveWages", np.ones((1,1000)) * 100 ) #np.random.uniform(1,10,1))
+prigogine.initattrs("households", "weeksEmployed", np.random.randint(2, size=1000))
+prigogine.initattrs("households", "minWage", np.ones((1,1000)) * 60 ) #np.random.uniform(1,5,1))
 
 #print "weeksEmployed: " + str(prigogine.model.populations["households"].attributes["weeksEmployed"])
 #print "reserveWages: " + str(prigogine.model.populations["households"].attributes["reserveWages"])
@@ -23,12 +23,12 @@ prigogine.initattrs("households", "minWage", np.ones((1,1)) * 60 ) #np.random.un
 
 print "-------- running model --------\n"
 
-for i in range(20):
+for i in range(100):
     #print prigogine.getglobal("weeksEmployed")
 
-    prigogine.setglobal("weeksEmployed", prigogine.get("households", "weeksEmployed").sum())
-    prigogine.setglobal("reserveWages", prigogine.get("households", "reserveWages").sum())
-    prigogine.setglobal("minWage", prigogine.get("households", "minWage").sum())
+    prigogine.setglobal("weeksEmployed", prigogine.get("households", "weeksEmployed").mean())
+    prigogine.setglobal("reserveWages", prigogine.get("households", "reserveWages").mean())
+    prigogine.setglobal("minWage", prigogine.get("households", "minWage").mean())
     #print "global RW: " + str(prigogine.getglobal("reserveWages"))
     #print "local RW: " + str(prigogine.get("households", "reserveWages"))
     prigogine.runmodel(1)
