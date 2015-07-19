@@ -14,7 +14,7 @@ class Population:
         self.updateCode = []
         self.currentstates = []
         self.model = parentModel
-        #self.calculateNewArray_vect = vectorize(self.calculateNewArray)
+        self.calculateNewArray_vect = vectorize(self.calculateNewArray)
 
     #########################
 
@@ -47,14 +47,26 @@ class Population:
 
     #########################
 
-    def calculateNewArray(self, oldValues, newValues, trueFalseMask):
+    @staticmethod
+    def calculateNewArray(trueFalseMask, oldValues, newValues):
         resultArray = oldValues
         #print resultArray
         #for index, value in enumerate(newValues):
         #oneZeroMask = trueFalseMask.astype(int)
         #print oneZeroMask
+
+        # it = nditer(newValues, flags=['f_index'])
+        # while not it.finished:
+        #     i = it.index
+        #     if trueFalseMask[i]:
+        #         resultArray[i] = newValues[i]
+        #     it.iternext()
+
+        # if trueFalseMask:
+        #     resultArray = newValues
+
         i = 0
-        for value in nditer(newValues):
+        for value in newValues:
             if trueFalseMask[i]:
                 resultArray[i] = newValues[i]
             i += 1
@@ -69,7 +81,7 @@ class Population:
             writeIndex -= self.timeStepMem
         maskedArray = ma.array(newValues, mask=trueFalseMask)
 
-        result = self.calculateNewArray(oldValues, newValues, trueFalseMask)
+        result = self.calculateNewArray(trueFalseMask, oldValues, newValues)
 
         #print "old " + attributeName + ": " + str(oldValues)
         #print "new " + attributeName + ": " + str(newValues)

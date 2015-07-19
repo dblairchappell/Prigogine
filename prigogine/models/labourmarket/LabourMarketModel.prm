@@ -17,7 +17,7 @@ population "households" [
     state "unemployed" [
         transition "employed" if get("reserveWages") > 100
         update "reserveWages" maximum(get("reserveWages") * 0.5, get("minWage"))
-        update "minWage" get("minWage") #* (random.random_sample() - 0.5) * 100
+        update "minWage" get("minWage") + (random.random_sample() - 0.5) * 100
         update "weeksEmployed" get("weeksEmployed")
     ]
 
