@@ -47,30 +47,21 @@ class Population:
 
     #########################
 
+    # def mapValues(self, trueFalseMask, resultArray, newValues, i):
+    #     if trueFalseMask[i]:
+    #         resultArray[i] = newValues[i]
+    #     return resultArray
+
     @staticmethod
     def calculateNewArray(trueFalseMask, oldValues, newValues):
-        resultArray = oldValues
-        #print resultArray
-        #for index, value in enumerate(newValues):
-        #oneZeroMask = trueFalseMask.astype(int)
-        #print oneZeroMask
-
-        # it = nditer(newValues, flags=['f_index'])
-        # while not it.finished:
-        #     i = it.index
+        resultArray = where(trueFalseMask, newValues, oldValues)
+        # i = 0
+        # for value in newValues:
         #     if trueFalseMask[i]:
         #         resultArray[i] = newValues[i]
-        #     it.iternext()
-
-        # if trueFalseMask:
-        #     resultArray = newValues
-
-        i = 0
-        for value in newValues:
-            if trueFalseMask[i]:
-                resultArray[i] = newValues[i]
-            i += 1
+        #     i += 1
         return resultArray
+        #return [self.mapValues(trueFalseMask, resultArray, newValues, i) for i in newValues]
 
     #########################
 
@@ -85,7 +76,7 @@ class Population:
 
         #print "old " + attributeName + ": " + str(oldValues)
         #print "new " + attributeName + ": " + str(newValues)
-        #print "mask " + attributeName + ": " + str(maskedArray)
+        #print "mask " + attributeName + ": " + str(trueFalseMask)
         #print "result " + attributeName + ": " + str(result)
 
         self.attributes[attributeName][writeIndex] = result

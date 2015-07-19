@@ -39,7 +39,7 @@ class Model:
 
     def setstates(self, populationName, states):
         self.populations[populationName].currentstates = states
-        #print self.populations[populationName].currentstates
+        print self.populations[populationName].currentstates
 
     #########################
 

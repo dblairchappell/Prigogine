@@ -8,9 +8,10 @@ population "households" [
     ]
 
     state "employed" [
-        #transition "unemployed" if get("reserveWages") < 50
+        transition "unemployed" if get("reserveWages") < 50
+        transition "retired" if get("weeksEmployed") > 30
         update "reserveWages" get("reserveWages") * 1.01
-        update "minWage" get("minWage")
+        #update "minWage" get("minWage")
         update "weeksEmployed" get("weeksEmployed") + 1
     ]
 
@@ -18,7 +19,14 @@ population "households" [
         transition "employed" if get("reserveWages") > 100
         update "reserveWages" maximum(get("reserveWages") * 0.5, get("minWage"))
         update "minWage" get("minWage") + (random.random_sample() - 0.5) * 100
-        update "weeksEmployed" get("weeksEmployed")
+        #update "weeksEmployed" get("weeksEmployed")
+    ]
+
+    state "retired" [
+        transition "employed" if get("weeksEmployed") < 10
+        #update "reserveWages" get("reserveWages")
+        #update "minWage" get("minWage")
+        update "weeksEmployed" get("weeksEmployed") - 1
     ]
 
 ]
