@@ -38,8 +38,8 @@ class Model:
     #########################
 
     def setstates(self, populationName, states):
-        self.populations[populationName].currentStates = states
-        print self.populations[populationName].currentStates
+        self.populations[populationName].currentstates = states
+        print self.populations[populationName].currentstates
 
     #########################
 
@@ -67,8 +67,8 @@ class Model:
 
     #########################
 
-    def addUpdateCode(self, populationName, stateName, codeString):
-        self.populations[populationName].addUpdateCode(stateName, codeString)
+    def addUpdateCode(self, populationName, codeString):
+        self.populations[populationName].addUpdateCode(codeString)
 
     #########################
 

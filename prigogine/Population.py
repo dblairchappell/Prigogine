@@ -1,5 +1,6 @@
 
 from numpy import *
+import numpy.ma as ma
 
 class Population:
 
@@ -10,7 +11,6 @@ class Population:
         self.populationSize = populationSize
         self.timeStepMem = 2
         self.attributes = {'state': None}
-        #self.stateData = {}
         self.updateCode = []
         self.currentstates = []
         self.model = parentModel
@@ -42,16 +42,38 @@ class Population:
     #########################
 
     def getstates(self, populationName):
-        return self.currentStates
+        return self.currentstates
 
     #########################
 
-    def update(self, attributeName, newValue, mask, t):
+    def calculateNewArray(self, oldValues, newValues, trueFalseMask):
+        resultArray = oldValues
+        for index, value in enumerate(newValues):
+            print trueFalseMask
+            if trueFalseMask[index] == True:
+                resultArray[index] = newValues[index]
+            #else:
+            #    resultArray.append(oldValues[index])
+
+        return resultArray
+
+    #########################
+
+    def update(self, attributeName, newValues, trueFalseMask, t):
         writeIndex = t + 1
+        oldValues = self.get(attributeName, t)
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
-        #print attributeName + ": " + str(mask) + " " + str(newValue)
-        self.attributes[attributeName][writeIndex] = newValue
+        maskedArray = ma.array(newValues, mask=trueFalseMask)
+
+        result = self.calculateNewArray(oldValues, newValues, trueFalseMask)
+
+        print "old " + attributeName + ": " + str(oldValues)
+        print "new " + attributeName + ": " + str(newValues)
+        print "mask " + attributeName + ": " + str(maskedArray)
+        print "result " + attributeName + ": " + str(result)
+
+        self.attributes[attributeName][writeIndex] = result
 
     #########################
 
@@ -60,18 +82,12 @@ class Population:
 
     #########################
 
-    # def addState(self, stateName, stateId):
-    #     self.stateData[stateName] = {}
-    #     self.stateData[stateName]["updateCode"] = []
-    #     self.stateData[stateName]["stateId"] = stateId
-
     def addState(self, stateName):
         self.currentstates.append(stateName)
 
     #########################
 
-    def addUpdateCode(self, stateName, codeString):
-        #self.stateData[stateName]["updateCode"].append(codeString)
+    def addUpdateCode(self, codeString):
         self.updateCode.append(codeString)
 
     #########################

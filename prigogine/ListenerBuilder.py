@@ -82,9 +82,10 @@ class ListenerBuilder(PrigogineListener):
             codeline = ctx.codeline()
             expression = codeline.expression()
             tokenInterval = expression.getSourceInterval()
+            codeToPass = str(self.tokens.getText(tokenInterval))
             codelineString = "update(" + attributeName + ", "
-            codelineString = codelineString + str(self.tokens.getText(tokenInterval)) + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\")"
-            self.model.addUpdateCode(populationName, self.currentState, codelineString)
+            codelineString = codelineString + codeToPass + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\")"
+            self.model.addUpdateCode(populationName, codelineString)
 
 
         if codeType == PrigogineParser.CodeblockContext:

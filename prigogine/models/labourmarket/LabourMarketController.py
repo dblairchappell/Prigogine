@@ -10,12 +10,12 @@ prigogine.initglobal("reserveWages", [] ) #np.empty((1,1)))
 prigogine.initglobal("weeksEmployed", [] ) #np.empty((1,1)))
 prigogine.initglobal("minWage", [] ) #np.empty((1,1)))
 
-prigogine.createpop("households", 20000000)
+prigogine.createpop("households", 1)
 
-prigogine.setstates("households", np.random.choice(['employed'], size=20000000,))
-prigogine.initattrs("households", "reserveWages", np.ones((1,20000000)) * 100 ) #np.random.uniform(1,10,1))
-prigogine.initattrs("households", "weeksEmployed", np.random.randint(2, size=20000000))
-prigogine.initattrs("households", "minWage", np.ones((1,20000000)) * 60 ) #np.random.uniform(1,5,1))
+prigogine.setstates("households", np.random.choice(['unemployed'], size=1,))
+prigogine.initattrs("households", "reserveWages", np.ones((1,1)) * 100 ) #np.random.uniform(1,10,1))
+prigogine.initattrs("households", "weeksEmployed", np.random.randint(2, size=1))
+prigogine.initattrs("households", "minWage", np.ones((1,1)) * 60 ) #np.random.uniform(1,5,1))
 
 #print "weeksEmployed: " + str(prigogine.model.populations["households"].attributes["weeksEmployed"])
 #print "reserveWages: " + str(prigogine.model.populations["households"].attributes["reserveWages"])
@@ -23,7 +23,7 @@ prigogine.initattrs("households", "minWage", np.ones((1,20000000)) * 60 ) #np.ra
 
 print "-------- running model --------\n"
 
-for i in range(100):
+for i in range(20):
     #print prigogine.getglobal("weeksEmployed")
 
     prigogine.setglobal("weeksEmployed", prigogine.get("households", "weeksEmployed").sum())
