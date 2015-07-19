@@ -12,6 +12,7 @@ class Model:
         self.populations = {}
         self.timeStepMem = 2
         self.t = 0
+        self.itno = 0
         self.globals = {}
 
     #########################
@@ -79,10 +80,12 @@ class Model:
     #########################
 
     def runModel(self, numIterations):
-        itno = 0
         for each in range(numIterations):
-            itno +=1
+            self.itno +=1
             self.updateModel()
+            if self.itno % 25 == 1:
+                print "" #self.itno
+            print ".",
             self.t += 1
             if self.t >= self.timeStepMem:
                 self.t = 0

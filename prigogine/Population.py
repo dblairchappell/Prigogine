@@ -50,7 +50,7 @@ class Population:
         writeIndex = t + 1
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
-        print attributeName + ": " + str(mask) + " " + str(newValue)
+        #print attributeName + ": " + str(mask) + " " + str(newValue)
         self.attributes[attributeName][writeIndex] = newValue
 
     #########################
