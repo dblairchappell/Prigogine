@@ -38,12 +38,9 @@ class ListenerBuilder(PrigogineListener):
     def getStateNames(ctx):
         stateList = []
         for state in ctx.statedef():
-            #print state.getPayload().getChild(1).getText()
             stateNameString = state.getPayload().getChild(1).getText().encode('ascii')
             stateNameString = stateNameString.replace("\"", "")
             stateList.append(stateNameString)
-        #print "states: ",
-        #print stateList
         return stateList
 
     #########################
@@ -61,55 +58,40 @@ class ListenerBuilder(PrigogineListener):
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
-            #self.model.declareAttribute(populationName, stateName)
-            self.model.addState(populationName, stateName, self.currentStateId)
-            self.currentStateId += 1
+            self.model.addState(populationName, stateName)
+            #self.model.addState(populationName, stateName, self.currentStateId)
+        #    self.currentStateId += 1
 
     ########################
 
     def enterStatedef(self, ctx):
-        stateNameString = ctx.getChild(1).getText().encode("ascii")
-        stateNameString = stateNameString.replace("\"", "")
-        self.currentState = stateNameString
-
-        #print "current state: " + self.currentState
-
-        # for child in ctx.children:
-        #     print type(child.getChild(0))
-        #     print child.getText()
-        #     print "---------------------"
+        stateName = ctx.getChild(1).getText().encode("ascii")
+        stateName = stateName.replace("\"", "")
+        self.currentState = stateName
 
     ########################
 
     def enterUpdate(self, ctx):
 
-        #print "current state: " + self.currentState
+
         codeType = type(ctx.getChild(2)) # detect whether code is in a single line or a block
         populationName = self.currentPopulation
         attributeName = ctx.getChild(1).getText().encode("ascii")
-        #attributeName = attributeName.replace("\"", "")
-        #print attributeName
 
         if codeType == PrigogineParser.CodelineContext:
-            #attributeName = str(ctx.getChild(1).getText())
-            codeline = ctx.codeline() # getChild(2)
-            expression = codeline.expression() # getChild(0)
+            codeline = ctx.codeline()
+            expression = codeline.expression()
             tokenInterval = expression.getSourceInterval()
             codelineString = "update(" + attributeName + ", "
-            #print codelineString
             codelineString = codelineString + str(self.tokens.getText(tokenInterval)) + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\")"
-            #print codelineString
-            #print "-------------"
-            #self.model.addUpdateCode(populationName, codelineString)
             self.model.addUpdateCode(populationName, self.currentState, codelineString)
 
 
         if codeType == PrigogineParser.CodeblockContext:
 
-            codeblock = ctx.getChild(2) #.children
+            codeblock = ctx.getChild(2)
             codeblockString = ""
             blockLen = len(codeblock.children) - 2
-            #print codeblock.getText()
             for i in range(blockLen):
                 lineNum = i + 1
                 codeline = codeblock.children[lineNum]
@@ -117,9 +99,6 @@ class ListenerBuilder(PrigogineListener):
                 tokenInterval = expression.getSourceInterval()
                 codelineString = str(self.tokens.getText(tokenInterval))
                 codeblockString = codeblockString + codelineString + "\n"
-            #print codeblockString
-            #print "-------------"
-            #self.model.addUpdateCode(populationName, codeblockString)
             self.model.addUpdateCode(populationName, self.currentState, codeblockString)
 
     #########################

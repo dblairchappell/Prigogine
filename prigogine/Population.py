@@ -6,62 +6,51 @@ class Population:
     #########################
 
     def __init__(self, populationSize, parentModel):
+
         self.populationSize = populationSize
         self.timeStepMem = 2
-        self.attributes = {}
-        self.attributes["state"] = None
-        self.stateMasks = {}
-        #self.updateCode = []
-        #self.startstate = ""
-        self.stateData = {}
-        self.currentStates = None #zeros((1, populationSize))
-        #print "populationSize: "
-        #print self.populationSize
-        #print "currentStates: "
-        #print self.currentStates
+        self.attributes = {'state': None}
+        #self.stateData = {}
+        self.updateCode = []
+        self.currentstates = []
         self.model = parentModel
 
     #########################
 
-    def setGlobalDef(self, attributeName, value):
+    def setglobal(self, attributeName, value):
         self.model.globals[attributeName] = value
 
     #########################
 
-    def getGlobalDef(self, attributeName):
+    def getglobal(self, attributeName):
         return self.model.globals[attributeName]
 
     #########################
 
-    def getFromDef(self, populationName, attributeName, t):
+    def getfrom(self, populationName, attributeName, t):
         readIndex = t
         return self.model.populations[populationName].attributes[attributeName][readIndex]
 
     #########################
 
-    def getDef(self, attributeName, t):
+    def get(self, attributeName, t):
         readIndex = t
         while readIndex >= self.timeStepMem:
             readIndex -= self.timeStepMem
-        #print self.attributes[attributeName]
-        #print self.attributes[attributeName][readIndex]
         return self.attributes[attributeName][readIndex]
 
     #########################
 
-    def getStatesDef(self, populationName):
-        #print "getting states: " + str(self.currentStates)
-        #currentStateNames = self.convertStateIdsToNames(self.currentStates)
+    def getstates(self, populationName):
         return self.currentStates
 
     #########################
 
-    def updateDef(self, attributeName, newValue, mask, t):
-        #print "mask: " + str(mask)
+    def update(self, attributeName, newValue, mask, t):
         writeIndex = t + 1
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
-        #print self.attributes["minWage"][writeIndex]
+        print attributeName + ": " + str(mask) + " " + str(newValue)
         self.attributes[attributeName][writeIndex] = newValue
 
     #########################
@@ -71,48 +60,39 @@ class Population:
 
     #########################
 
-    def addState(self, stateName, stateId):
-        self.stateData[stateName] = {}
-        self.stateData[stateName]["updateCode"] = []
-        self.stateData[stateName]["stateId"] = stateId
-        #print self.states
+    # def addState(self, stateName, stateId):
+    #     self.stateData[stateName] = {}
+    #     self.stateData[stateName]["updateCode"] = []
+    #     self.stateData[stateName]["stateId"] = stateId
+
+    def addState(self, stateName):
+        self.currentstates.append(stateName)
 
     #########################
 
-    # def addUpdateCode(self, codeString):
-    #     self.updateCode.append(codeString)
-
     def addUpdateCode(self, stateName, codeString):
-        self.stateData[stateName]["updateCode"].append(codeString)
-        #print self.states[stateName]
+        #self.stateData[stateName]["updateCode"].append(codeString)
+        self.updateCode.append(codeString)
 
     #########################
 
     def updateAttributes(self, attributes, t):
 
-        setglobal = lambda attributeName, value : self.setGlobalDef(attributeName, value)
-        update = lambda attributeName, value, mask : self.updateDef(attributeName, value, mask, t)
-        get = lambda attributeName : self.getDef(attributeName, t)
-        getglobal = lambda attributeName : self.getGlobalDef(attributeName)
-        getfrom = lambda populationName, attributeName : self.getFromDef(populationName, attributeName, t)
-        getstates = lambda populationName : self.getStatesDef(populationName)
-        for stateKey, data in self.stateData.items():
-            #print stateKey
-            #print data["stateId"]
+        setglobal = lambda attributeName, value : self.setglobal(attributeName, value)
+        update = lambda attributeName, value, mask : self.update(attributeName, value, mask, t)
+        get = lambda attributeName : self.get(attributeName, t)
+        getglobal = lambda attributeName : self.getglobal(attributeName)
+        getfrom = lambda populationName, attributeName : self.getfrom(populationName, attributeName, t)
+        getstates = lambda populationName : self.getstates(populationName)
 
-            for codeblock in data["updateCode"]:
-                #print data["stateId"]
-                code = compile(codeblock, "<string>", "exec")
-                exec code in globals(), locals()
+        for codeblock in self.updateCode:
+            code = compile(codeblock, "<string>", "exec")
+            exec code in globals(), locals()
 
-    #########################
-
-    # def initialiseAttributes(self, attributes, t):
-    #     startstate = lambda statename : self.startstateDef(statename)
-    #     init = lambda attributeName, value : self.initDef(attributeName, value)
-    #     for codeblock in self.initialisationCode:
-    #         code = compile(codeblock, "<string>", "exec")
-    #         exec code in globals(), locals()
+        # for stateKey, data in self.stateData.items():
+        #     for codeblock in data["updateCode"]:
+        #         code = compile(codeblock, "<string>", "exec")
+        #         exec code in globals(), locals()
 
     #########################
 

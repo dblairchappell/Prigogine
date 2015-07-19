@@ -1,7 +1,6 @@
 
 from Population import Population
 import numpy as np
-import dask.array as da
 
 class Model:
 
@@ -14,12 +13,11 @@ class Model:
         self.timeStepMem = 2
         self.t = 0
         self.globals = {}
-        self.vectConvertStateNameToId = np.vectorize(self.convertStateNameToId)
 
     #########################
 
-    def incrementTime(self):
-        self.t += 1
+    # def incrementTime(self):
+    #     self.t += 1
 
     #########################
 
@@ -39,9 +37,6 @@ class Model:
     #########################
 
     def setstates(self, populationName, states):
-        #print self.populations[populationName].stateData
-        #populationSize =  self.populations[populationName].populationSize
-        #self.populations[populationName].currentStates = self.vectConvertStateNameToId(populationName, states)
         self.populations[populationName].currentStates = states
         print self.populations[populationName].currentStates
 
@@ -49,8 +44,7 @@ class Model:
 
     def create(self, populationName, populationSize):
         self.populations[populationName].populationSize = populationSize
-        self.populations[populationName].currentStates = None #np.zeros((1, populationSize))
-        #print self.populations[populationName].currentStates
+        #self.populations[populationName].currentStates = None
 
     #########################
 
@@ -64,13 +58,13 @@ class Model:
 
     #########################
 
-    def addState(self, populationName, stateName, stateId):
-        self.populations[populationName].addState(stateName, stateId)
+    # def addState(self, populationName, stateName, stateId):
+    #     self.populations[populationName].addState(stateName, stateId)
+
+    def addState(self, populationName, stateName):
+        self.populations[populationName].addState(stateName)
 
     #########################
-
-    # def addUpdateCode(self, populationName, codeString):
-    #     self.populations[populationName].addUpdateCode(codeString)
 
     def addUpdateCode(self, populationName, stateName, codeString):
         self.populations[populationName].addUpdateCode(stateName, codeString)
@@ -79,41 +73,26 @@ class Model:
 
     def updateModel(self):
         for population in self.populations:
-
-            # check for state transition triggers
-
-
-            # update attributes
             attributes = self.populations[population].attributes
             self.populations[population].updateAttributes(attributes, self.t)
 
     #########################
 
     def runModel(self, numIterations):
-        #print "-------- running model --------\n"
         itno = 0
         for each in range(numIterations):
             itno +=1
-            #print ".",
             self.updateModel()
             self.t += 1
             if self.t >= self.timeStepMem:
                 self.t = 0
-        #print "\n\n-------- model run complete  --------\n"
 
     #########################
 
     def init(self, populationName, attributeName, value):
         self.populations[populationName].attributes[attributeName] = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
-        #x = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
-        #print x
-        #a = da.from_array(x, chunks=(1000, 1000))
-        #print a
-        #self.populations[populationName].attributes[attributeName] = a
         self.populations[populationName].attributes[attributeName][0] = value
-        #print "==============="
-        #print self.populations[populationName].attributes[attributeName][0]
-        #print ".........."
+
     #########################
 
 

@@ -17,7 +17,6 @@ class Prigogine:
 
     def __init__(self):
         self.model = None
-        #self.vinit = vectorize(self.init)
 
     ##############################################
 
@@ -41,7 +40,8 @@ class Prigogine:
     ##############################################
 
     def get(self, populationName, attributeName):
-        return self.model.populations[populationName].attributes[attributeName]
+        #return self.model.populations[populationName].attributes[attributeName][self.model.t]
+        return self.model.populations[populationName].get(attributeName, self.model.t)
 
     ##############################################
 
