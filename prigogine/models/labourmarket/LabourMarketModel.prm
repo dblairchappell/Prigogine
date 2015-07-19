@@ -21,8 +21,3 @@ population "households" [
     ]
 
 ]
-
-#update("reserveWages", get("reserveWages") * 0.9, getstate() == "unemployed")
-#update("state", "employed", getstate() == "unemployed" && get("reserveWages") > 100)
-
-

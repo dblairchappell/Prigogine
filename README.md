@@ -8,28 +8,27 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 #### Example of Proposed Syntax:
 
-    population "workers" [
+    population "households" [
 
         attributes [
             "reserveWages"
+            "weeksEmployed"
+            "minWage"
         ]
 
         state "employed" [
-            transition to "unemployed" if uniform(1,100) >= 75
-            action [
-                newRW = get("reserveWages") * 1.1
-                update("reserveWages", newRW)
-            ]
+            transition "unemployed" if get("reserveWages") < 50
+            update "reserveWages" get("reserveWages") * 1.1
+            update "weeksEmployed" get("weeksEmployed") + 1
+
         ]
 
         state "unemployed" [
-            transition to "employed" if get("reserveWages") < 15
-            action [
-                newRW = get("reserveWages") * 0.9
-                update("reserveWages", newRW)
-            ]
+            transition "employed" if get("reserveWages") > 100
+            update "reserveWages" maximum(get("reserveWages") * 0.9, get("minWage"))
+            update "minWage" get("minWage") + (random.random_sample() -0.5) * 10
         ]
-
+    
     ]
 
 
