@@ -68,16 +68,16 @@ dictindex
     ;
 
 statedef
-    : 'state' string '[' transition* action* ']'
+    : 'state' string '[' transition* update* ']'
     ;
 
 transition
-    : 'transition to' string 'if' conditional codeblock*
-    //| 'transition to' string 'if' conditional '[' action* ']'
+    : 'transition' string 'if' conditional codeblock*
+    //| 'transition to' string 'if' conditional '[' update* ']'
     ;
 
-action
-    : 'action' (codeline | codeblock)
+update
+    : 'update' string (codeline | codeblock)
     ;
 
 expression
@@ -97,6 +97,7 @@ expression
      | ID
      | timevar
      | lparen expression rparen
+     | 'return' ID
      ;
 
 assignment

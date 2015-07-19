@@ -2,7 +2,7 @@
 ##############################################
 ##############################################
 
-from numpy import *
+import numpy as np
 from ListenerBuilder import ListenerBuilder
 from parser.PrigogineLexer import PrigogineLexer
 from parser.PrigogineParser import PrigogineParser
@@ -37,6 +37,17 @@ class Prigogine:
 
     def getglobal(self, attributeName):
         return self.model.globals[attributeName]
+
+    ##############################################
+
+    def get(self, populationName, attributeName):
+        return self.model.populations[populationName].attributes[attributeName]
+
+    ##############################################
+
+    def setglobal(self, attributeName, value):
+        self.model.globals[attributeName] = np.append(self.model.globals[attributeName], value)
+        #print self.model.globals
 
     ##############################################
 

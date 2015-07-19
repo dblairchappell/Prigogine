@@ -60,8 +60,8 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#action.
-    def visitAction(self, ctx):
+    # Visit a parse tree produced by PrigogineParser#update.
+    def visitUpdate(self, ctx):
         return self.visitChildren(ctx)
 
 

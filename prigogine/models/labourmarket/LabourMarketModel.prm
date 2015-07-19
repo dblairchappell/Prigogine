@@ -3,48 +3,26 @@ population "households" [
 
     attributes [
         "reserveWages"
-        "numJobs"
+        "weeksEmployed"
         "minWage"
     ]
 
     state "employed" [
-
-        transition to "unemployed" if uniform(1,100) >= 75
-
-        action [
-            newValues = get("numJobs") + (random.random_sample() -0.5)
-            setglobal("numJobs", append(getglobal("numJobs"), newValues.mean()))
-            update("numJobs", newValues) # update numJobs
-        ]
+        transition "unemployed" if get("reserveWages") < 50
+        update "reserveWages" get("reserveWages") * 1.1
+        update "weeksEmployed" get("weeksEmployed") * (random.random_sample() -0.5)
 
     ]
 
     state "unemployed" [
-
-        transition to "employed" if get("reserveWages") < 15 [
-            #print "updating numJobs: " + str(get("numJobs").mean())
-            newValues = get("numJobs") + (random.random_sample() -0.5)
-            setglobal("numJobs", append(getglobal("numJobs"), newValues.mean()))
-            update("numJobs", newValues) # update num jobs
-        ]
-
-        action [ # update reserve wages
-            #print "updating reserveWages: " + str(get("reserveWages").mean())
-            newValues = maximum( (get("reserveWages") * 0.9), get("minWage") ) / 2
-            setglobal("averageWages", append(getglobal("averageWages"), newValues.mean()))
-            update("reserveWages", newValues)
-        ]
-
-        action [ # update minimum wages
-            #print "updating minWage: " + str(get("minWage").mean())
-            newValues = get("minWage") + (random.random_sample() -0.5)
-            setglobal("minWage", append(getglobal("minWage"), newValues.mean()))
-            update("minWage", newValues)
-        ]
+        transition "employed" if get("reserveWages") > 100
+        update "reserveWages" maximum(get("reserveWages") * 0.9, get("minWage"))
+        update "minWage" get("minWage") + (random.random_sample() -0.5) * 10
     ]
 
 ]
 
-
+#update("reserveWages", get("reserveWages") * 0.9, getstate() == "unemployed")
+#update("state", "employed", getstate() == "unemployed" && get("reserveWages") > 100)
 
 

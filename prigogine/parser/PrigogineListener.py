@@ -103,12 +103,12 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#action.
-    def enterAction(self, ctx):
+    # Enter a parse tree produced by PrigogineParser#update.
+    def enterUpdate(self, ctx):
         pass
 
-    # Exit a parse tree produced by PrigogineParser#action.
-    def exitAction(self, ctx):
+    # Exit a parse tree produced by PrigogineParser#update.
+    def exitUpdate(self, ctx):
         pass
 
 

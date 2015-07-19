@@ -41,7 +41,8 @@ class Model:
     def setstates(self, populationName, states):
         #print self.populations[populationName].stateData
         #populationSize =  self.populations[populationName].populationSize
-        self.populations[populationName].currentStates = self.vectConvertStateNameToId(populationName, states)
+        #self.populations[populationName].currentStates = self.vectConvertStateNameToId(populationName, states)
+        self.populations[populationName].currentStates = states
         print self.populations[populationName].currentStates
 
     #########################
@@ -89,7 +90,7 @@ class Model:
     #########################
 
     def runModel(self, numIterations):
-        print "-------- running model --------\n"
+        #print "-------- running model --------\n"
         itno = 0
         for each in range(numIterations):
             itno +=1
@@ -98,7 +99,7 @@ class Model:
             self.t += 1
             if self.t >= self.timeStepMem:
                 self.t = 0
-        print "\n\n-------- model run complete  --------\n"
+        #print "\n\n-------- model run complete  --------\n"
 
     #########################
 

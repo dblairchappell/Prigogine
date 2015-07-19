@@ -161,7 +161,7 @@
              <bool>false</bool>
             </property>
             <property name="title">
-             <string>Agent Description</string>
+             <string>Model Description</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_6">
              <item row="1" column="0" colspan="2">

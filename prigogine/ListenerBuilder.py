@@ -61,6 +61,7 @@ class ListenerBuilder(PrigogineListener):
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
+            #self.model.declareAttribute(populationName, stateName)
             self.model.addState(populationName, stateName, self.currentStateId)
             self.currentStateId += 1
 
@@ -80,28 +81,35 @@ class ListenerBuilder(PrigogineListener):
 
     ########################
 
-    def enterAction(self, ctx):
+    def enterUpdate(self, ctx):
 
         #print "current state: " + self.currentState
-        codeType = type(ctx.getChild(1)) # detect whether code is in a single line or a block
+        codeType = type(ctx.getChild(2)) # detect whether code is in a single line or a block
         populationName = self.currentPopulation
+        attributeName = ctx.getChild(1).getText().encode("ascii")
+        #attributeName = attributeName.replace("\"", "")
+        #print attributeName
 
         if codeType == PrigogineParser.CodelineContext:
             #attributeName = str(ctx.getChild(1).getText())
             codeline = ctx.codeline() # getChild(2)
             expression = codeline.expression() # getChild(0)
             tokenInterval = expression.getSourceInterval()
-            codelineString = str(self.tokens.getText(tokenInterval))
+            codelineString = "update(" + attributeName + ", "
+            #print codelineString
+            codelineString = codelineString + str(self.tokens.getText(tokenInterval)) + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\")"
+            #print codelineString
+            #print "-------------"
             #self.model.addUpdateCode(populationName, codelineString)
             self.model.addUpdateCode(populationName, self.currentState, codelineString)
 
 
         if codeType == PrigogineParser.CodeblockContext:
 
-            codeblock = ctx.getChild(1) #.children
+            codeblock = ctx.getChild(2) #.children
             codeblockString = ""
             blockLen = len(codeblock.children) - 2
-
+            #print codeblock.getText()
             for i in range(blockLen):
                 lineNum = i + 1
                 codeline = codeblock.children[lineNum]
@@ -109,7 +117,8 @@ class ListenerBuilder(PrigogineListener):
                 tokenInterval = expression.getSourceInterval()
                 codelineString = str(self.tokens.getText(tokenInterval))
                 codeblockString = codeblockString + codelineString + "\n"
-
+            #print codeblockString
+            #print "-------------"
             #self.model.addUpdateCode(populationName, codeblockString)
             self.model.addUpdateCode(populationName, self.currentState, codeblockString)
 

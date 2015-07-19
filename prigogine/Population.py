@@ -9,6 +9,7 @@ class Population:
         self.populationSize = populationSize
         self.timeStepMem = 2
         self.attributes = {}
+        self.attributes["state"] = None
         self.stateMasks = {}
         #self.updateCode = []
         #self.startstate = ""
@@ -42,11 +43,21 @@ class Population:
         readIndex = t
         while readIndex >= self.timeStepMem:
             readIndex -= self.timeStepMem
+        #print self.attributes[attributeName]
+        #print self.attributes[attributeName][readIndex]
         return self.attributes[attributeName][readIndex]
 
     #########################
 
-    def updateDef(self, attributeName, newValue, t):
+    def getStatesDef(self, populationName):
+        #print "getting states: " + str(self.currentStates)
+        #currentStateNames = self.convertStateIdsToNames(self.currentStates)
+        return self.currentStates
+
+    #########################
+
+    def updateDef(self, attributeName, newValue, mask, t):
+        #print "mask: " + str(mask)
         writeIndex = t + 1
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
@@ -80,14 +91,15 @@ class Population:
     def updateAttributes(self, attributes, t):
 
         setglobal = lambda attributeName, value : self.setGlobalDef(attributeName, value)
-        update = lambda attributeName, value : self.updateDef(attributeName, value, t)
+        update = lambda attributeName, value, mask : self.updateDef(attributeName, value, mask, t)
         get = lambda attributeName : self.getDef(attributeName, t)
         getglobal = lambda attributeName : self.getGlobalDef(attributeName)
         getfrom = lambda populationName, attributeName : self.getFromDef(populationName, attributeName, t)
-
+        getstates = lambda populationName : self.getStatesDef(populationName)
         for stateKey, data in self.stateData.items():
-            print stateKey
-            print data["stateId"]
+            #print stateKey
+            #print data["stateId"]
+
             for codeblock in data["updateCode"]:
                 #print data["stateId"]
                 code = compile(codeblock, "<string>", "exec")
