@@ -129,7 +129,7 @@ class PrigogineParser ( Parser ):
 
     literalNames = [ u"<INVALID>", u"'population'", u"'['", u"']'", u"'attributes'", 
                      u"'for'", u"'in'", u"'t'", u"'[:]'", u"'state'", u"'transition'", 
-                     u"'if'", u"'update'", u"'.'", u"'print'", u"'return'", 
+                     u"'where'", u"'update'", u"'.'", u"'print'", u"'return'", 
                      u"'='", u"'<'", u"'>'", u"'>='", u"'<='", u"'=='", 
                      u"'!='", u"'('", u"')'", u"','", u"<INVALID>", u"<INVALID>", 
                      u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 

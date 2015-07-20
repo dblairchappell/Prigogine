@@ -15,6 +15,7 @@ class Population:
         self.currentstates = []
         self.model = parentModel
         self.calculateNewArray_vect = vectorize(self.calculateNewArray)
+        #self.arrayValsMem = []
 
     #########################
 
@@ -47,21 +48,15 @@ class Population:
 
     #########################
 
-    # def mapValues(self, trueFalseMask, resultArray, newValues, i):
-    #     if trueFalseMask[i]:
-    #         resultArray[i] = newValues[i]
-    #     return resultArray
-
     @staticmethod
-    def calculateNewArray(trueFalseMask, oldValues, newValues):
-        resultArray = where(trueFalseMask, newValues, oldValues)
-        # i = 0
-        # for value in newValues:
-        #     if trueFalseMask[i]:
-        #         resultArray[i] = newValues[i]
-        #     i += 1
+    def calculateNewArray(trueFalseMask, newValues, oldValues):
+
+        resultArray = oldValues
+        for index in where(trueFalseMask)[0]:
+            resultArray[index] = newValues[index]
         return resultArray
-        #return [self.mapValues(trueFalseMask, resultArray, newValues, i) for i in newValues]
+
+        return where(trueFalseMask, oldValues, newValues)[0]
 
     #########################
 
@@ -70,9 +65,10 @@ class Population:
         oldValues = self.get(attributeName, t)
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
-        maskedArray = ma.array(newValues, mask=trueFalseMask)
+        #maskedArray = ma.array(newValues, mask=trueFalseMask)
 
-        result = self.calculateNewArray(trueFalseMask, oldValues, newValues)
+        result = self.calculateNewArray(trueFalseMask, newValues, oldValues)
+        #result = where(trueFalseMask, newValues, oldValues)
 
         #print "old " + attributeName + ": " + str(oldValues)
         #print "new " + attributeName + ": " + str(newValues)

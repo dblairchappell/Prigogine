@@ -72,7 +72,7 @@ statedef
     ;
 
 transition
-    : 'transition' string 'if' conditional codeblock*
+    : 'transition' string 'where' conditional codeblock*
     //| 'transition to' string 'if' conditional '[' update* ']'
     ;
 
