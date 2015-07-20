@@ -20,13 +20,13 @@ The project is at a relatively early stage and is presently focussed on getting 
         ]
 
         state "employed" [
-            transition "unemployed" where get("reserveWages") < 50
+            transition "unemployed" where get("reserveWages") > 100
             update "reserveWages" get("reserveWages") * 1.02
             update "weeksEmployed" get("weeksEmployed") + 1
         ]
 
         state "unemployed" [
-            transition "employed" where get("reserveWages") > 100
+            transition "employed" where get("reserveWages") < 50
             update "reserveWages" maximum(get("reserveWages") * 0.9, get("minWage"))
             update "weeksEmployed" get("weeksEmployed")
         ]
