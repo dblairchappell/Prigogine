@@ -113,6 +113,8 @@ class Population:
         getvars = lambda variableName : self.getvars(variableName, t)
         getstates = lambda populationName : self.getstates(populationName)
         transition = lambda populationName, nextState, maskArray : self.transition(populationName, nextState, maskArray)
+        getparams = lambda parameterName : self.getparams(parameterName)
+        getglobal = lambda variableName : self.getglobal(variableName)
 
         for codeblock in self.stateTransitionCode:
             code = compile(codeblock, "<string>", "exec")

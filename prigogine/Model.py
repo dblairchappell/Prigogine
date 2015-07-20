@@ -39,7 +39,7 @@ class Model:
 
     def setstates(self, populationName, states):
         self.populations[populationName].currentstates = states
-        print self.populations[populationName].currentstates
+        #print self.populations[populationName].currentstates
 
     #########################
 
@@ -97,7 +97,7 @@ class Model:
             self.itno +=1
             self.updateModel()
             if self.itno % 25 == 1:
-                print "" #self.itno
+                print ""
             print ".",
             self.t += 1
             if self.t >= self.timeStepMem:

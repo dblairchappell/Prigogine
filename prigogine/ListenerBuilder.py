@@ -37,12 +37,13 @@ class ListenerBuilder(PrigogineListener):
     @staticmethod
     def getParameterNames(ctx):
         numParams = ctx.parameterlist().getPayload().getChildCount() - 3
-        attrList = []
+        paramList = []
         for i in range(numParams):
             paramName = ctx.parameterlist().getPayload().getChild(i+2).getText().encode('ascii')
             paramName = paramName.replace("\"", "")
-            attrList.append(paramName)
-        return paramName
+            paramList.append(paramName)
+
+        return paramList
 
     #########################
 
@@ -131,7 +132,7 @@ class ListenerBuilder(PrigogineListener):
         guardExpressionString = str(self.tokens.getText(tokenInterval))
 
         codelineString = "transition(\"" + populationName + "\", " + targetState + ", (getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\") * " + guardExpressionString + ")"
-        print codelineString
+        #print codelineString
 
         self.model.addStateTransitionCode(populationName, codelineString)
 
