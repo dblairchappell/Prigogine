@@ -14,7 +14,7 @@ filestart
     //;
 
 population
-    : 'population' string '[' attributelist statedef* ']'
+    : 'population' string '[' parameterlist variablelist statedef* ']'
     ;
 
 //createpopulation
@@ -37,21 +37,29 @@ population
   //  : 'init' attrsget (codeline | codeblock)
     //;
 
-attributelist
-    : 'attributes' '[' attribute* ']'
+parameterlist
+    : 'parameters' '[' parameter* ']'
+    ;
+
+variablelist
+    : 'variables' '[' variable* ']'
     ;
 
 listcomp
     : '[' expression 'for' ID 'in' expression ']'
     ;
 
-attribute
+variable
     : string
     ;
 
-attrsget
-    : 'attributes' dictindex timeindex
+parameter
+    : string
     ;
+
+//attrsget
+  //  : 'attributes' dictindex timeindex
+    //;
 
 timeindex
     : '[' 't' (('-'|'+') INT)* ']'
@@ -91,7 +99,6 @@ expression
      | 'print' expression
      | string
      | number
-     | attrsget
      | func
      | listcomp
      | ID
@@ -101,7 +108,7 @@ expression
      ;
 
 assignment
-    : (ID|attrsget) '=' expression
+    : ID '=' expression
     ;
 
 codeblock

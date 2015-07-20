@@ -15,8 +15,13 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#attributelist.
-    def visitAttributelist(self, ctx):
+    # Visit a parse tree produced by PrigogineParser#parameterlist.
+    def visitParameterlist(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#variablelist.
+    def visitVariablelist(self, ctx):
         return self.visitChildren(ctx)
 
 
@@ -25,13 +30,13 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#attribute.
-    def visitAttribute(self, ctx):
+    # Visit a parse tree produced by PrigogineParser#variable.
+    def visitVariable(self, ctx):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#attrsget.
-    def visitAttrsget(self, ctx):
+    # Visit a parse tree produced by PrigogineParser#parameter.
+    def visitParameter(self, ctx):
         return self.visitChildren(ctx)
 
 

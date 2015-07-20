@@ -61,12 +61,17 @@ class Prigogine:
 
     ##############################################
 
-    def setstates(self, populationName, stateName):
+    def initstates(self, populationName, stateName):
         self.model.setstates(populationName, stateName)
 
     ##############################################
 
-    def initattrs(self, populationName, attributeName, value):
+    def initvars(self, populationName, attributeName, value):
+        self.model.init(populationName, attributeName, value)
+
+    ##############################################
+
+    def initparams(self, populationName, attributeName, value):
         self.model.init(populationName, attributeName, value)
 
     ##############################################

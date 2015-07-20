@@ -22,12 +22,21 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#attributelist.
-    def enterAttributelist(self, ctx):
+    # Enter a parse tree produced by PrigogineParser#parameterlist.
+    def enterParameterlist(self, ctx):
         pass
 
-    # Exit a parse tree produced by PrigogineParser#attributelist.
-    def exitAttributelist(self, ctx):
+    # Exit a parse tree produced by PrigogineParser#parameterlist.
+    def exitParameterlist(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#variablelist.
+    def enterVariablelist(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#variablelist.
+    def exitVariablelist(self, ctx):
         pass
 
 
@@ -40,21 +49,21 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#attribute.
-    def enterAttribute(self, ctx):
+    # Enter a parse tree produced by PrigogineParser#variable.
+    def enterVariable(self, ctx):
         pass
 
-    # Exit a parse tree produced by PrigogineParser#attribute.
-    def exitAttribute(self, ctx):
+    # Exit a parse tree produced by PrigogineParser#variable.
+    def exitVariable(self, ctx):
         pass
 
 
-    # Enter a parse tree produced by PrigogineParser#attrsget.
-    def enterAttrsget(self, ctx):
+    # Enter a parse tree produced by PrigogineParser#parameter.
+    def enterParameter(self, ctx):
         pass
 
-    # Exit a parse tree produced by PrigogineParser#attrsget.
-    def exitAttrsget(self, ctx):
+    # Exit a parse tree produced by PrigogineParser#parameter.
+    def exitParameter(self, ctx):
         pass
 
 

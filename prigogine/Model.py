@@ -95,6 +95,7 @@ class Model:
     def init(self, populationName, attributeName, value):
         self.populations[populationName].attributes[attributeName] = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
         self.populations[populationName].attributes[attributeName][0] = value
+        #self.populations[populationName].attributes[attributeName][1] = value
 
     #########################
 

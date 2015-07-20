@@ -50,13 +50,10 @@ class Population:
 
     @staticmethod
     def calculateNewArray(trueFalseMask, newValues, oldValues):
-
         resultArray = oldValues
         for index in where(trueFalseMask)[0]:
             resultArray[index] = newValues[index]
         return resultArray
-
-        return where(trueFalseMask, oldValues, newValues)[0]
 
     #########################
 
@@ -65,16 +62,7 @@ class Population:
         oldValues = self.get(attributeName, t)
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
-        #maskedArray = ma.array(newValues, mask=trueFalseMask)
-
         result = self.calculateNewArray(trueFalseMask, newValues, oldValues)
-        #result = where(trueFalseMask, newValues, oldValues)
-
-        #print "old " + attributeName + ": " + str(oldValues)
-        #print "new " + attributeName + ": " + str(newValues)
-        #print "mask " + attributeName + ": " + str(trueFalseMask)
-        #print "result " + attributeName + ": " + str(result)
-
         self.attributes[attributeName][writeIndex] = result
 
     #########################

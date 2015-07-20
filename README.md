@@ -10,22 +10,25 @@ The project is at a relatively early stage and is presently focussed on getting 
 
     population "households" [
 
-        attributes [
-            "reserveWages"
-            "weeksEmployed"
+        parameters [
             "minWage"
         ]
 
+        variables [
+            "reserveWages"
+            "weeksEmployed"
+        ]
+
         state "employed" [
-            transition "unemployed" if get("reserveWages") > 100
-            update "reserveWages" get("reserveWages") * 1.1
+            transition "unemployed" where get("reserveWages") < 50
+            update "reserveWages" get("reserveWages") * 1.02
             update "weeksEmployed" get("weeksEmployed") + 1
         ]
 
         state "unemployed" [
-            transition "employed" if get("reserveWages") < 50
+            transition "employed" where get("reserveWages") > 100
             update "reserveWages" maximum(get("reserveWages") * 0.9, get("minWage"))
-            update "minWage" get("minWage") + (random.random_sample() -0.5) * 10
+            update "weeksEmployed" get("weeksEmployed")
         ]
 
     ]

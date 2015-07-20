@@ -24,10 +24,10 @@ class ListenerBuilder(PrigogineListener):
 
     @staticmethod
     def getAttributeNames(ctx):
-        numAttrs = ctx.attributelist().getPayload().getChildCount() - 3
+        numAttrs = ctx.variablelist().getPayload().getChildCount() - 3
         attrList = []
         for i in range(numAttrs):
-            attrName = ctx.attributelist().getPayload().getChild(i+2).getText().encode('ascii')
+            attrName = ctx.variablelist().getPayload().getChild(i+2).getText().encode('ascii')
             attrName = attrName.replace("\"", "")
             attrList.append(attrName)
         return attrList
