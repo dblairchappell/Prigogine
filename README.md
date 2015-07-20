@@ -27,7 +27,7 @@ The project is at a relatively early stage and is presently focussed on getting 
 
         state "unemployed" [
             transition "employed" where get("reserveWages") < 35
-            update "reserveWages" maximum(get("reserveWages") * 0.9, get("minWage"))
+            update "reserveWages" maximum(get("reserveWages") * 0.9, getparams("minWage"))
             update "weeksEmployed" get("weeksEmployed")
         ]
 
