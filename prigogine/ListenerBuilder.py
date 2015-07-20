@@ -23,14 +23,26 @@ class ListenerBuilder(PrigogineListener):
     #########################
 
     @staticmethod
-    def getAttributeNames(ctx):
-        numAttrs = ctx.variablelist().getPayload().getChildCount() - 3
+    def getVariableNames(ctx):
+        numVars = ctx.variablelist().getPayload().getChildCount() - 3
+        varList = []
+        for i in range(numVars):
+            varName = ctx.variablelist().getPayload().getChild(i+2).getText().encode('ascii')
+            varName = varName.replace("\"", "")
+            varList.append(varName)
+        return varList
+
+    #########################
+
+    @staticmethod
+    def getParameterNames(ctx):
+        numParams = ctx.parameterlist().getPayload().getChildCount() - 3
         attrList = []
-        for i in range(numAttrs):
-            attrName = ctx.variablelist().getPayload().getChild(i+2).getText().encode('ascii')
-            attrName = attrName.replace("\"", "")
-            attrList.append(attrName)
-        return attrList
+        for i in range(numParams):
+            paramName = ctx.parameterlist().getPayload().getChild(i+2).getText().encode('ascii')
+            paramName = paramName.replace("\"", "")
+            attrList.append(paramName)
+        return paramName
 
     #########################
 
@@ -52,9 +64,13 @@ class ListenerBuilder(PrigogineListener):
         self.currentPopulation = populationName
         self.model.declarePopulation(populationName)
 
-        agentAttributeNames = self.getAttributeNames(ctx)
-        for attrName in agentAttributeNames:
-            self.model.declareAttribute(populationName, attrName)
+        agentVariableNames = self.getVariableNames(ctx)
+        for varName in agentVariableNames:
+            self.model.declareVariable(populationName, varName)
+
+        agentParameterNames = self.getParameterNames(ctx)
+        for paramName in agentParameterNames:
+            self.model.declareParameter(populationName, paramName)
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
@@ -76,14 +92,14 @@ class ListenerBuilder(PrigogineListener):
 
         codeType = type(ctx.getChild(2)) # detect whether code is in a single line or a block
         populationName = self.currentPopulation
-        attributeName = ctx.getChild(1).getText().encode("ascii")
+        variableName = ctx.getChild(1).getText().encode("ascii")
 
         if codeType == PrigogineParser.CodelineContext:
             codeline = ctx.codeline()
             expression = codeline.expression()
             tokenInterval = expression.getSourceInterval()
             codeToPass = str(self.tokens.getText(tokenInterval))
-            codelineString = "update(" + attributeName + ", "
+            codelineString = "update(" + variableName + ", "
             codelineString = codelineString + codeToPass + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\")"
             self.model.addUpdateCode(populationName, codelineString)
 

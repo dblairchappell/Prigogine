@@ -54,8 +54,13 @@ class Model:
 
     #########################
 
-    def declareAttribute(self, populationName, attributeName):
-        self.populations[populationName].declareAttribute(attributeName)
+    def declareVariable(self, populationName, variableName):
+        self.populations[populationName].declareVariable(variableName)
+
+    #########################
+
+    def declareParameter(self, populationName, parameterName):
+        self.populations[populationName].declareParameter(parameterName)
 
     #########################
 
@@ -74,8 +79,8 @@ class Model:
 
     def updateModel(self):
         for population in self.populations:
-            attributes = self.populations[population].attributes
-            self.populations[population].updateAttributes(attributes, self.t)
+            variables = self.populations[population].variables
+            self.populations[population].updateVariables(variables, self.t)
 
     #########################
 
@@ -92,10 +97,15 @@ class Model:
 
     #########################
 
-    def init(self, populationName, attributeName, value):
-        self.populations[populationName].attributes[attributeName] = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
-        self.populations[populationName].attributes[attributeName][0] = value
-        #self.populations[populationName].attributes[attributeName][1] = value
+    def initvars(self, populationName, variableName, value):
+        self.populations[populationName].variables[variableName] = np.zeros((self.timeStepMem, self.populations[populationName].populationSize))
+        self.populations[populationName].variables[variableName][0] = value
+
+    #########################
+
+    def initparams(self, populationName, parameterName, value):
+        self.populations[populationName].parameters[parameterName] = np.zeros((1, self.populations[populationName].populationSize))
+        self.populations[populationName].parameters[parameterName][0] = value
 
     #########################
 

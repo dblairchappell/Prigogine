@@ -34,25 +34,30 @@ class Prigogine:
 
     ##############################################
 
-    def getglobal(self, attributeName):
-        return self.model.globals[attributeName]
+    def getglobal(self, variableName):
+        return self.model.globals[variableName]
 
     ##############################################
 
-    def get(self, populationName, attributeName):
-        #return self.model.populations[populationName].attributes[attributeName][self.model.t]
-        return self.model.populations[populationName].get(attributeName, self.model.t)
+    def get(self, populationName, variableName):
+        #return self.model.populations[populationName].variables[variableName][self.model.t]
+        return self.model.populations[populationName].get(variableName, self.model.t)
 
     ##############################################
 
-    def setglobal(self, attributeName, value):
-        self.model.globals[attributeName] = np.append(self.model.globals[attributeName], value)
+    def getparams(self, populationName, parameterName):
+        return self.model.populations[populationName].getparams(parameterName)
+
+    ##############################################
+
+    def setglobal(self, variableName, value):
+        self.model.globals[variableName] = np.append(self.model.globals[variableName], value)
         #print self.model.globals
 
     ##############################################
 
-    def initglobal(self, attributeName, value):
-        self.model.globals[attributeName] = value
+    def initglobal(self, variableName, value):
+        self.model.globals[variableName] = value
 
     ##############################################
 
@@ -66,13 +71,13 @@ class Prigogine:
 
     ##############################################
 
-    def initvars(self, populationName, attributeName, value):
-        self.model.init(populationName, attributeName, value)
+    def initvars(self, populationName, variableName, value):
+        self.model.initvars(populationName, variableName, value)
 
     ##############################################
 
-    def initparams(self, populationName, attributeName, value):
-        self.model.init(populationName, attributeName, value)
+    def initparams(self, populationName, parameterName, value):
+        self.model.initparams(populationName, parameterName, value)
 
     ##############################################
 

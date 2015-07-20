@@ -10,36 +10,41 @@ class Population:
 
         self.populationSize = populationSize
         self.timeStepMem = 2
-        self.attributes = {'state': None}
+        self.variables = {'state': None}
+        self.parameters = {}
         self.updateCode = []
         self.currentstates = []
         self.model = parentModel
         self.calculateNewArray_vect = vectorize(self.calculateNewArray)
-        #self.arrayValsMem = []
 
     #########################
 
-    def setglobal(self, attributeName, value):
-        self.model.globals[attributeName] = value
+    def setglobal(self, variableName, value):
+        self.model.globals[variableName] = value
 
     #########################
 
-    def getglobal(self, attributeName):
-        return self.model.globals[attributeName]
+    def getglobal(self, variableName):
+        return self.model.globals[variableName]
 
     #########################
 
-    def getfrom(self, populationName, attributeName, t):
+    def getfrom(self, populationName, variableName, t):
         readIndex = t
-        return self.model.populations[populationName].attributes[attributeName][readIndex]
+        return self.model.populations[populationName].variables[variableName][readIndex]
 
     #########################
 
-    def get(self, attributeName, t):
+    def get(self, variableName, t):
         readIndex = t
         while readIndex >= self.timeStepMem:
             readIndex -= self.timeStepMem
-        return self.attributes[attributeName][readIndex]
+        return self.variables[variableName][readIndex]
+
+    #########################
+
+    def getparams(self, parameterName):
+        return self.parameters[parameterName][0]
 
     #########################
 
@@ -57,18 +62,23 @@ class Population:
 
     #########################
 
-    def update(self, attributeName, newValues, trueFalseMask, t):
+    def update(self, variableName, newValues, trueFalseMask, t):
         writeIndex = t + 1
-        oldValues = self.get(attributeName, t)
+        oldValues = self.get(variableName, t)
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
         result = self.calculateNewArray(trueFalseMask, newValues, oldValues)
-        self.attributes[attributeName][writeIndex] = result
+        self.variables[variableName][writeIndex] = result
 
     #########################
 
-    def declareAttribute(self, attributeName):
-        self.attributes[attributeName] = None
+    def declareVariable(self, variableName):
+        self.variables[variableName] = None
+
+    #########################
+
+    def declareParameter(self, parameterName):
+        self.parameters[parameterName] = None
 
     #########################
 
@@ -82,13 +92,14 @@ class Population:
 
     #########################
 
-    def updateAttributes(self, attributes, t):
+    def updateVariables(self, variables, t):
 
-        setglobal = lambda attributeName, value : self.setglobal(attributeName, value)
-        update = lambda attributeName, value, mask : self.update(attributeName, value, mask, t)
-        get = lambda attributeName : self.get(attributeName, t)
-        getglobal = lambda attributeName : self.getglobal(attributeName)
-        getfrom = lambda populationName, attributeName : self.getfrom(populationName, attributeName, t)
+        setglobal = lambda variableName, value : self.setglobal(variableName, value)
+        update = lambda variableName, value, mask : self.update(variableName, value, mask, t)
+        get = lambda variableName : self.get(variableName, t)
+        getparams = lambda parameterName : self.getparams(parameterName)
+        getglobal = lambda variableName : self.getglobal(variableName)
+        getfrom = lambda populationName, variableName : self.getfrom(populationName, variableName, t)
         getstates = lambda populationName : self.getstates(populationName)
 
         for codeblock in self.updateCode:
