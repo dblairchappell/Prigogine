@@ -6,20 +6,20 @@ population "households" [
     ]
 
     variables [
-        "reserveWages"
+        "reserveWage"
         "weeksEmployed"
     ]
 
     state "employed" [
-        transition "unemployed" where get("reserveWages") > 100
-        update "reserveWages" get("reserveWages") * 1.02
-        update "weeksEmployed" get("weeksEmployed") + 1
+        transition "unemployed" where getvars("reserveWage") > 100
+        update "reserveWage" getvars("reserveWage") * 1.02
+        update "weeksEmployed" getvars("weeksEmployed") + 1
     ]
 
     state "unemployed" [
-        transition "employed" where get("reserveWages") < 35
-        update "reserveWages" maximum(get("reserveWages") * 0.9, getparams("minWage"))
-        update "weeksEmployed" get("weeksEmployed")
+        transition "employed" where getvars("reserveWage") < 35
+        update "reserveWage" maximum(getvars("reserveWage") * 0.9, getparams("minWage"))
+        update "weeksEmployed" getvars("weeksEmployed")
     ]
 
 ]

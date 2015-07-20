@@ -39,9 +39,9 @@ class Prigogine:
 
     ##############################################
 
-    def get(self, populationName, variableName):
+    def getvars(self, populationName, variableName):
         #return self.model.populations[populationName].variables[variableName][self.model.t]
-        return self.model.populations[populationName].get(variableName, self.model.t)
+        return self.model.populations[populationName].getvars(variableName, self.model.t)
 
     ##############################################
 

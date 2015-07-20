@@ -35,7 +35,7 @@ class Population:
 
     #########################
 
-    def get(self, variableName, t):
+    def getvars(self, variableName, t):
         readIndex = t
         while readIndex >= self.timeStepMem:
             readIndex -= self.timeStepMem
@@ -64,7 +64,7 @@ class Population:
 
     def update(self, variableName, newValues, trueFalseMask, t):
         writeIndex = t + 1
-        oldValues = self.get(variableName, t)
+        oldValues = self.getvars(variableName, t)
         while writeIndex >= self.timeStepMem:
             writeIndex -= self.timeStepMem
         result = self.calculateNewArray(trueFalseMask, newValues, oldValues)
@@ -96,7 +96,7 @@ class Population:
 
         setglobal = lambda variableName, value : self.setglobal(variableName, value)
         update = lambda variableName, value, mask : self.update(variableName, value, mask, t)
-        get = lambda variableName : self.get(variableName, t)
+        getvars = lambda variableName : self.getvars(variableName, t)
         getparams = lambda parameterName : self.getparams(parameterName)
         getglobal = lambda variableName : self.getglobal(variableName)
         getfrom = lambda populationName, variableName : self.getfrom(populationName, variableName, t)
