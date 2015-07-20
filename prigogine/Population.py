@@ -67,8 +67,8 @@ class Population:
         #print "next: " + str(nextState) + ", " + str(maskArray)
         for index in where(maskArray)[0]:
             self.currentstates[index] = nextState
-        print self.currentstates
-        print nextState
+        #print self.currentstates
+        #print nextState
 
     #########################
 

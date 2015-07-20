@@ -130,7 +130,7 @@ class ListenerBuilder(PrigogineListener):
         tokenInterval = guardExpression.getSourceInterval()
         guardExpressionString = str(self.tokens.getText(tokenInterval))
 
-        codelineString = "transition(\"" + populationName + "\", " + targetState + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\" and " + guardExpressionString + ")"
+        codelineString = "transition(\"" + populationName + "\", " + targetState + ", (getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\") * " + guardExpressionString + ")"
         print codelineString
 
         self.model.addStateTransitionCode(populationName, codelineString)
