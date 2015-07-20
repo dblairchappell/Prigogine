@@ -1,7 +1,7 @@
 
 from numpy import *
 import numpy.ma as ma
-
+import numpy.core.defchararray as char
 class Population:
 
     #########################
@@ -13,6 +13,7 @@ class Population:
         self.variables = {'state': None}
         self.parameters = {}
         self.updateCode = []
+        self.stateTransitionCode = []
         self.currentstates = []
         self.model = parentModel
         self.calculateNewArray_vect = vectorize(self.calculateNewArray)
@@ -62,6 +63,15 @@ class Population:
 
     #########################
 
+    def transition(self, populationName, nextState, maskArray):
+        #print "next: " + str(nextState) + ", " + str(maskArray)
+        for index in where(maskArray)[0]:
+            self.currentstates[index] = nextState
+        print self.currentstates
+        print nextState
+
+    #########################
+
     def update(self, variableName, newValues, trueFalseMask, t):
         writeIndex = t + 1
         oldValues = self.getvars(variableName, t)
@@ -69,6 +79,7 @@ class Population:
             writeIndex -= self.timeStepMem
         result = self.calculateNewArray(trueFalseMask, newValues, oldValues)
         self.variables[variableName][writeIndex] = result
+        #print str(variableName) + ": " + str(result)
 
     #########################
 
@@ -92,6 +103,23 @@ class Population:
 
     #########################
 
+    def addStateTransitionCode(self, codeString):
+        self.stateTransitionCode.append(codeString)
+
+    #########################
+
+    def updateStates(self, variables, t):
+
+        getvars = lambda variableName : self.getvars(variableName, t)
+        getstates = lambda populationName : self.getstates(populationName)
+        transition = lambda populationName, nextState, maskArray : self.transition(populationName, nextState, maskArray)
+
+        for codeblock in self.stateTransitionCode:
+            code = compile(codeblock, "<string>", "exec")
+            exec code in globals(), locals()
+
+    #########################
+
     def updateVariables(self, variables, t):
 
         setglobal = lambda variableName, value : self.setglobal(variableName, value)
@@ -105,11 +133,6 @@ class Population:
         for codeblock in self.updateCode:
             code = compile(codeblock, "<string>", "exec")
             exec code in globals(), locals()
-
-        # for stateKey, data in self.stateData.items():
-        #     for codeblock in data["updateCode"]:
-        #         code = compile(codeblock, "<string>", "exec")
-        #         exec code in globals(), locals()
 
     #########################
 

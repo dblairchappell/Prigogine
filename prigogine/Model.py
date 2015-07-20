@@ -77,9 +77,17 @@ class Model:
 
     #########################
 
+    def addStateTransitionCode(self, populationName, codeString):
+        self.populations[populationName].addStateTransitionCode(codeString)
+
+    #########################
+
     def updateModel(self):
         for population in self.populations:
             variables = self.populations[population].variables
+            states = self.populations[population].currentstates
+            self.populations[population].updateStates(states, self.t)
+            #print self.populations[population].currentstates
             self.populations[population].updateVariables(variables, self.t)
 
     #########################

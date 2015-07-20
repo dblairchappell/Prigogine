@@ -120,6 +120,21 @@ class ListenerBuilder(PrigogineListener):
 
     #########################
 
+    def enterTransition(self, ctx):
+
+        populationName = self.currentPopulation
+        currentState = self.currentState
+        targetState = ctx.getChild(1).getText().encode("ascii")
+
+        guardExpression = ctx.conditional() #.getText()
+        tokenInterval = guardExpression.getSourceInterval()
+        guardExpressionString = str(self.tokens.getText(tokenInterval))
+
+        codelineString = "transition(\"" + populationName + "\", " + targetState + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\" and " + guardExpressionString + ")"
+        print codelineString
+
+        self.model.addStateTransitionCode(populationName, codelineString)
+
 
 
 
