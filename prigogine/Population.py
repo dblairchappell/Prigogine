@@ -45,6 +45,7 @@ class Population:
     #########################
 
     def getparams(self, parameterName):
+        #print self.parameters
         return self.parameters[parameterName][0]
 
     #########################
@@ -95,6 +96,7 @@ class Population:
 
     def addState(self, stateName):
         self.currentstates.append(stateName)
+        #print self.currentstates
 
     #########################
 
@@ -117,6 +119,7 @@ class Population:
         getglobal = lambda variableName : self.getglobal(variableName)
 
         for codeblock in self.stateTransitionCode:
+            #print codeblock
             code = compile(codeblock, "<string>", "exec")
             exec code in globals(), locals()
 
@@ -133,6 +136,7 @@ class Population:
         getstates = lambda populationName : self.getstates(populationName)
 
         for codeblock in self.updateCode:
+            #print codeblock
             code = compile(codeblock, "<string>", "exec")
             exec code in globals(), locals()
 

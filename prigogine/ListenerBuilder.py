@@ -61,6 +61,8 @@ class ListenerBuilder(PrigogineListener):
     def enterPopulation(self, ctx):
 
         populationName = ctx.getChild(1).getText().encode("ascii")
+        #populationName = "\"" + str(populationName) + "\""
+
         self.currentPopulation = populationName
         self.model.declarePopulation(populationName)
 
@@ -71,12 +73,12 @@ class ListenerBuilder(PrigogineListener):
 
         agentParameterNames = self.getParameterNames(ctx)
         for paramName in agentParameterNames:
-            paramName = "\"" + str(paramName) + "\""
+            #paramName = "\"" + str(paramName) + "\""
             self.model.declareParameter(populationName, paramName)
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
-            stateName = "\"" + str(stateName) + "\""
+            #stateName = "\"" + str(stateName) + "\""
             #print stateName
             self.model.addState(populationName, stateName)
             #self.model.addState(populationName, stateName, self.currentStateId)
@@ -104,6 +106,7 @@ class ListenerBuilder(PrigogineListener):
             codeToPass = str(self.tokens.getText(tokenInterval))
             codelineString = "update(" + variableName + ", "
             codelineString = codelineString + codeToPass + ", getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\")"
+            #print codelineString
             self.model.addUpdateCode(populationName, codelineString)
 
 
@@ -128,12 +131,12 @@ class ListenerBuilder(PrigogineListener):
         populationName = self.currentPopulation
         currentState = self.currentState
         targetState = ctx.getChild(1).getText().encode("ascii")
-        targetState = "\"" + str(targetState) + "\""
+        #targetState = "\"" + str(targetState) + "\""
         guardExpression = ctx.conditional() #.getText()
         tokenInterval = guardExpression.getSourceInterval()
         guardExpressionString = str(self.tokens.getText(tokenInterval))
 
-        codelineString = "transition(\"" + populationName + "\", " + targetState + ", (getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\") * " + guardExpressionString + ")"
+        codelineString = "transition(\"" + populationName + "\", \"" + targetState + "\", (getstates(\"" + self.currentPopulation + "\") == \"" + self.currentState + "\") * " + guardExpressionString + ")"
         #print codelineString
 
         self.model.addStateTransitionCode(populationName, codelineString)
@@ -141,21 +144,80 @@ class ListenerBuilder(PrigogineListener):
     #########################
 
     def enterInitglobal(self, ctx):
-        print ctx.getText()
+
+        globalName = ctx.getChild(1).getText().encode("ascii")
+        #globalName = "\"" + str(globalName) + "\""
+        globalValue =  ctx.getChild(2).getText().encode("ascii")
+        self.model.initglobal(globalName, globalValue)
+        #print self.model.globals
 
     #########################
 
     def enterCreate(self, ctx):
-        print ctx.getText()
+
+        populationName = ctx.getChild(1).getText().encode("ascii")
+        #populationName = "\"" + str(populationName) + "\""
+        populationSize = int(ctx.getChild(2).getText())
+        self.model.create(populationName, populationSize)
+        self.currentPopulation = populationName
+
+    #########################
+
+    def enterInitvars(self, ctx):
+
+        varName = ctx.getChild(1).getText().encode("ascii")
+        #varName = "\"" + str(varName) + "\""
+        varValue =  ctx.getChild(2).getText().encode("ascii")
+        self.model.initvars(self.currentPopulation, varName, varValue)
+
+    #########################
+
+    def enterInitparams(self, ctx):
+
+        paramName = ctx.getChild(1).getText().encode("ascii")
+        paramValue =  ctx.getChild(2).getText().encode("ascii")
+        self.model.initparams(self.currentPopulation, paramName, paramValue)
+
+    #########################
+
+    def enterInitstates(self, ctx):
+        populationName = self.currentPopulation
+        states = ctx.getChild(1).getText().encode("ascii")
+        self.model.setstates(populationName, states)
 
     #########################
 
     def enterFinalise(self, ctx):
-        print ctx.getText()
+
+        codeblock = ctx.getChild(1)
+        codeblockString = ""
+        blockLen = len(codeblock.children) - 2
+        for i in range(blockLen):
+            lineNum = i + 1
+            codeline = codeblock.children[lineNum]
+            expression = codeline.expression()
+            tokenInterval = expression.getSourceInterval()
+            codelineString = str(self.tokens.getText(tokenInterval))
+            codeblockString = codeblockString + codelineString + "\n"
+            self.model.evaluateCode(codeblockString)
 
     #########################
 
     def enterRunmodel(self, ctx):
-        print ctx.getText()
+
+        codeblock = ctx.getChild(2)
+        codeblockString = ""
+        blockLen = len(codeblock.children) - 2
+        for i in range(blockLen):
+            lineNum = i + 1
+            codeline = codeblock.children[lineNum]
+            expression = codeline.expression()
+            tokenInterval = expression.getSourceInterval()
+            codelineString = str(self.tokens.getText(tokenInterval))
+            codeblockString = codeblockString + codelineString + "\n"
+            self.model.timeStepCode = codeblockString
+
+        numIterations = int(ctx.getChild(1).getText().encode("ascii"))
+        self.model.runModel(numIterations)
 
     #########################

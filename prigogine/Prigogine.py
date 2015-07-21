@@ -82,8 +82,6 @@ class Prigogine:
     ##############################################
 
     def loadmodel(self, *filenames):
-        #print filenames
-
         with open('__workingmodel.prm', 'w') as outfile:
             for fname in filenames:
                 with open(fname) as infile:
@@ -91,7 +89,6 @@ class Prigogine:
                         outfile.write(line)
 
         inputStream = FileStream('__workingmodel.prm')
-        #print inputStream
         self.model = self.buildModel(inputStream)
 
     ##############################################
@@ -99,13 +96,10 @@ class Prigogine:
     def runmodel(self, numIterations):
         self.model.runModel(numIterations)
 
-##############################################
-##############################################
+    ##############################################
+
 
 prigogine = Prigogine()
-
-##############################################
-##############################################
 
 
 

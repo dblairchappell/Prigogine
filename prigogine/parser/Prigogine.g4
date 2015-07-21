@@ -21,6 +21,10 @@ initvars
     : 'initvars' ID expression
     ;
 
+initparams
+    : 'initparams' ID expression
+    ;
+
 initstates
     : 'initstates' expression
     ;
@@ -34,7 +38,7 @@ createblock
     ;
 
 createline
-     : (initvars | initstates)+
+     : (initvars | initstates | initparams)+
      ;
 
 runmodel

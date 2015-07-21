@@ -25,6 +25,11 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#initparams.
+    def visitInitparams(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#initstates.
     def visitInitstates(self, ctx):
         return self.visitChildren(ctx)

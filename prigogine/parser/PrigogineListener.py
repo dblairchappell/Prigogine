@@ -40,6 +40,15 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#initparams.
+    def enterInitparams(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#initparams.
+    def exitInitparams(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#initstates.
     def enterInitstates(self, ctx):
         pass
