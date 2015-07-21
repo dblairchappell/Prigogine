@@ -8,7 +8,7 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 #### Example of Proposed Syntax:
 
-    ##### Model Definition
+##### Model Definition Script
 
     population households [
         parameters [
@@ -31,7 +31,7 @@ The project is at a relatively early stage and is presently focussed on getting 
         ]
     ]
 
-    ##### Model Simulation
+##### Model Simulation Script
 
     initglobal sumReserveWages []
     initglobal sumWeeksEmployed []
