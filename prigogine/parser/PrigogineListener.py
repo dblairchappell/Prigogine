@@ -22,6 +22,78 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#initglobal.
+    def enterInitglobal(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#initglobal.
+    def exitInitglobal(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#initvars.
+    def enterInitvars(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#initvars.
+    def exitInitvars(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#initstates.
+    def enterInitstates(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#initstates.
+    def exitInitstates(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#create.
+    def enterCreate(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#create.
+    def exitCreate(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#createblock.
+    def enterCreateblock(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#createblock.
+    def exitCreateblock(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#createline.
+    def enterCreateline(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#createline.
+    def exitCreateline(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#runmodel.
+    def enterRunmodel(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#runmodel.
+    def exitRunmodel(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#finalise.
+    def enterFinalise(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#finalise.
+    def exitFinalise(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#parameterlist.
     def enterParameterlist(self, ctx):
         pass
@@ -46,6 +118,24 @@ class PrigogineListener(ParseTreeListener):
 
     # Exit a parse tree produced by PrigogineParser#listcomp.
     def exitListcomp(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#listdef.
+    def enterListdef(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#listdef.
+    def exitListdef(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#tupledef.
+    def enterTupledef(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#tupledef.
+    def exitTupledef(self, ctx):
         pass
 
 

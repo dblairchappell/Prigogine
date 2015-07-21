@@ -15,6 +15,46 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#initglobal.
+    def visitInitglobal(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#initvars.
+    def visitInitvars(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#initstates.
+    def visitInitstates(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#create.
+    def visitCreate(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#createblock.
+    def visitCreateblock(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#createline.
+    def visitCreateline(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#runmodel.
+    def visitRunmodel(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#finalise.
+    def visitFinalise(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#parameterlist.
     def visitParameterlist(self, ctx):
         return self.visitChildren(ctx)
@@ -27,6 +67,16 @@ class PrigogineVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by PrigogineParser#listcomp.
     def visitListcomp(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#listdef.
+    def visitListdef(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#tupledef.
+    def visitTupledef(self, ctx):
         return self.visitChildren(ctx)
 
 

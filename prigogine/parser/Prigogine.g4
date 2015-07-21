@@ -6,36 +6,44 @@ SPACES = 2
 }
 
 filestart
-    : population+ //experiment*
+    : (population | initglobal | create | runmodel)+ finalise*
     ;
-
-//modeldef
-  //  : 'model' string '[' population+ ']'
-    //;
 
 population
-    : 'population' string '[' parameterlist variablelist statedef* ']'
+    : 'population' ID '[' parameterlist variablelist statedef* ']'
     ;
 
-//createpopulation
-//    : 'create' ID INT startstate initvar* 'end'
-//    ;
+initglobal
+    : 'initglobal' ID expression
+    ;
 
-//experiment
-  //  : 'experiment' string codeblock*
-    //;
+initvars
+    : 'initvars' ID expression
+    ;
 
-//startstate
-  //  : 'startstate' ID
-    //;
+initstates
+    : 'initstates' expression
+    ;
 
-//runmodel
-//    : 'runmodel' INT ('[' expression* ']')*
-//    ;
+create
+    : 'create' ID INT createblock*
+    ;
 
-//initvar
-  //  : 'init' attrsget (codeline | codeblock)
-    //;
+createblock
+    : '[' createline* ']'
+    ;
+
+createline
+     : (initvars | initstates)+
+     ;
+
+runmodel
+    : 'runmodel' INT codeblock*
+    ;
+
+finalise
+    : 'finalise' codeblock*
+    ;
 
 parameterlist
     : 'parameters' '[' parameter* ']'
@@ -49,22 +57,25 @@ listcomp
     : '[' expression 'for' ID 'in' expression ']'
     ;
 
+listdef
+    : '[' ( (ID | number | string) (',' (ID | number | string) )* )* ']'
+    ;
+
+tupledef
+    : '(' ( (ID | number | string) (',' (ID | number | string) )* )* ')'
+    ;
+
 variable
-    : string
+    : ID
     ;
 
 parameter
-    : string
+    : ID
     ;
-
-//attrsget
-  //  : 'attributes' dictindex timeindex
-    //;
 
 timeindex
     : '[' 't' (('-'|'+') INT)* ']'
     | '[:]'
-
     ;
 
 timevar
@@ -76,16 +87,15 @@ dictindex
     ;
 
 statedef
-    : 'state' string '[' transition* update* ']'
+    : 'state' ID '[' transition* update* ']'
     ;
 
 transition
-    : 'transition' string 'where' conditional codeblock*
-    //| 'transition to' string 'if' conditional '[' update* ']'
+    : 'transition' ID 'where' conditional codeblock*
     ;
 
 update
-    : 'update' string (codeline | codeblock)
+    : 'update' ID (codeline | codeblock)
     ;
 
 expression
@@ -97,6 +107,8 @@ expression
      | expression op=PIPE expression
      | 'print' string
      | 'print' expression
+     | listdef
+     | tupledef
      | string
      | number
      | func
@@ -186,8 +198,9 @@ POWER : '^' ;
 
 STRING
     : '"' (ESC|.)*? '"'
+    | '\'' (ESC|.)*? '\''
     ;
-//fragment
+
 ESC
     : '\\"' | '\\\\'
     ;

@@ -81,8 +81,17 @@ class Prigogine:
 
     ##############################################
 
-    def loadmodel(self, modelName):
-        inputStream = FileStream(modelName)
+    def loadmodel(self, *filenames):
+        #print filenames
+
+        with open('__workingmodel.prm', 'w') as outfile:
+            for fname in filenames:
+                with open(fname) as infile:
+                    for line in infile:
+                        outfile.write(line)
+
+        inputStream = FileStream('__workingmodel.prm')
+        #print inputStream
         self.model = self.buildModel(inputStream)
 
     ##############################################

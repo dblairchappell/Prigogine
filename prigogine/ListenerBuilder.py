@@ -61,20 +61,23 @@ class ListenerBuilder(PrigogineListener):
     def enterPopulation(self, ctx):
 
         populationName = ctx.getChild(1).getText().encode("ascii")
-        populationName = populationName.replace("\"", "")
         self.currentPopulation = populationName
         self.model.declarePopulation(populationName)
 
         agentVariableNames = self.getVariableNames(ctx)
         for varName in agentVariableNames:
+            varName = "\"" + str(varName) + "\""
             self.model.declareVariable(populationName, varName)
 
         agentParameterNames = self.getParameterNames(ctx)
         for paramName in agentParameterNames:
+            paramName = "\"" + str(paramName) + "\""
             self.model.declareParameter(populationName, paramName)
 
         agentStateNames = self.getStateNames(ctx)
         for stateName in agentStateNames:
+            stateName = "\"" + str(stateName) + "\""
+            #print stateName
             self.model.addState(populationName, stateName)
             #self.model.addState(populationName, stateName, self.currentStateId)
         #    self.currentStateId += 1
@@ -83,7 +86,6 @@ class ListenerBuilder(PrigogineListener):
 
     def enterStatedef(self, ctx):
         stateName = ctx.getChild(1).getText().encode("ascii")
-        stateName = stateName.replace("\"", "")
         self.currentState = stateName
 
     ########################
@@ -94,7 +96,7 @@ class ListenerBuilder(PrigogineListener):
         codeType = type(ctx.getChild(2)) # detect whether code is in a single line or a block
         populationName = self.currentPopulation
         variableName = ctx.getChild(1).getText().encode("ascii")
-
+        variableName = "\"" + str(variableName) + "\""
         if codeType == PrigogineParser.CodelineContext:
             codeline = ctx.codeline()
             expression = codeline.expression()
@@ -126,7 +128,7 @@ class ListenerBuilder(PrigogineListener):
         populationName = self.currentPopulation
         currentState = self.currentState
         targetState = ctx.getChild(1).getText().encode("ascii")
-
+        targetState = "\"" + str(targetState) + "\""
         guardExpression = ctx.conditional() #.getText()
         tokenInterval = guardExpression.getSourceInterval()
         guardExpressionString = str(self.tokens.getText(tokenInterval))
@@ -136,7 +138,24 @@ class ListenerBuilder(PrigogineListener):
 
         self.model.addStateTransitionCode(populationName, codelineString)
 
+    #########################
 
+    def enterInitglobal(self, ctx):
+        print ctx.getText()
 
+    #########################
 
+    def enterCreate(self, ctx):
+        print ctx.getText()
 
+    #########################
+
+    def enterFinalise(self, ctx):
+        print ctx.getText()
+
+    #########################
+
+    def enterRunmodel(self, ctx):
+        print ctx.getText()
+
+    #########################
