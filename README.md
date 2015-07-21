@@ -56,5 +56,7 @@ The project is at a relatively early stage and is presently focussed on getting 
         show()
     ]
 
+##### Model Output
 
-![alt text](https://github.com/dblairchappell/Prigogine/tree/master/prigogine/models/labourmarket/figure_1.png "Labour Market Model Output")
+![Model Output]https://github.com/dblairchappell/Prigogine/tree/master/prigogine/models/labourmarket/figure_1.png)
+
