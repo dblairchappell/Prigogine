@@ -58,5 +58,5 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 ##### Model Output
 
-![Model Output]https://github.com/dblairchappell/Prigogine/tree/master/prigogine/models/labourmarket/figure_1.png)
+![Model Output](https://github.com/dblairchappell/Prigogine/tree/master/prigogine/models/labourmarket/figure_1.png)
 
