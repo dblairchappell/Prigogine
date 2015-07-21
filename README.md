@@ -8,29 +8,48 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 #### Example of Proposed Syntax:
 
-    population "households" [
+    ##### Model Definition
 
+    population households [
         parameters [
-            "minWage"
+            minwage
         ]
-
         variables [
-            "reserveWages"
-            "weeksEmployed"
+            reserveWage
+            weeksEmployed
+            minWage
         ]
-
-        state "employed" [
-            transition "unemployed" where get("reserveWages") > 100
-            update "reserveWages" get("reserveWages") * 1.02
-            update "weeksEmployed" get("weeksEmployed") + 1
+        state employed [
+            transition unemploy where getvars('reserveWage') > (getparams('minWage') + 100)
+            update reserveWage getvars('reserveWage') * 1.1
+            update weeksEmployed getvars('weeksEmployed') + 1
         ]
-
-        state "unemployed" [
-            transition "employed" where get("reserveWages") < 35
-            update "reserveWages" maximum(get("reserveWages") * 0.9, getparams("minWage"))
-            update "weeksEmployed" get("weeksEmployed")
+        state unemploy [
+            transition employed where getvars('reserveWage') <= getparams('minWage')
+            update reserveWage maximum(getvars('reserveWage') * 0.9, getparams('minWage'))
+            update weeksEmployed getvars('weeksEmployed')
         ]
+    ]
 
+    ##### Model Simulation
+
+    initglobal sumReserveWages []
+    initglobal sumWeeksEmployed []
+    initglobal sumMinWages []
+
+    create households 100 [
+        initvars reserveWage random.randint(100, size=100)
+        initvars minWage ones((1,100)) * 60
+        initvars weeksEmployed ones((1,100))
+        initstates random.choice(["employed", "unemploy"], size=100)
+    ]
+
+    runmodel 100 [
+        print "-"
+    ]
+
+    finalise [
+        plot(getglobal("reserveWage"), 'r', getglobal("weeksEmployed"), 'b-', getglobal("minWage"), 'g-')
     ]
 
 
