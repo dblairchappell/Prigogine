@@ -6,7 +6,7 @@ population households [
     variables [
         reserveWage
         weeksEmployed
-        #minWage
+        minWage
     ]
     state employed [
         transition unemploy where getvars("reserveWage") > (getparams("minWage") + 100)

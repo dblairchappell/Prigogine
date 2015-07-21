@@ -12,7 +12,7 @@ The project is at a relatively early stage and is presently focussed on getting 
 
     population households [
         parameters [
-            minwage
+            minWage
         ]
         variables [
             reserveWage
@@ -20,14 +20,14 @@ The project is at a relatively early stage and is presently focussed on getting 
             minWage
         ]
         state employed [
-            transition unemploy where getvars('reserveWage') > (getparams('minWage') + 100)
-            update reserveWage getvars('reserveWage') * 1.1
-            update weeksEmployed getvars('weeksEmployed') + 1
+            transition unemploy where getvars("reserveWage") > (getparams("minWage") + 100)
+            update reserveWage getvars("reserveWage") * 1.1
+            update weeksEmployed getvars("weeksEmployed") + 1
         ]
         state unemploy [
-            transition employed where getvars('reserveWage') <= getparams('minWage')
-            update reserveWage maximum(getvars('reserveWage') * 0.9, getparams('minWage'))
-            update weeksEmployed getvars('weeksEmployed')
+            transition employed where getvars("reserveWage") <= getparams("minWage")
+            update reserveWage maximum(getvars("reserveWage") * 0.9, getparams("minWage"))
+            update weeksEmployed getvars("weeksEmployed")
         ]
     ]
 
@@ -37,19 +37,23 @@ The project is at a relatively early stage and is presently focussed on getting 
     initglobal sumWeeksEmployed []
     initglobal sumMinWages []
 
-    create households 100 [
-        initvars reserveWage random.randint(100, size=100)
-        initvars minWage ones((1,100)) * 60
-        initvars weeksEmployed ones((1,100))
-        initstates random.choice(["employed", "unemploy"], size=100)
+    create households 10000 [
+        initvars reserveWage random.randint(100, size=10000)
+        initvars minWage ones((1,10000)) * 60
+        initvars weeksEmployed ones((1,10000))
+        initparams minWage ones((1,10000)) * 60
+        initstates random.choice(["employed", "unemploy"], size=10000)
     ]
 
-    runmodel 100 [
-        print "-"
+    runmodel 200 [
+        setglobal("sumWeeksEmployed", getvars("households", "weeksEmployed").mean())
+        setglobal("sumReserveWages", getvars("households", "reserveWage").mean())
+        setglobal("sumMinWages", getparams("households", "minWage").mean())
     ]
 
     finalise [
-        plot(getglobal("reserveWage"), 'r', getglobal("weeksEmployed"), 'b-', getglobal("minWage"), 'g-')
+        plot(getglobal("sumReserveWages"), 'r', getglobal("sumWeeksEmployed"), 'b-', getglobal("sumMinWages"), 'g-')
+        show()
     ]
 
 
