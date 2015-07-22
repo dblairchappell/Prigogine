@@ -237,7 +237,7 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_6">
              <item row="1" column="0" colspan="2">
-              <widget class="QTextEdit" name="textEdit_3">
+              <widget class="QTextEdit" name="modelCodeTextEdit">
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
@@ -295,7 +295,7 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
              <item row="1" column="0" colspan="3">
-              <widget class="QTextEdit" name="textEdit">
+              <widget class="QTextEdit" name="simulationScriptTextEdit">
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
