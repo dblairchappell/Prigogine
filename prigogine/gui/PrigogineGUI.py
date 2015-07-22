@@ -13,8 +13,9 @@ class MyWindowClass(QMainWindow, form_class):
         self.addPopulationButton.clicked.connect(self.actionAddPopulationButton_clicked)
 
     def actionAddPopulationButton_clicked(self):
-        item = QListWidgetItem("Item 1")
-        self.populationListWidget.addItem(item)
+        populationName = self.addPopulationLineEdit.text()
+        population = QListWidgetItem(populationName)
+        self.populationListWidget.addItem(population)
 
 app = QApplication(sys.argv)
 myWindow = MyWindowClass(None)

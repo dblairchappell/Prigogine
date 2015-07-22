@@ -787,54 +787,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>addPopulationButton</sender>
-   <signal>clicked()</signal>
-   <receiver>addPopulationLineEdit</receiver>
-   <slot>selectAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>119</x>
-     <y>128</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>265</x>
-     <y>128</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addPopulationButton</sender>
-   <signal>clicked()</signal>
-   <receiver>addPopulationLineEdit</receiver>
-   <slot>copy()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>131</x>
-     <y>110</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>247</x>
-     <y>118</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addPopulationButton</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>addPopulationLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>49</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>335</x>
-     <y>126</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
