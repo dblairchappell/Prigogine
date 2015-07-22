@@ -1,5 +1,3 @@
-import pyqtconfig
-
 
 import time
 from prigogine.Prigogine import *
