@@ -3,15 +3,15 @@ initglobal sumReserveWages []
 initglobal sumWeeksEmployed []
 initglobal sumMinWages []
 
-create households 10000 [
-    initvars reserveWage random.randint(100, size=10000)
-    initvars minWage ones((1,10000)) * 60
-    initvars weeksEmployed ones((1,10000))
-    initparams minWage ones((1,10000)) * 60
-    initstates random.choice(["employed", "unemploy"], size=10000)
+create households 1000 [
+    initvars reserveWage random.randint(100, size=1000)
+    initvars minWage ones((1,1000)) * 60
+    initvars weeksEmployed ones((1,1000))
+    initparams minWage ones((1,1000)) * 60
+    initstates random.choice(["employed", "unemploy"], size=1000)
 ]
 
-runmodel 200 [
+runmodel 100 [
     setglobal("sumWeeksEmployed", getvars("households", "weeksEmployed").mean())
     setglobal("sumReserveWages", getvars("households", "reserveWage").mean())
     setglobal("sumMinWages", getparams("households", "minWage").mean())

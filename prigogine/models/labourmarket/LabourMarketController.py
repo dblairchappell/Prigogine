@@ -1,3 +1,6 @@
+import pyqtconfig
+
+
 import time
 from prigogine.Prigogine import *
 start = time.clock()
