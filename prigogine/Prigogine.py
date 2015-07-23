@@ -93,6 +93,16 @@ class Prigogine:
 
     ##############################################
 
+    def loadModelFromGUI(self, codeToParse):
+        with open('__workingmodel.prm', 'w') as outfile:
+            for line in codeToParse:
+                outfile.write(line)
+
+        inputStream = FileStream('__workingmodel.prm')
+        self.model = self.buildModel(inputStream)
+
+    ##############################################
+
     def runmodel(self, numIterations):
         self.model.runModel(numIterations)
 
