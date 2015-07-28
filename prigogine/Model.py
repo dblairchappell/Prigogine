@@ -243,6 +243,13 @@ class Model:
 
         for each in range(numIterations):
 
+            self.updateModel()
+            self.itno +=1
+
+            if self.itno % 25 == 1:
+                 print ""
+            print ".",
+
             self.writeIndex = self.t + 1
             while self.writeIndex >= self.timeStepMem:
                 self.writeIndex -= self.timeStepMem
@@ -250,13 +257,6 @@ class Model:
             self.readIndex = self.t
             while self.readIndex >= self.timeStepMem:
                 self.readIndex -= self.timeStepMem
-
-            self.updateModel()
-            self.itno +=1
-
-            if self.itno % 25 == 1:
-                 print ""
-            print ".",
 
             self.t += 1
 
