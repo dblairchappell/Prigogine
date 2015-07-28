@@ -2,7 +2,7 @@
 
 Prigogine is a domain-specific language and development environment for scientists wanting to develop large-scale agent-based models but lacking the knowledge neccessary to take advantage of high-performance computing technology.
 
-By utilising Python's multiprocessing module and the NumPy package for n-dimensional arrays, it is hoped that the performance capabilities of modelling frameworks like Repast HPC and FLAME, and the productiveness of a high-level language like NetLogo, can be brought together in one convenient package.
+By utilising Python's multiprocessing module and the NumPy package for n-dimensional arrays, it is hoped that the performance capabilities of modelling frameworks like Repast HPC and FLAME, and the productiveness associated with Python's high-level sytax, can be brought together in one convenient package.
 
 The project is at a relatively early stage and is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-september 2015.
 
@@ -10,51 +10,65 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 ##### Model Definition Script
 
-    population households [
-        parameters [
-            minWage
-        ]
+    model labourmarket [
         variables [
-            reserveWage
-            weeksEmployed
-            minWage
+            meanWeeksEmployed
+            meanReserveWages
+            meanMinWages
         ]
-        state employed [
-            transition unemploy where getvars("reserveWage") > (getparams("minWage") + 100)
-            update reserveWage getvars("reserveWage") * 1.1
-            update weeksEmployed getvars("weeksEmployed") + 1
+        equations [
+            self.meanWeeksEmployed[t+1] = self.households.weeksEmployed[t].mean()
+            self.meanReserveWages[t+1] = self.households.reserveWages[t].mean()
+            self.meanMinWages[t+1] = self.households.minWages[t].mean()
         ]
-        state unemploy [
-            transition employed where getvars("reserveWage") <= getparams("minWage")
-            update reserveWage maximum(getvars("reserveWage") * 0.9, getparams("minWage"))
-            update weeksEmployed getvars("weeksEmployed")
+        population households [
+            variables [
+                states
+                reserveWages
+                weeksEmployed
+                minWages
+            ]
+            equations [
+                self.states[t+1][n] = 0, where (self.reserveWages[t] >= (self.minWages[t] + 100)) & (self.states[t] == 1)
+                self.reserveWages[t+1] = self.reserveWages[t] * 1.1, where self.states[t] == 1
+                self.weeksEmployed[t+1] = self.weeksEmployed[t] + 1, where self.states[t] == 1
+                self.states[t+1][n] = 1, where (self.reserveWages[t] < self.minWages[t]) & (self.states[t] == 0)
+                self.reserveWages[t+1] = self.reserveWages[t] * 0.9, where self.states[t] == 0
+                self.weeksEmployed[t+1] = self.weeksEmployed[t], where self.states[t] == 0
+            ]
         ]
     ]
 
 ##### Model Simulation Script
 
-    initglobal sumReserveWages []
-    initglobal sumWeeksEmployed []
-    initglobal sumMinWages []
+    from prigogine.Prigogine import *
+    from numpy import *
+    from matplotlib.pyplot import *
 
-    create households 10000 [
-        initvars reserveWage random.randint(100, size=10000)
-        initvars minWage ones((1,10000)) * 60
-        initvars weeksEmployed ones((1,10000))
-        initparams minWage ones((1,10000)) * 60
-        initstates random.choice(["employed", "unemploy"], size=10000)
-    ]
+    meanReserveWages = []
+    meanWeeksEmployed = []
+    meanMinWages = []
 
-    runmodel 200 [
-        setglobal("sumWeeksEmployed", getvars("households", "weeksEmployed").mean())
-        setglobal("sumReserveWages", getvars("households", "reserveWage").mean())
-        setglobal("sumMinWages", getparams("households", "minWage").mean())
-    ]
+    labourmarket = prigogine.loadmodel("LabourMarketNew.prm")
+    labourmarket.households.popsize = 10000
 
-    finalise [
-        plot(getglobal("sumReserveWages"), 'r', getglobal("sumWeeksEmployed"), 'b-', getglobal("sumMinWages"), 'g-')
-        show()
-    ]
+    labourmarket.households.init("states", "random.choice([1, 0], size=self.popsize, p=[0.5,0.5])")
+    labourmarket.households.init("reserveWages", "random.randint(100, size=self.popsize)")
+    labourmarket.households.init("weeksEmployed", "ones(self.popsize)")
+    labourmarket.households.init("minWages", "ones(self.popsize) * 60")
+
+    labourmarket.init("meanWeeksEmployed", "zeros(1)")
+    labourmarket.init("meanReserveWages", "zeros(1)")
+    labourmarket.init("meanMinWages", "zeros(1)")
+
+    for i in range(100):
+        labourmarket.runModel(1)
+        meanWeeksEmployed.append(labourmarket.meanWeeksEmployed[labourmarket.readIndex][0])
+        meanReserveWages.append(labourmarket.meanReserveWages[labourmarket.readIndex][0])
+        meanMinWages.append(labourmarket.meanMinWages[labourmarket.readIndex][0])
+
+    plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
+    show()
 
 ##### Model Output
 

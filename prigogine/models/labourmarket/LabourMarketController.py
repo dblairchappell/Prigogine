@@ -1,7 +1,7 @@
 import time
 from prigogine.Prigogine import *
 from numpy import *
-import matplotlib.pyplot as plt
+from matplotlib.pyplot import *
 
 start = time.clock()
 
@@ -30,6 +30,6 @@ for i in range(100):
 end = time.clock()
 print "\n\ntime elapsed: " + str(end - start) + "s"
 print meanReserveWages
-plt.plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
-plt.show()
+plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
+show()
 

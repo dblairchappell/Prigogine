@@ -5,16 +5,12 @@ COMMENTS = 1
 SPACES = 2
 }
 
-//filestart
-  //  : (population | initglobal | create | runmodel)+ finalise*
-    //;
-
 filestart
     : model+ simulation*
     ;
 
 model
-    : 'model' ID '[' (parameterlist* variablelist equationlist population+) ']'
+    : 'model' ID '[' (variablelist equationlist population+) ']'
     ;
 
 simulation

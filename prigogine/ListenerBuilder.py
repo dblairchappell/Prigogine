@@ -37,16 +37,16 @@ class ListenerBuilder(PrigogineListener):
 
     #########################
 
-    @staticmethod
-    def getParameterNames(ctx):
-        numParams = ctx.parameterlist()[0].getChildCount() - 3
-        paramList = []
-        for i in range(numParams):
-            paramName = ctx.parameterlist()[0].getPayload().getChild(i+2).getText().encode('ascii')
-            paramName = paramName.replace("\"", "")
-            paramList.append(paramName)
-
-        return paramList
+    # @staticmethod
+    # def getParameterNames(ctx):
+    #     numParams = ctx.parameterlist()[0].getChildCount() - 3
+    #     paramList = []
+    #     for i in range(numParams):
+    #         paramName = ctx.parameterlist()[0].getPayload().getChild(i+2).getText().encode('ascii')
+    #         paramName = paramName.replace("\"", "")
+    #         paramList.append(paramName)
+    #
+    #     return paramList
 
     #########################
 
@@ -61,10 +61,10 @@ class ListenerBuilder(PrigogineListener):
             exec "self.%(modelName)s.%(variableName)s = None" % \
                  {"modelName" : self.currentModel, "variableName" : variableName}
 
-        modelParameters = self.getParameterNames(ctx)
-        for parameter in modelParameters:
-            exec "self.%(modelName)s.%(parameterName)s = None" % \
-                 {"modelName" : self.currentModel, "parameterName" : parameter}
+        # modelParameters = self.getParameterNames(ctx)
+        # for parameter in modelParameters:
+        #     exec "self.%(modelName)s.%(parameterName)s = None" % \
+        #          {"modelName" : self.currentModel, "parameterName" : parameter}
 
     #########################
 
@@ -84,10 +84,10 @@ class ListenerBuilder(PrigogineListener):
         exec "self.%(currentmodel)s.populations[\"%(population)s\"] = self.%(currentmodel)s.%(population)s" % \
              {"currentmodel" : self.currentModel, "population" : populationName}
 
-        agentParameterNames = self.getParameterNames(ctx)
-        for paramName in agentParameterNames:
-            exec "self.%(currentmodel)s.%(population)s.%(parameter)s = None" % \
-                {"currentmodel" : self.currentModel, "population" : populationName, "parameter" : paramName}
+        # agentParameterNames = self.getParameterNames(ctx)
+        # for paramName in agentParameterNames:
+        #     exec "self.%(currentmodel)s.%(population)s.%(parameter)s = None" % \
+        #         {"currentmodel" : self.currentModel, "population" : populationName, "parameter" : paramName}
 
         agentVariableNames = self.getVariableNames(ctx)
         for varName in agentVariableNames:
@@ -109,6 +109,7 @@ class ListenerBuilder(PrigogineListener):
 
                 variableName = equationline.getChild(2).getText().encode('ascii') #+ "."
                 equationInterval = equationline.expression().getSourceInterval()
+                conditionCode = ""
 
                 for child in equationline.children:
 
