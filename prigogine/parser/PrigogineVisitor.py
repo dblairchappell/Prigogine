@@ -10,53 +10,43 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#model.
+    def visitModel(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#simulation.
+    def visitSimulation(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#codeinsert.
+    def visitCodeinsert(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#equationlist.
+    def visitEquationlist(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#elementwiseEquation.
+    def visitElementwiseEquation(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#mapEquation.
+    def visitMapEquation(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#assignment.
+    def visitAssignment(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#population.
     def visitPopulation(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#initglobal.
-    def visitInitglobal(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#initvars.
-    def visitInitvars(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#initparams.
-    def visitInitparams(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#initstates.
-    def visitInitstates(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#create.
-    def visitCreate(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#createblock.
-    def visitCreateblock(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#createline.
-    def visitCreateline(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#runmodel.
-    def visitRunmodel(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#finalise.
-    def visitFinalise(self, ctx):
         return self.visitChildren(ctx)
 
 
@@ -90,6 +80,11 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#indexedvariable.
+    def visitIndexedvariable(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#parameter.
     def visitParameter(self, ctx):
         return self.visitChildren(ctx)
@@ -110,28 +105,8 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by PrigogineParser#statedef.
-    def visitStatedef(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#transition.
-    def visitTransition(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#update.
-    def visitUpdate(self, ctx):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by PrigogineParser#expression.
     def visitExpression(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#assignment.
-    def visitAssignment(self, ctx):
         return self.visitChildren(ctx)
 
 
@@ -142,6 +117,11 @@ class PrigogineVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by PrigogineParser#codeline.
     def visitCodeline(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#pyforloop.
+    def visitPyforloop(self, ctx):
         return self.visitChildren(ctx)
 
 
@@ -167,11 +147,6 @@ class PrigogineVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by PrigogineParser#func.
     def visitFunc(self, ctx):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by PrigogineParser#argument.
-    def visitArgument(self, ctx):
         return self.visitChildren(ctx)
 
 

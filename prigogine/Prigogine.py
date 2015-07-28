@@ -90,6 +90,8 @@ class Prigogine:
 
         inputStream = FileStream('__workingmodel.prm')
         self.model = self.buildModel(inputStream)
+        #print self.model
+        return self.model
 
     ##############################################
 
@@ -108,6 +110,8 @@ class Prigogine:
 
     ##############################################
 
+    def init(self):
+        print "test"
 
 prigogine = Prigogine()
 

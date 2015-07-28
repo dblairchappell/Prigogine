@@ -5,49 +5,90 @@ COMMENTS = 1
 SPACES = 2
 }
 
+//filestart
+  //  : (population | initglobal | create | runmodel)+ finalise*
+    //;
+
 filestart
-    : (population | initglobal | create | runmodel)+ finalise*
+    : model+ simulation*
     ;
+
+model
+    : 'model' ID '[' (parameterlist* variablelist equationlist population+) ']'
+    ;
+
+simulation
+    : 'simulation' '[' codeinsert ']'
+    ;
+
+codeinsert
+    //: (ESC|.)*?
+    : ~('\n'|'\r')*?
+    ;
+
+equationlist
+    : 'equations' '[' (elementwiseEquation | mapEquation)+ ']'
+    ;
+
+elementwiseEquation
+    : ID '[t+1]' '=' expression (',' 'where' conditional)*
+    | ID ('.' ID)* '[t+1]' '=' expression (',' 'where' conditional)*
+    ;
+
+mapEquation
+    : ID '[t+1]' '[n]''=' expression (',' 'where' conditional)*
+    | ID ('.' ID)* '[t+1]' '[n]' '=' expression (',' 'where' conditional)*
+    ;
+
+assignment
+    : ID (('.' ID) | timeindex)* '=' expression
+    ;
+
+//population
+ //   : 'population' ID '[' parameterlist variablelist statedef+ ']'
+  //  | 'population' ID '[' statedef+ ']'
+   // ;
 
 population
-    : 'population' ID '[' parameterlist variablelist statedef* ']'
+    : 'population' ID '[' parameterlist* variablelist equationlist ']'
     ;
 
-initglobal
-    : 'initglobal' ID expression
-    ;
+//initglobal
+  //  : 'global' ID expression
+    //;
 
-initvars
-    : 'initvars' ID expression
-    ;
+//initvars
+ //   : 'vars' ID expression
+  //  ;
 
-initparams
-    : 'initparams' ID expression
-    ;
+//initparams
+ //   : 'params' ID expression
+  //  ;
 
-initstates
-    : 'initstates' expression
-    ;
+//initstates
+ //   : 'startstates' expression
+  //  ;
 
-create
-    : 'create' ID INT createblock*
-    ;
+//create
+ //   : 'create' ID INT createblock*
+  //  ;
 
-createblock
-    : '[' createline* ']'
-    ;
+//createblock
+  //  : '[' createline* ']'
+  //  ;
 
-createline
-     : (initvars | initstates | initparams)+
-     ;
+//createline
+  //   : (initvars | initstates | initparams)+
+   //  ;
 
-runmodel
-    : 'runmodel' INT codeblock*
-    ;
+//runmodel
+    //: 'runmodel' INT codeblock*
+  //  : 'runmodel' INT '[' (initglobal | create)* ']'
+    //;
 
-finalise
-    : 'finalise' codeblock*
-    ;
+//finalise
+  //  : 'finalise' codeblock*
+   // ;
 
 parameterlist
     : 'parameters' '[' parameter* ']'
@@ -63,6 +104,7 @@ listcomp
 
 listdef
     : '[' ( (ID | number | string) (',' (ID | number | string) )* )* ']'
+    | '[' listdef ']'
     ;
 
 tupledef
@@ -73,34 +115,42 @@ variable
     : ID
     ;
 
+indexedvariable
+    : ID timeindex
+    ;
+
 parameter
     : ID
     ;
 
 timeindex
-    : '[' 't' (('-'|'+') INT)* ']'
-    | '[:]'
+    : ('[' timevar (SUB INT)* ']' | '[:]')+
     ;
 
 timevar
     : 't'
+    | INT
     ;
 
 dictindex
     : ('[' string ']')
     ;
 
-statedef
-    : 'state' ID '[' transition* update* ']'
-    ;
+//statedef
+  //  : 'state' ID '[' (transition | update | updateglobal)* ']'
+  //  ;
 
-transition
-    : 'transition' ID 'where' conditional codeblock*
-    ;
+//transition
+ //   : 'transition' ID 'where' conditional codeblock*
+  //  ;
 
-update
-    : 'update' ID (codeline | codeblock)
-    ;
+//update
+ //   : 'update' ID (codeline | codeblock)
+ //   ;
+
+//updateglobal
+ //   : 'updateglobal' ID (codeline | codeblock)
+  //  ;
 
 expression
      : assignment
@@ -109,7 +159,9 @@ expression
      | expression op=(MUL|DIV) expression
      | expression op=(ADD|SUB) expression
      | expression op=PIPE expression
+     | pyforloop
      | 'print' string
+     | 'print' string ','
      | 'print' expression
      | listdef
      | tupledef
@@ -118,21 +170,23 @@ expression
      | func
      | listcomp
      | ID
+     | ':'
+     | indexedvariable
      | timevar
      | lparen expression rparen
      | 'return' ID
      ;
 
-assignment
-    : ID '=' expression
-    ;
-
 codeblock
-    : '[' codeline* ']'
+    : '[' (codeline | pyforloop)* ']'
     ;
 
 codeline
     : expression
+    ;
+
+pyforloop
+    : 'for' (ID | timevar) 'in' (ID | func) ':'
     ;
 
 string
@@ -140,7 +194,7 @@ string
     ;
 
 conditional
-    : expression op=('<'|'>'|'>='|'<='|'=='|'!=') expression
+    : lparen* expression op=('<'|'>'|'>='|'<='|'=='|'!=') expression rparen* (('&' | '|') conditional)*
     ;
 
 lparen
@@ -152,14 +206,14 @@ rparen
     ;
 
 func
-    : ID '(' (expression (',' expression)*)* ')'
+    : ID '(' lparen* (expression (',' expression)*)* rparen* ')'
     ;
 
-argument
-    : number
-    | ID
-    | func
-    ;
+//argument
+ //   : number
+ //   | ID
+  //  | func
+  //  ;
 
 number
     : INT

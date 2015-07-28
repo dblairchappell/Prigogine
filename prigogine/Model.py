@@ -2,6 +2,7 @@
 from Population import Population
 from numpy import *
 from matplotlib.pyplot import *
+import time
 
 class Model:
 
@@ -14,8 +15,21 @@ class Model:
         self.timeStepMem = 2
         self.t = 0
         self.itno = 0
+        self.readIndex = 0
+        self.writeIndex = 1
         self.globals = {}
         self.timeStepCode = ""
+        self.variableNames = []
+        self.parameterName = []
+        self.updateCode = []
+
+    #########################
+
+    def getfrom(self, populationName, variableName):
+        #return self.model.populations[populationName].variables[variableName][self.model.t]
+        #print self.populations
+        #print self.populations[populationName].variables
+        return self.populations[populationName].getvars(variableName, self.t)
 
     #########################
 
@@ -25,13 +39,25 @@ class Model:
 
     #########################
 
+    def setglobal(self, globalName, globalValue):
+        self.globals[globalName] = eval(globalValue)
+        #print self.globals
+
+    #########################
+
     def getglobal(self, variableName):
         return self.globals[variableName]
+
+    ##############################################
+
+    def appendglobal(self, variableName, value):
+        self.globals[variableName] = append(self.globals[variableName], value)
 
     #########################
 
     def evaluateCode(self, codeToEval):
         getglobal = lambda variableName : self.getglobal(variableName)
+        getfrom = lambda populationName, variableName : self.getfrom(populationName, variableName)
         code = compile(codeToEval, "<string>", "exec")
         exec code in globals(), locals()
 
@@ -40,6 +66,25 @@ class Model:
     # def initvars(self, populationName, varName, varValue):
     #     self.populations[populationName].variables[varName] = eval(varValue)
     #     print self.populations[populationName].variables
+
+    #########################
+
+    # def init(self, varName, varValue):
+    #     exec "self.%(varName)s[0] = %(varValue)s" % \
+    #          {"varName" : varName, "varValue" : varValue}
+
+    def init(self, varName, expression):
+
+        exec "self.%s = zeros((2,1))" % varName
+        #exec "print self.%s" % varName
+        code = "self.%(varName)s[0] = %(expression)s" % \
+               {"varName" : varName, "expression" : expression}
+        exec code in globals(), locals()
+
+        code = "self.%(varName)s[1] = %(expression)s" % \
+               {"varName" : varName, "expression" : expression}
+        exec code in globals(), locals()
+        #exec "print self.%s" % varName
 
     #########################
 
@@ -61,11 +106,6 @@ class Model:
     def setstates(self, populationName, states):
         self.populations[populationName].currentstates = eval(states)
         #print self.populations[populationName].currentstates
-
-    ##############################################
-
-    def setglobal(self, variableName, value):
-        self.globals[variableName] = append(self.globals[variableName], value)
 
     #########################
 
@@ -105,16 +145,69 @@ class Model:
 
     def addStateTransitionCode(self, populationName, codeString):
         self.populations[populationName].addStateTransitionCode(codeString)
+    #########################
+
+    @staticmethod
+    def calculateNewVals(oldVals, newVals, trueFalse):
+        resultArray = oldVals
+        #print "result array 1: " + str(resultArray)
+        #print "trueFalse: " + str(trueFalse)
+        #for index in where(trueFalse):
+        if trueFalse:
+            resultArray = newVals
+        #print "result array 2: " + str(resultArray)
+        return resultArray
+
+    #########################
+
+    def update(self, variableName, newValues, conditionalCheck, t):
+
+        readIndex = self.readIndex
+        writeIndex = self.writeIndex
+
+        #print readIndex
+        #print writeIndex
+
+        t = readIndex
+        oldVals = eval("self.%s[readIndex]" % variableName)
+        newVals = eval(newValues)
+        trueFalse = eval(conditionalCheck)
+        #exec "print self.%s" % variableName
+
+        #print trueFalse
+        # maskedVals = ma.masked_array(oldVals, mask=~trueFalse)
+        # result = maskedVals + newVals - oldVals
+        # result.mask = ma.nomask
+        #print result
+        result = self.calculateNewVals(oldVals, newVals, trueFalse)
+        #print result
+        exec "self.%(variableName)s[%(writeIndex)d] = result" % \
+             {"variableName" : variableName, "result" : result, "writeIndex" : writeIndex} in locals(), globals()
+
+    #########################
+
+    def evalUpdateCode(self):
+        #print self.updateCode
+        update = lambda variableName, value, mask, t: self.update(variableName, value, mask, self.t)
+        for code in self.updateCode:
+            exec code in globals(), locals()
 
     #########################
 
     def updateModel(self):
-        for population in self.populations:
-            variables = self.populations[population].variables
-            states = self.populations[population].currentstates
+        #print self.populations
+        for name, population in self.populations.items():
+            population.t = self.t
+            #print name
+            #print population.updateCode
+            population.evalUpdateCode()
+            self.evalUpdateCode()
+
+            #variables = self.populations[population].variables
+            #states = self.populations[population].currentstates
             #print self.populations[population]
-            self.populations[population].updateStates(states, self.t)
-            self.populations[population].updateVariables(variables, self.t)
+            #self.populations[population].updateStates(states, self.t)
+            #self.populations[population].updateVariables(variables, self.t)
 
     #########################
 
@@ -137,23 +230,38 @@ class Model:
         getparams = lambda  populationName, parameterName: self.getparams(populationName, parameterName)
         getglobal = lambda variableName : self.getglobal(variableName)
         setglobal = lambda variableName, value : self.setglobal(variableName, value)
-
+        getfrom = lambda populationName, variableName  : self.getvars(populationName, variableName)
         code = compile(self.timeStepCode, "<string>", "exec")
         exec code in globals(), locals()
 
     #########################
 
     def runModel(self, numIterations):
+
+        print "\n-------- running model for " + str(numIterations) + " timesteps --------"
+        start = time.clock()
+
         for each in range(numIterations):
-            self.itno +=1
+
+            self.writeIndex = self.t + 1
+            while self.writeIndex >= self.timeStepMem:
+                self.writeIndex -= self.timeStepMem
+
+            self.readIndex = self.t
+            while self.readIndex >= self.timeStepMem:
+                self.readIndex -= self.timeStepMem
+
             self.updateModel()
-            self.doIterationCode(self.t)
+            self.itno +=1
+
             if self.itno % 25 == 1:
-                print ""
+                 print ""
             print ".",
+
             self.t += 1
-            if self.t >= self.timeStepMem:
-                self.t = 0
+
+        end = time.clock()
+        print "\n--------- completed run in %.5f secs ---------" % round((end - start),5)
 
     #########################
 

@@ -14,8 +14,11 @@ class MyWindowClass(QMainWindow, form_class):
     def __init__(self, parent=None):
 
         sys.stdout = EmittingStream(textWritten=self.normalOutputWritten) # Install the custom output stream
+        sys.stderr = EmittingStream(textWritten=self.errorOutputWritten)
         self.currentProject = None
-        self.workingData = {"populationCode": "", "simulationScript": ""}
+        self.workingData = {"populationCode": {}, "simulationScript": ""}
+        self.selectedPopulation = ""
+
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
         self.showMaximized()
@@ -40,6 +43,7 @@ class MyWindowClass(QMainWindow, form_class):
         populationName = self.addPopulationLineEdit.text()
         populationName = populationName.replace(" ", "")
         if populationName != "":
+            self.workingData["populationCode"][populationName] = ""
             population = QListWidgetItem(populationName)
             self.populationListWidget.addItem(population)
 
@@ -67,6 +71,8 @@ class MyWindowClass(QMainWindow, form_class):
         filename = QFileDialog.getOpenFileName(fileDialog, 'Open Project', '/home/','*.pr')
         self.currentProject = filename
         with open(filename, 'r') as inData:
+            self.modelCodeTextEdit.clear()
+            self.simulationScriptTextEdit.clear()
             data = json.load(inData)
             self.modelCodeTextEdit.insertPlainText(data["populationCode"])
             self.workingData["populationCode"] = data["populationCode"]
@@ -129,12 +135,11 @@ class MyWindowClass(QMainWindow, form_class):
     def __del__(self):
         # Restore sys.stdout
         sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
 
     #######################################
 
     def normalOutputWritten(self, text):
-        """Append text to the QTextEdit."""
-        # Maybe QTextEdit.append() works as well, but this is how I do it:
         cursor = self.terminalOutTextEdit.textCursor()
         cursor.movePosition(QTextCursor.End)
         cursor.insertText(text)
@@ -143,18 +148,27 @@ class MyWindowClass(QMainWindow, form_class):
 
     #######################################
 
+    def errorOutputWritten(self, text):
+        cursor = self.terminalOutTextEdit.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        cursor.insertText(text)
+        self.terminalOutTextEdit.setTextCursor(cursor)
+        self.terminalOutTextEdit.ensureCursorVisible()
+
+#######################################
+
 class EmittingStream(QtCore.QObject):
 
     textWritten = QtCore.pyqtSignal(str)
-
     def write(self, text):
         self.textWritten.emit(str(text))
+
+#######################################
 
 app = QApplication(sys.argv)
 myWindow = MyWindowClass(None)
 myWindow.show()
 app.exec_()
 
-
-
+#######################################
 

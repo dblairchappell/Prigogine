@@ -1,13 +1,6 @@
 
+
 population households [
-    parameters [
-        minWage
-    ]
-    variables [
-        reserveWage
-        weeksEmployed
-        minWage
-    ]
     state employed [
         transition unemploy where getvars("reserveWage") > (getparams("minWage") + 100)
         update reserveWage getvars("reserveWage") * 1.1
@@ -19,6 +12,15 @@ population households [
         update weeksEmployed getvars("weeksEmployed")
     ]
 ]
+##
+population statcollector [
+    state collecting [
+        update sumWeeksEmployed getvars("sumWeeksEmployed") + getfrom("households", "weeksEmployed").mean()
+        update sumReserveWages getvars("sumReserveWages") + getfrom("households", "reserveWage").mean()
+        update sumMinWages getvars("sumMinWages") + getfrom("households", "minWage").mean()
+    ]
+]
+##
 
 
 
