@@ -27,7 +27,7 @@ codeinsert
     ;
 
 equationlist
-    : 'equations' '[' (elementwiseEquation | mapEquation)+ ']'
+    : 'equations' '[' (elementwiseEquation | mapEquation)* ']'
     ;
 
 elementwiseEquation

@@ -4,15 +4,15 @@ model labourmarket [
     parameters []
 
     variables [
-        sumWeeksEmployed
-        sumReserveWages
-        sumMinWages
+        meanWeeksEmployed
+        meanReserveWages
+        meanMinWages
     ]
 
     equations [
-        self.sumWeeksEmployed[t+1] = self.households.weeksEmployed[t].mean()
-        self.sumReserveWages[t+1] = self.households.reserveWages[t].mean()
-        self.sumMinWages[t+1] = self.households.minWages[t].mean()
+        self.meanWeeksEmployed[t+1] = self.households.weeksEmployed[t].mean()
+        self.meanReserveWages[t+1] = self.households.reserveWages[t].mean()
+        self.meanMinWages[t+1] = self.households.minWages[t].mean()
     ]
 
     population households [

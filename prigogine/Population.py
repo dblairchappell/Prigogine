@@ -29,10 +29,6 @@ class Population:
     #              {"variable" : variableName, "numAgents" : self.populationSize}
 
     #########################
-    #
-    # def init(self, variableName, variableValues):
-    #     exec "self.%(variableName)s = %(variableValues)s"  % \
-    #          {"variableName" : variableName, "variableValues" : variableValues}
 
     def init(self, varName, expression):
 
@@ -90,8 +86,8 @@ class Population:
 
     def evalUpdateCode(self):
         #t = self.model.t
-        update = lambda variableName, value, mask, t: self.update(variableName, value, mask, self.model.t)
-        updateMap = lambda variableName, value, mask, t: self.updateMap(variableName, value, mask, self.model.t)
+        update = lambda variableName, value, conditionalCheck, t: self.update(variableName, value, conditionalCheck, self.model.t)
+        updateMap = lambda variableName, value, conditionalCheck, t: self.updateMap(variableName, value, conditionalCheck, self.model.t)
         #print "executing code"
         #print self.updateCode
         for code in self.updateCode:
