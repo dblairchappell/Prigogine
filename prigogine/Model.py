@@ -1,4 +1,3 @@
-
 from Population import Population
 from numpy import *
 from matplotlib.pyplot import *
@@ -69,11 +68,6 @@ class Model:
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval(newValues)
         trueFalse = eval(conditionalCheck)
-        print variableName
-        print oldVals
-        print newVals
-        print trueFalse
-        print "--------"
         result = self.calculateNewVals(oldVals, newVals, trueFalse)
         exec "self.%(variableName)s[%(writeIndex)d] = result" % \
              {"variableName" : variableName, "result" : result, "writeIndex" : writeIndex} in locals(), globals()
@@ -97,9 +91,6 @@ class Model:
 
     def runModel(self, numIterations):
 
-        #print "\n-------- running model for " + str(numIterations) + " timesteps --------"
-        #start = time.clock()
-
         for each in range(numIterations):
 
             self.updateModel()
@@ -118,9 +109,6 @@ class Model:
             self.readIndex = self.t
             while self.readIndex >= self.timeStepMem:
                 self.readIndex -= self.timeStepMem
-
-        #end = time.clock()
-        #print "\n--------- completed run in %.5f secs ---------" % round((end - start),5)
 
     #########################
 

@@ -32,59 +32,17 @@ elementwiseEquation
     ;
 
 mapEquation
-    : ID '[t+1]' '[n]''=' expression (',' 'where' conditional)*
-    | ID ('.' ID)* '[t+1]' '[n]' '=' expression (',' 'where' conditional)*
+    : ID '[t+1]' '[:]''=' expression (',' 'where' conditional)*
+    | ID ('.' ID)* '[t+1]' '[:]' '=' expression (',' 'where' conditional)*
     ;
 
 assignment
     : ID (('.' ID) | timeindex)* '=' expression
     ;
 
-//population
- //   : 'population' ID '[' parameterlist variablelist statedef+ ']'
-  //  | 'population' ID '[' statedef+ ']'
-   // ;
-
 population
     : 'population' ID '[' parameterlist* variablelist equationlist ']'
     ;
-
-//initglobal
-  //  : 'global' ID expression
-    //;
-
-//initvars
- //   : 'vars' ID expression
-  //  ;
-
-//initparams
- //   : 'params' ID expression
-  //  ;
-
-//initstates
- //   : 'startstates' expression
-  //  ;
-
-//create
- //   : 'create' ID INT createblock*
-  //  ;
-
-//createblock
-  //  : '[' createline* ']'
-  //  ;
-
-//createline
-  //   : (initvars | initstates | initparams)+
-   //  ;
-
-//runmodel
-    //: 'runmodel' INT codeblock*
-  //  : 'runmodel' INT '[' (initglobal | create)* ']'
-    //;
-
-//finalise
-  //  : 'finalise' codeblock*
-   // ;
 
 parameterlist
     : 'parameters' '[' parameter* ']'
@@ -131,22 +89,6 @@ timevar
 dictindex
     : ('[' string ']')
     ;
-
-//statedef
-  //  : 'state' ID '[' (transition | update | updateglobal)* ']'
-  //  ;
-
-//transition
- //   : 'transition' ID 'where' conditional codeblock*
-  //  ;
-
-//update
- //   : 'update' ID (codeline | codeblock)
- //   ;
-
-//updateglobal
- //   : 'updateglobal' ID (codeline | codeblock)
-  //  ;
 
 expression
      : assignment
@@ -204,12 +146,6 @@ rparen
 func
     : ID '(' lparen* (expression (',' expression)*)* rparen* ')'
     ;
-
-//argument
- //   : number
- //   | ID
-  //  | func
-  //  ;
 
 number
     : INT

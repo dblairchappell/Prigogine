@@ -9,7 +9,7 @@ meanReserveWages = []
 meanWeeksEmployed = []
 meanMinWages = []
 
-labourmarket = prigogine.loadmodel("LabourMarketNew.prm")
+labourmarket = prigogine.getmodel()
 labourmarket.households.popsize = 10000
 
 labourmarket.households.init("states", "random.choice([1, 0], size=self.popsize, p=[0.5,0.5])")
@@ -29,7 +29,6 @@ for i in range(100):
 
 end = time.clock()
 print "\n\ntime elapsed: " + str(end - start) + "s"
-print meanReserveWages
 plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
 show()
 

@@ -93,6 +93,9 @@ class Prigogine:
         #print self.model
         return self.model
 
+    def getmodel(self):
+        return self.model
+
     ##############################################
 
     def loadModelFromGUI(self, codeToParse):

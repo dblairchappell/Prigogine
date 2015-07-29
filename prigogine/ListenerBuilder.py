@@ -122,7 +122,6 @@ class ListenerBuilder(PrigogineListener):
 
                 equationCode = str(self.tokens.getText(equationInterval))
                 codeToPass = "update(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
-                print codeToPass
                 exec "self.%(currentmodel)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
 
@@ -140,7 +139,6 @@ class ListenerBuilder(PrigogineListener):
                 conditionCode = str(self.tokens.getText(conditionInterval))
 
                 codeToPass = "update(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
-                print codeToPass
                 exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
 
