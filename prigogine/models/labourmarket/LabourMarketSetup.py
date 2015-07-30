@@ -9,7 +9,7 @@ meanReserveWages = []
 meanWeeksEmployed = []
 meanMinWages = []
 
-labourmarket = prigogine.getmodel()
+labourmarket = prigogine.loadmodel("LabourMarketModel.prm")
 labourmarket.households.popsize = 10000
 
 labourmarket.households.init("states", "random.choice([1, 0], size=self.popsize, p=[0.5,0.5])")

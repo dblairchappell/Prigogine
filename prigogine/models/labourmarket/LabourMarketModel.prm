@@ -1,5 +1,8 @@
 
 model labourmarket [
+    messageboards [
+        householdIds (1,1)
+    ]
     variables [
         meanWeeksEmployed
         meanReserveWages

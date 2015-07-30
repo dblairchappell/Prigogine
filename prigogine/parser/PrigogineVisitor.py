@@ -60,6 +60,16 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#msgboardlist.
+    def visitMsgboardlist(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#msgboarddef.
+    def visitMsgboarddef(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#listcomp.
     def visitListcomp(self, ctx):
         return self.visitChildren(ctx)
@@ -72,6 +82,11 @@ class PrigogineVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by PrigogineParser#tupledef.
     def visitTupledef(self, ctx):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by PrigogineParser#numbertuple.
+    def visitNumbertuple(self, ctx):
         return self.visitChildren(ctx)
 
 

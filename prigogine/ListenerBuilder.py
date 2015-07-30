@@ -61,11 +61,6 @@ class ListenerBuilder(PrigogineListener):
             exec "self.%(modelName)s.%(variableName)s = None" % \
                  {"modelName" : self.currentModel, "variableName" : variableName}
 
-        # modelParameters = self.getParameterNames(ctx)
-        # for parameter in modelParameters:
-        #     exec "self.%(modelName)s.%(parameterName)s = None" % \
-        #          {"modelName" : self.currentModel, "parameterName" : parameter}
-
     #########################
 
     def exitModel(self, ctx):
@@ -83,11 +78,6 @@ class ListenerBuilder(PrigogineListener):
 
         exec "self.%(currentmodel)s.populations[\"%(population)s\"] = self.%(currentmodel)s.%(population)s" % \
              {"currentmodel" : self.currentModel, "population" : populationName}
-
-        # agentParameterNames = self.getParameterNames(ctx)
-        # for paramName in agentParameterNames:
-        #     exec "self.%(currentmodel)s.%(population)s.%(parameter)s = None" % \
-        #         {"currentmodel" : self.currentModel, "population" : populationName, "parameter" : paramName}
 
         agentVariableNames = self.getVariableNames(ctx)
         for varName in agentVariableNames:

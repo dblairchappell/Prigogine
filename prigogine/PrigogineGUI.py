@@ -1,5 +1,5 @@
 
-from prigogine.Prigogine import *
+from Prigogine import *
 from PyQt4 import QtCore, uic
 from PyQt4.QtGui import *
 import sys

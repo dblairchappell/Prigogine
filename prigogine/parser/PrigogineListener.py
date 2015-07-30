@@ -103,6 +103,24 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#msgboardlist.
+    def enterMsgboardlist(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#msgboardlist.
+    def exitMsgboardlist(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#msgboarddef.
+    def enterMsgboarddef(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#msgboarddef.
+    def exitMsgboarddef(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#listcomp.
     def enterListcomp(self, ctx):
         pass
@@ -127,6 +145,15 @@ class PrigogineListener(ParseTreeListener):
 
     # Exit a parse tree produced by PrigogineParser#tupledef.
     def exitTupledef(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by PrigogineParser#numbertuple.
+    def enterNumbertuple(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#numbertuple.
+    def exitNumbertuple(self, ctx):
         pass
 
 

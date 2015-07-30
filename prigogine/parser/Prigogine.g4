@@ -10,7 +10,7 @@ filestart
     ;
 
 model
-    : 'model' ID '[' (variablelist equationlist population+) ']'
+    : 'model' ID '[' (msgboardlist variablelist equationlist population+) ']'
     ;
 
 simulation
@@ -52,6 +52,14 @@ variablelist
     : 'variables' '[' variable* ']'
     ;
 
+msgboardlist
+    : 'messageboards' '[' msgboarddef* ']'
+    ;
+
+msgboarddef
+    : ID numbertuple
+    ;
+
 listcomp
     : '[' expression 'for' ID 'in' expression ']'
     ;
@@ -63,6 +71,10 @@ listdef
 
 tupledef
     : '(' ( (ID | number | string) (',' (ID | number | string) )* )* ')'
+    ;
+
+numbertuple
+    : '(' ( number (',' number )* )* ')'
     ;
 
 variable
