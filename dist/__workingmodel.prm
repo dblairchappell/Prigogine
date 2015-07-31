@@ -1,0 +1,33 @@
+model labourmarket [
+	messageboards [
+	]
+    variables [
+        meanWeeksEmployed
+        meanReserveWages
+        meanMinWages
+    ]
+    equations [
+        self.meanWeeksEmployed[t+1] = self.households.weeksEmployed[t].mean()
+        self.meanReserveWages[t+1] = self.households.reserveWages[t].mean()
+        self.meanMinWages[t+1] = self.households.minWages[t].mean()
+    ]
+    population households [
+        variables [
+            states
+            reserveWages
+            weeksEmployed
+            minWages
+        ]
+        equations [
+            self.states[t+1][:] = 0, where (self.reserveWages[t] >= (self.minWages[t] + 100)) & (self.states[t] == 1)
+            self.reserveWages[t+1] = self.reserveWages[t] * 11.1, where self.states[t] == 1
+            self.weeksEmployed[t+1] = self.weeksEmployed[t] + 1, where self.states[t] == 1
+            self.states[t+1][:] = 1, where (self.reserveWages[t] < self.minWages[t]) & (self.states[t] == 0)
+            self.reserveWages[t+1] = self.reserveWages[t] * 0.9, where self.states[t] == 0
+            self.weeksEmployed[t+1] = self.weeksEmployed[t], where self.states[t] == 0
+        ]
+    ]
+]
+
+
+
