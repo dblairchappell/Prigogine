@@ -1,5 +1,5 @@
 import time
-from prigogine.Prigogine import *
+from prigogine.PrigogineCore import *
 from numpy import *
 from matplotlib.pyplot import *
 

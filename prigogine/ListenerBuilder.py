@@ -1,7 +1,8 @@
 
 from Model import Model
-from parser.PrigogineParser import PrigogineParser
-from parser.PrigogineListener import PrigogineListener
+from PrigogineCore import *
+from prigogine.parser.PrigogineParser import PrigogineParser
+from prigogine.parser.PrigogineParser import PrigogineListener
 from Population import Population
 from numpy import *
 
