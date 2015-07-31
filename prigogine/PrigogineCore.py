@@ -2,7 +2,6 @@
 ##############################################
 ##############################################
 
-import numpy as np
 from ListenerBuilder import *
 from prigogine.parser.PrigogineLexer import PrigogineLexer
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
@@ -30,53 +29,6 @@ class Prigogine:
         walker.walk(listener, tree)
 
         return listener.getModel()
-
-    ##############################################
-
-    def getglobal(self, variableName):
-        return self.model.globals[variableName]
-
-    ##############################################
-
-    def getvars(self, populationName, variableName):
-        #return self.model.populations[populationName].variables[variableName][self.model.t]
-        return self.model.populations[populationName].getvars(variableName, self.model.t)
-
-    ##############################################
-
-    def getparams(self, populationName, parameterName):
-        return self.model.populations[populationName].getparams(parameterName)
-
-    ##############################################
-
-    def setglobal(self, variableName, value):
-        self.model.globals[variableName] = np.append(self.model.globals[variableName], value)
-        #print self.model.globals
-
-    ##############################################
-
-    def initglobal(self, variableName, value):
-        self.model.globals[variableName] = value
-
-    ##############################################
-
-    def createpop(self, populationName, populationSize):
-        self.model.create(populationName, populationSize)
-
-    ##############################################
-
-    def initstates(self, populationName, stateName):
-        self.model.setstates(populationName, stateName)
-
-    ##############################################
-
-    def initvars(self, populationName, variableName, value):
-        self.model.initvars(populationName, variableName, value)
-
-    ##############################################
-
-    def initparams(self, populationName, parameterName, value):
-        self.model.initparams(populationName, parameterName, value)
 
     ##############################################
 
@@ -111,9 +63,6 @@ class Prigogine:
         self.model.runModel(numIterations)
 
     ##############################################
-
-    def init(self):
-        print "test"
 
 prigogine = Prigogine()
 

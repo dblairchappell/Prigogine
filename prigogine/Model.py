@@ -16,10 +16,6 @@ class Model:
         self.itno = 0
         self.readIndex = 0
         self.writeIndex = 1
-        self.globals = {}
-        self.timeStepCode = ""
-        self.variableNames = []
-        self.parameterName = []
         self.updateCode = []
 
     #########################

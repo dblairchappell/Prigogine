@@ -38,19 +38,6 @@ class ListenerBuilder(PrigogineListener):
 
     #########################
 
-    # @staticmethod
-    # def getParameterNames(ctx):
-    #     numParams = ctx.parameterlist()[0].getChildCount() - 3
-    #     paramList = []
-    #     for i in range(numParams):
-    #         paramName = ctx.parameterlist()[0].getPayload().getChild(i+2).getText().encode('ascii')
-    #         paramName = paramName.replace("\"", "")
-    #         paramList.append(paramName)
-    #
-    #     return paramList
-
-    #########################
-
     def enterModel(self, ctx):
 
         modelName = ctx.getChild(1).getText().encode("ascii")
