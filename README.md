@@ -1,16 +1,19 @@
 ## Overview of the Project:
 
-Prigogine is a domain-specific language and development environment for scientists wanting to develop large-scale agent-based models but lacking the knowledge neccessary to take advantage of high-performance computing technology.
+Prigogine is a domain-specific language and development environment for researchers wanting to develop large-scale multi-agent and discrete-time models but lacking the knowledge necessary to take advantage of high performance computing technology.
 
-By utilising Python's multiprocessing module and the NumPy package for n-dimensional arrays, it is hoped that the performance capabilities of modelling frameworks like Repast HPC and FLAME, and the productiveness associated with Python's high-level sytax, can be brought together in one convenient package.
+By utilising Python's NumPy package for n-dimensional arrays, it is hoped that the performance capabilities of modelling frameworks like Repast HPC and FLAME, and the productiveness associated with Python's high-level syntax, can be brought together in one convenient package.
 
-The project is at a relatively early stage and is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-september 2015.
+The project is at a relatively early stage and is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-September 2015.
 
 #### Example of Working Model:
 
 ##### Model Definition Script
 
     model labourmarket [
+        messageboards [
+            householdIds (1,1)
+        ]
         variables [
             meanWeeksEmployed
             meanReserveWages
@@ -29,10 +32,10 @@ The project is at a relatively early stage and is presently focussed on getting 
                 minWages
             ]
             equations [
-                self.states[t+1][n] = 0, where (self.reserveWages[t] >= (self.minWages[t] + 100)) & (self.states[t] == 1)
+                self.states[t+1][:] = 0, where (self.reserveWages[t] >= (self.minWages[t] + 100)) & (self.states[t] == 1)
                 self.reserveWages[t+1] = self.reserveWages[t] * 1.1, where self.states[t] == 1
                 self.weeksEmployed[t+1] = self.weeksEmployed[t] + 1, where self.states[t] == 1
-                self.states[t+1][n] = 1, where (self.reserveWages[t] < self.minWages[t]) & (self.states[t] == 0)
+                self.states[t+1][:] = 1, where (self.reserveWages[t] < self.minWages[t]) & (self.states[t] == 0)
                 self.reserveWages[t+1] = self.reserveWages[t] * 0.9, where self.states[t] == 0
                 self.weeksEmployed[t+1] = self.weeksEmployed[t], where self.states[t] == 0
             ]
@@ -41,15 +44,17 @@ The project is at a relatively early stage and is presently focussed on getting 
 
 ##### Model Simulation Script
 
-    from prigogine.Prigogine import *
+    from prigogine.PrigogineCore import *
     from numpy import *
     from matplotlib.pyplot import *
+
+    start = time.clock()
 
     meanReserveWages = []
     meanWeeksEmployed = []
     meanMinWages = []
 
-    labourmarket = prigogine.loadmodel("LabourMarketNew.prm")
+    labourmarket = prigogine.loadmodel("LabourMarketModel.prm")
     labourmarket.households.popsize = 10000
 
     labourmarket.households.init("states", "random.choice([1, 0], size=self.popsize, p=[0.5,0.5])")
