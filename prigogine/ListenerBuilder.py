@@ -4,7 +4,6 @@ from PrigogineCore import *
 from prigogine.parser.PrigogineParser import PrigogineParser
 from prigogine.parser.PrigogineParser import PrigogineListener
 from Population import Population
-from VariableArray import VariableArray
 import numpy as np
 
 class ListenerBuilder(PrigogineListener):
@@ -51,11 +50,8 @@ class ListenerBuilder(PrigogineListener):
             exec "self.%(modelName)s.variables.append(\"%(variableName)s\")" % \
                  {"modelName" : self.currentModel, "variableName" : variableName}
 
-            exec "self.%(modelName)s.%(variableName)s = VariableArray()" % \
+            exec "self.%(modelName)s.%(variableName)s = None" % \
                  {"modelName" : self.currentModel, "variableName" : variableName}
-
-            exec "self.%(modelName)s.%(variable)s.popsize = 1" % \
-                 {"modelName" : self.currentModel, "variable" : variableName}
 
             exec "self.%(modelName)s.%(variable)s = np.zeros((2,1))" % \
                  {"modelName" : self.currentModel, "variable" : variableName}
