@@ -2,6 +2,8 @@
 ##############################################
 ##############################################
 
+import numpy as np
+import matplotlib.pyplot as plt
 from ListenerBuilder import *
 from prigogine.parser.PrigogineLexer import PrigogineLexer
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
@@ -41,7 +43,6 @@ class Prigogine:
 
         inputStream = FileStream('__workingmodel.prm')
         self.model = self.buildModel(inputStream)
-        print self.model
         return self.model
 
     def getmodel(self):

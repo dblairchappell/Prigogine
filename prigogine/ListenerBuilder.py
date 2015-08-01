@@ -4,7 +4,8 @@ from PrigogineCore import *
 from prigogine.parser.PrigogineParser import PrigogineParser
 from prigogine.parser.PrigogineParser import PrigogineListener
 from Population import Population
-from numpy import *
+from VariableArray import VariableArray
+import numpy as np
 
 class ListenerBuilder(PrigogineListener):
 
@@ -46,8 +47,18 @@ class ListenerBuilder(PrigogineListener):
 
         modelVariables = self.getVariableNames(ctx)
         for variableName in modelVariables:
-            exec "self.%(modelName)s.%(variableName)s = None" % \
+
+            exec "self.%(modelName)s.variables.append(\"%(variableName)s\")" % \
                  {"modelName" : self.currentModel, "variableName" : variableName}
+
+            exec "self.%(modelName)s.%(variableName)s = VariableArray()" % \
+                 {"modelName" : self.currentModel, "variableName" : variableName}
+
+            exec "self.%(modelName)s.%(variable)s.popsize = 1" % \
+                 {"modelName" : self.currentModel, "variable" : variableName}
+
+            exec "self.%(modelName)s.%(variable)s = np.zeros((2,1))" % \
+                 {"modelName" : self.currentModel, "variable" : variableName}
 
     #########################
 
@@ -61,14 +72,18 @@ class ListenerBuilder(PrigogineListener):
         populationName = ctx.getChild(1).getText().encode("ascii")
         self.currentPopulation = populationName
 
-        exec "self.%(currentmodel)s.%(population)s = Population(1, self.%(currentmodel)s)" % \
+        exec "self.%(currentmodel)s.%(population)s = Population(self.%(currentmodel)s)" % \
             {"currentmodel" : self.currentModel, "population" : populationName}
 
         exec "self.%(currentmodel)s.populations[\"%(population)s\"] = self.%(currentmodel)s.%(population)s" % \
              {"currentmodel" : self.currentModel, "population" : populationName}
 
         agentVariableNames = self.getVariableNames(ctx)
+
         for varName in agentVariableNames:
+            exec "self.%(currentmodel)s.%(population)s.variables.append(\"%(variable)s\")" % \
+                {"currentmodel" : self.currentModel, "population" : populationName, "variable" : varName}
+
             exec "self.%(currentmodel)s.%(population)s.%(variable)s = None" % \
                  {"currentmodel" : self.currentModel, "population" : populationName, "variable" : varName}
 
@@ -94,7 +109,6 @@ class ListenerBuilder(PrigogineListener):
                     if type(child) is PrigogineParser.ConditionalContext:
                         conditionInterval = equationline.conditional(0).getSourceInterval()
                         conditionCode = str(self.tokens.getText(conditionInterval))
-
                     else:
                         conditionCode = "True"
 
@@ -111,11 +125,17 @@ class ListenerBuilder(PrigogineListener):
 
                 variableName = equationline.getChild(2).getText().encode('ascii') #+ "."
                 equationInterval = equationline.expression().getSourceInterval()
-                conditionInterval = equationline.conditional(0).getSourceInterval()
+                conditionCode = ""
+
+                for child in equationline.children:
+
+                    if type(child) is PrigogineParser.ConditionalContext:
+                        conditionInterval = equationline.conditional(0).getSourceInterval()
+                        conditionCode = str(self.tokens.getText(conditionInterval))
+                    else:
+                        conditionCode = "True"
 
                 equationCode = str(self.tokens.getText(equationInterval))
-                conditionCode = str(self.tokens.getText(conditionInterval))
-
                 codeToPass = "update(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
                 exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
@@ -134,3 +154,7 @@ class ListenerBuilder(PrigogineListener):
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
 
     #########################
+
+    # def enterIndexedvariable(self, ctx):
+    #     print type(ctx.getChild(0))
+    #     print ctx.getChild(1).getText()

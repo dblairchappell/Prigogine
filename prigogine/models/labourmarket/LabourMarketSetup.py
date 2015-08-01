@@ -1,25 +1,24 @@
 import time
 from prigogine.PrigogineCore import *
-from numpy import *
-from matplotlib.pyplot import *
 
 start = time.clock()
+labourmarket = prigogine.loadmodel("LabourMarketModel.prm")
+
+numHouseholds = 10000
+labourmarket.households.create(numHouseholds)
+
+labourmarket.households.states[0] = np.random.choice([1, 0], numHouseholds, [0.5,0.5])
+labourmarket.households.reserveWages[0] = np.random.randint(100, size=numHouseholds)
+labourmarket.households.weeksEmployed[0] = np.ones(numHouseholds)
+labourmarket.households.minWages[0] = np.ones(numHouseholds) * 60
+
+labourmarket.meanWeeksEmployed[0] = np.zeros(1)
+labourmarket.meanReserveWages[0] = np.zeros(1)
+labourmarket.meanMinWages[0] = np.zeros(1)
 
 meanReserveWages = []
 meanWeeksEmployed = []
 meanMinWages = []
-
-labourmarket = prigogine.loadmodel("LabourMarketModel.prm")
-labourmarket.households.popsize = 10000
-
-labourmarket.households.init("states", "random.choice([1, 0], size=self.popsize, p=[0.5,0.5])")
-labourmarket.households.init("reserveWages", "random.randint(100, size=self.popsize)")
-labourmarket.households.init("weeksEmployed", "ones(self.popsize)")
-labourmarket.households.init("minWages", "ones(self.popsize) * 60")
-
-labourmarket.init("meanWeeksEmployed", "zeros(1)")
-labourmarket.init("meanReserveWages", "zeros(1)")
-labourmarket.init("meanMinWages", "zeros(1)")
 
 for i in range(100):
     labourmarket.runModel(1)
@@ -29,6 +28,6 @@ for i in range(100):
 
 end = time.clock()
 print "\n\ntime elapsed: " + str(end - start) + "s"
-plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
-show()
+plt.plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
+plt.show()
 

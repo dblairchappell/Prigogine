@@ -17,6 +17,7 @@ class Model:
         self.readIndex = 0
         self.writeIndex = 1
         self.updateCode = []
+        self.variables = []
 
     #########################
 

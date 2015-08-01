@@ -1,23 +1,35 @@
 
-from numpy import *
+import numpy as np
 class Population:
 
     #########################
 
-    def __init__(self, populationSize, parentModel):
+    def __init__(self, parentModel):
 
-        self.popsize = populationSize
+        self.popsize = 0
         self.updateCode = []
         self.model = parentModel
         self.t = 0
+        self.variables = []
+
+    #########################
+
+    def create(self, popsize):
+        self.popsize = popsize
+        for varName in self.variables:
+            exec "self.%(variable)s = np.zeros((2,popsize))" % \
+                 {"variable" : varName}
 
     #########################
 
     def init(self, varName, expression):
-        exec "self.%s = zeros((2,self.popsize))" % varName
+
+        exec "self.%s = np.zeros((2,self.popsize))" % varName
+
         code = "self.%(varName)s[0] = %(expression)s" % \
              {"varName" : varName, "expression" : expression}
         exec code in globals(), locals()
+
         code = "self.%(varName)s[1] = %(expression)s" % \
                {"varName" : varName, "expression" : expression}
         exec code in globals(), locals()
@@ -35,7 +47,7 @@ class Population:
     @staticmethod
     def calculateNewArray(oldVals, newVals, trueFalse):
         resultArray = oldVals
-        for index in where(trueFalse):
+        for index in np.where(trueFalse):
             resultArray[index] = newVals[index]
         return resultArray
 
@@ -73,4 +85,20 @@ class Population:
 
     #########################
 
+    # class init:
+    #
+    #     def __init__(self, varName):
+    #         self.variable = varName
+    #
+    #     def getvarname(self):
+    #         return self.variable
+    #
+    #     def choice(self, choiceArray, probabilityArray):
+    #         print self.variable
+    #
+    #     def randint(self, range):
+    #         print
+    #
+    #     def constant(self, value):
+    #         print "testing"
 
