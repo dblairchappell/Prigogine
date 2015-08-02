@@ -8,7 +8,7 @@ class Population:
 
         self.popsize = 0
         self.updateCode = []
-        self.model = parentModel
+        self.parent = parentModel
         self.t = 0
         self.variables = []
 
@@ -37,8 +37,8 @@ class Population:
     #########################
 
     def evalUpdateCode(self):
-        update = lambda variableName, value, conditionalCheck, t: self.update(variableName, value, conditionalCheck, self.model.t)
-        updateMap = lambda variableName, value, conditionalCheck, t: self.updateMap(variableName, value, conditionalCheck, self.model.t)
+        update = lambda variableName, value, conditionalCheck, t: self.update(variableName, value, conditionalCheck, self.parent.t)
+        updateMap = lambda variableName, value, conditionalCheck, t: self.updateMap(variableName, value, conditionalCheck, self.parent.t)
         for code in self.updateCode:
             exec code in globals(), locals()
 
@@ -54,9 +54,18 @@ class Population:
     #########################
 
     def update(self, variableName, newValues, conditionalCheck, t):
-        readIndex = self.model.readIndex
-        writeIndex = self.model.writeIndex
+        readIndex = self.parent.readIndex
+        writeIndex = self.parent.writeIndex
         t = readIndex
+
+        for varName in self.variables:
+            codeline = "%(variable)s = self.%(variable)s" % \
+                 {"variable" : varName}
+            code = compile(codeline, "<string>", "exec")
+            exec code in locals()
+
+        exec "parent = self.parent" in locals()
+
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval(newValues)
         trueFalse = eval(conditionalCheck)
@@ -69,12 +78,24 @@ class Population:
     #########################
 
     def updateMap(self, variableName, newValue, conditionalCheck, t):
-        readIndex = self.model.readIndex
-        writeIndex = self.model.writeIndex
+        readIndex = self.parent.readIndex
+        writeIndex = self.parent.writeIndex
         t = readIndex
+
+        for varName in self.variables:
+            codeline = "%(variable)s = self.%(variable)s" % \
+                       {"variable" : varName}
+            code = compile(codeline, "<string>", "exec")
+            exec code in locals()
+
+        exec "parent = self.parent" in locals()
+
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval("self.%s[readIndex].copy()" % variableName)
-        newVals.fill(eval(newValue))
+        nv = eval(newValue)
+        # if type(nv) is np.ndarray:
+        #     nv = nv[0]
+        newVals.fill(nv)
         trueFalse = eval(conditionalCheck)
         result = self.calculateNewArray(oldVals, newVals, trueFalse)
 

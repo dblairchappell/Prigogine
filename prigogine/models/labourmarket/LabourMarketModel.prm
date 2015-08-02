@@ -9,9 +9,9 @@ model labourmarket [
         meanMinWages
     ]
     equations [
-        self.meanWeeksEmployed[t+1] = self.households.weeksEmployed[t].mean()
-        self.meanReserveWages[t+1] = self.households.reserveWages[t].mean()
-        self.meanMinWages[t+1] = self.households.minWages[t].mean()
+        meanWeeksEmployed[t+1] = households.weeksEmployed[t].mean()
+        meanReserveWages[t+1] = households.reserveWages[t].mean()
+        meanMinWages[t+1] = households.minWages[t].mean()
     ]
     population households [
         variables [
@@ -21,15 +21,15 @@ model labourmarket [
             minWages
         ]
         equations [
-            self.states[t+1][:] = 0, where (self.reserveWages[t] >= (self.minWages[t] + 100)) & (self.states[t] == 1)
-            self.reserveWages[t+1] = self.reserveWages[t] * 1.1, where self.states[t] == 1
-            self.weeksEmployed[t+1] = self.weeksEmployed[t] + 1, where self.states[t] == 1
-            self.minWages[t+1] = self.minWages[t]
+            states[t+1][:] = 0, where (reserveWages[t] >= (minWages[t] + 100)) & (states[t] == 1)
+            reserveWages[t+1] = reserveWages[t] * 1.1, where states[t] == 1
+            weeksEmployed[t+1] = weeksEmployed[t] + 1, where states[t] == 1
+            minWages[t+1] = minWages[t]
 
-            self.states[t+1][:] = 1, where (self.reserveWages[t] < self.minWages[t]) & (self.states[t] == 0)
-            self.reserveWages[t+1] = self.reserveWages[t] * 0.9, where self.states[t] == 0
-            self.weeksEmployed[t+1] = self.weeksEmployed[t], where self.states[t] == 0
-            self.minWages[t+1] = self.minWages[t]
+            states[t+1][:] = 1, where (reserveWages[t] < minWages[t]) & (states[t] == 0)
+            reserveWages[t+1] = reserveWages[t] * 0.9, where states[t] == 0
+            weeksEmployed[t+1] = weeksEmployed[t], where states[t] == 0
+            minWages[t+1] = minWages[t]
         ]
     ]
 ]

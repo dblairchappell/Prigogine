@@ -53,7 +53,7 @@ class ListenerBuilder(PrigogineListener):
             exec "self.%(modelName)s.%(variableName)s = None" % \
                  {"modelName" : self.currentModel, "variableName" : variableName}
 
-            exec "self.%(modelName)s.%(variable)s = np.zeros((2,1))" % \
+            exec "self.%(modelName)s.%(variable)s = np.zeros(2)" % \
                  {"modelName" : self.currentModel, "variable" : variableName}
 
     #########################
@@ -96,7 +96,7 @@ class ListenerBuilder(PrigogineListener):
 
             for equationline in ctx.elementwiseEquation():
 
-                variableName = equationline.getChild(2).getText().encode('ascii') #+ "."
+                variableName = equationline.getChild(0).getText().encode('ascii') #+ "."
                 equationInterval = equationline.expression().getSourceInterval()
                 conditionCode = ""
 
@@ -112,6 +112,7 @@ class ListenerBuilder(PrigogineListener):
                 codeToPass = "update(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
                 exec "self.%(currentmodel)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
+                #print codeToPass
 
         ################################
 
@@ -119,7 +120,7 @@ class ListenerBuilder(PrigogineListener):
 
             for equationline in ctx.elementwiseEquation():
 
-                variableName = equationline.getChild(2).getText().encode('ascii') #+ "."
+                variableName = equationline.getChild(0).getText().encode('ascii') #+ "."
                 equationInterval = equationline.expression().getSourceInterval()
                 conditionCode = ""
 
@@ -135,10 +136,11 @@ class ListenerBuilder(PrigogineListener):
                 codeToPass = "update(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
                 exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
+                #print codeToPass
 
             for equationline in ctx.mapEquation():
 
-                variableName = equationline.getChild(2).getText().encode('ascii')
+                variableName = equationline.getChild(0).getText().encode('ascii')
                 equationInterval = equationline.expression().getSourceInterval()
                 conditionInterval = equationline.conditional(0).getSourceInterval()
 
@@ -148,6 +150,7 @@ class ListenerBuilder(PrigogineListener):
                 codeToPass = "updateMap(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
                 exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
+                print codeToPass
 
     #########################
 

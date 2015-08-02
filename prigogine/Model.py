@@ -62,6 +62,18 @@ class Model:
         writeIndex = self.writeIndex
         t = readIndex
 
+        for popName, population in self.populations.items():
+            codeline = "%(pop)s = self.%(pop)s" % \
+                       {"pop" : popName}
+            code = compile(codeline, "<string>", "exec")
+            exec code in locals()
+
+        for varName in self.variables:
+            codeline = "%(variable)s = self.%(variable)s" % \
+                       {"variable" : varName}
+            code = compile(codeline, "<string>", "exec")
+            exec code in locals()
+
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval(newValues)
         trueFalse = eval(conditionalCheck)
