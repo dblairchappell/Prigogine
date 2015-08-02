@@ -58,9 +58,9 @@ The project is at a relatively early stage and is presently focussed on getting 
     labourmarket.households.weeksEmployed[0] = np.ones(numHouseholds)
     labourmarket.households.minWages[0] = np.ones(numHouseholds) * 60
 
-    labourmarket.meanWeeksEmployed[0] = 0 #np.zeros(1)
-    labourmarket.meanReserveWages[0] = 0 #np.zeros(1)
-    labourmarket.meanMinWages[0] = 0 #np.zeros(1)
+    labourmarket.meanWeeksEmployed[0] = 0
+    labourmarket.meanReserveWages[0] = 0
+    labourmarket.meanMinWages[0] = 0
 
     meanReserveWages = []
     meanWeeksEmployed = []
