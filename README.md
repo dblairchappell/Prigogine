@@ -20,9 +20,9 @@ The project is at a relatively early stage and is presently focussed on getting 
             meanMinWages
         ]
         equations [
-            self.meanWeeksEmployed[t+1] = self.households.weeksEmployed[t].mean()
-            self.meanReserveWages[t+1] = self.households.reserveWages[t].mean()
-            self.meanMinWages[t+1] = self.households.minWages[t].mean()
+            meanWeeksEmployed[t+1] = households.weeksEmployed[t].mean()
+            meanReserveWages[t+1] = households.reserveWages[t].mean()
+            meanMinWages[t+1] = households.minWages[t].mean()
         ]
         population households [
             variables [
@@ -32,12 +32,15 @@ The project is at a relatively early stage and is presently focussed on getting 
                 minWages
             ]
             equations [
-                self.states[t+1][:] = 0, where (self.reserveWages[t] >= (self.minWages[t] + 100)) & (self.states[t] == 1)
-                self.reserveWages[t+1] = self.reserveWages[t] * 1.1, where self.states[t] == 1
-                self.weeksEmployed[t+1] = self.weeksEmployed[t] + 1, where self.states[t] == 1
-                self.states[t+1][:] = 1, where (self.reserveWages[t] < self.minWages[t]) & (self.states[t] == 0)
-                self.reserveWages[t+1] = self.reserveWages[t] * 0.9, where self.states[t] == 0
-                self.weeksEmployed[t+1] = self.weeksEmployed[t], where self.states[t] == 0
+                states[t+1][:] = 0, where (reserveWages[t] >= (minWages[t] + 100)) & (states[t] == 1)
+                reserveWages[t+1] = reserveWages[t] * 1.1, where states[t] == 1
+                weeksEmployed[t+1] = weeksEmployed[t] + 1, where states[t] == 1
+                minWages[t+1] = minWages[t]
+
+                states[t+1][:] = 1, where (reserveWages[t] < minWages[t]) & (states[t] == 0)
+                reserveWages[t+1] = reserveWages[t] * 0.9, where states[t] == 0
+                weeksEmployed[t+1] = weeksEmployed[t], where states[t] == 0
+                minWages[t+1] = minWages[t]
             ]
         ]
     ]
@@ -45,35 +48,32 @@ The project is at a relatively early stage and is presently focussed on getting 
 ##### Model Simulation Script
 
     from prigogine.PrigogineCore import *
-    from numpy import *
-    from matplotlib.pyplot import *
 
-    start = time.clock()
+    labourmarket = prigogine.loadmodel("LabourMarketModel.prm")
+    numHouseholds = 10000
+    labourmarket.households.create(numHouseholds)
+
+    labourmarket.households.states[0] = np.random.choice([1, 0], numHouseholds, [0.5,0.5])
+    labourmarket.households.reserveWages[0] = np.random.randint(100, size=numHouseholds)
+    labourmarket.households.weeksEmployed[0] = np.ones(numHouseholds)
+    labourmarket.households.minWages[0] = np.ones(numHouseholds) * 60
+
+    labourmarket.meanWeeksEmployed[0] = 0 #np.zeros(1)
+    labourmarket.meanReserveWages[0] = 0 #np.zeros(1)
+    labourmarket.meanMinWages[0] = 0 #np.zeros(1)
 
     meanReserveWages = []
     meanWeeksEmployed = []
     meanMinWages = []
 
-    labourmarket = prigogine.loadmodel("LabourMarketModel.prm")
-    labourmarket.households.popsize = 10000
-
-    labourmarket.households.init("states", "random.choice([1, 0], size=self.popsize, p=[0.5,0.5])")
-    labourmarket.households.init("reserveWages", "random.randint(100, size=self.popsize)")
-    labourmarket.households.init("weeksEmployed", "ones(self.popsize)")
-    labourmarket.households.init("minWages", "ones(self.popsize) * 60")
-
-    labourmarket.init("meanWeeksEmployed", "zeros(1)")
-    labourmarket.init("meanReserveWages", "zeros(1)")
-    labourmarket.init("meanMinWages", "zeros(1)")
-
     for i in range(100):
         labourmarket.runModel(1)
-        meanWeeksEmployed.append(labourmarket.meanWeeksEmployed[labourmarket.readIndex][0])
-        meanReserveWages.append(labourmarket.meanReserveWages[labourmarket.readIndex][0])
-        meanMinWages.append(labourmarket.meanMinWages[labourmarket.readIndex][0])
+        meanWeeksEmployed.append(labourmarket.meanWeeksEmployed[labourmarket.readIndex])
+        meanReserveWages.append(labourmarket.meanReserveWages[labourmarket.readIndex])
+        meanMinWages.append(labourmarket.meanMinWages[labourmarket.readIndex])
 
-    plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
-    show()
+    plt.plot(meanReserveWages,'r-', meanWeeksEmployed, 'b-', meanMinWages, 'g-')
+    plt.show()
 
 ##### Model Output
 
