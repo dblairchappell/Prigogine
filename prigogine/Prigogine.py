@@ -53,11 +53,6 @@ class MyWindowClass(QMainWindow, form_class):
 
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
-
-        # myPixmap = QPixmap('Prigogine Logo.png')
-        # myScaledPixmap = myPixmap.scaled(self.logoLabel.size(), QtCore.Qt.KeepAspectRatio)
-        # self.logoLabel.setPixmap(myScaledPixmap)
-
         self.showMaximized()
         self.showLoaderPopup()
 
@@ -68,12 +63,17 @@ class MyWindowClass(QMainWindow, form_class):
         self.actionSave.triggered.connect(self.saveButton_Clicked)
         self.simulationRunPushButton.clicked.connect(self.simulationRunPushButton_Clicked)
         self.modelCodeTextEdit.textChanged.connect(self.modelCodeTextEdit_Changed)
-        self.simulationScriptTextEdit.textChanged.connect(self.simulationScriptTextEdit_Changed)
+
+        self.initialisationTextEdit.textChanged.connect(self.initialisationTextEdit_Changed)
+        self.simulationTextEdit.textChanged.connect(self.simulationTextEdit_Changed)
+        self.analysisTextEdit.textChanged.connect(self.analysisTextEdit_Changed)
+
         self.clearTerminalPushButton.clicked.connect(self.actionClearTerminalPushButton_clicked)
         self.actionAboutPrigogine.triggered.connect(self.showLoaderPopup)
 
         self.modelRoot = self.addRoot("ModelName")
         self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+
         self.addPopAction = QAction("Add Population", self)
         self.delPopAction = QAction("Delete Population", self)
         self.populationTreeWidget.addAction(self.addPopAction)
@@ -179,15 +179,20 @@ class MyWindowClass(QMainWindow, form_class):
         fileDialog = QFileDialog()
         filename = QFileDialog.getOpenFileName(fileDialog, 'Open Project', '.','*.pr')
         self.currentProject = filename
+
         with open(filename, 'r') as inData:
+
             self.modelCodeTextEdit.clear()
             self.simulationScriptTextEdit.clear()
             data = json.load(inData)
-            self.modelCodeTextEdit.insertPlainText(data["modelCode"])
-            self.workingData["modelCode"] = data["modelCode"]
-            self.simulationScriptTextEdit.insertPlainText(data["simulationScript"])
-            self.workingData["simulationScript"] = data["simulationScript"]
 
+            self.initialisationTextEdit.insertPlainText(data["initialisationCode"])
+            self.simulationTextEdit.insertPlainText(data["simulationCode"])
+            self.analysisTextEdit.insertPlainText(data["analysisCode"])
+
+            self.workingData["initialisationCode"] = data["initialisationCode"]
+            self.workingData["simulationCode"] = data["simulationCode"]
+            self.workingData["analysisCode"] = data["analysisCode"]
 
     #######################################
 
@@ -200,11 +205,14 @@ class MyWindowClass(QMainWindow, form_class):
         filename = QFileDialog.getSaveFileName(fileDialog, 'Save Project', '.','*.pr')
         self.currentProject = filename
 
-        popCode = str(self.modelCodeTextEdit.toPlainText())
-        self.workingData["modelCode"] = popCode
+        initCode = str(self.initialisationTextEdit.toPlainText())
+        self.workingData["initialisationCode"] = initCode
 
-        simCode = str(self.simulationScriptTextEdit.toPlainText())
-        self.workingData["simulationScript"] = simCode
+        simCode = str(self.simulationTextEdit.toPlainText())
+        self.workingData["simulationCode"] = simCode
+
+        analysisCode = str(self.analysisTextEdit.toPlainText())
+        self.workingData["analysisCode"] = analysisCode
 
         with open(filename, 'w') as outfile:
             json.dump(self.workingData, outfile)
@@ -214,11 +222,15 @@ class MyWindowClass(QMainWindow, form_class):
     def saveButton_Clicked(self):
 
         filename = self.currentProject
-        popCode = str(self.modelCodeTextEdit.toPlainText())
-        self.workingData["modelCode"] = popCode
 
-        simCode = str(self.simulationScriptTextEdit.toPlainText())
-        self.workingData["simulationScript"] = simCode
+        initCode = str(self.initialisationTextEdit.toPlainText())
+        self.workingData["initialisationCode"] = initCode
+
+        simCode = str(self.simulationTextEdit.toPlainText())
+        self.workingData["simulationCode"] = simCode
+
+        analysisCode = str(self.analysisTextEdit.toPlainText())
+        self.workingData["analysisCode"] = analysisCode
 
         with open(filename, 'w') as outfile:
             json.dump(self.workingData, outfile)
@@ -226,11 +238,11 @@ class MyWindowClass(QMainWindow, form_class):
     #######################################
 
     def simulationRunPushButton_Clicked(self):
-        codeToParse = self.workingData["modelCode"] #+ "\n\n" + self.workingData["simulationScript"]
-        prigogine.loadModelFromGUI(codeToParse)
-        code = compile(self.workingData["simulationScript"], "<string>", "exec")
-        exec code in globals(), locals()
-
+        # codeToParse = self.workingData["modelCode"] #+ "\n\n" + self.workingData["simulationScript"]
+        # prigogine.loadModelFromGUI(codeToParse)
+        # code = compile(self.workingData["simulationScript"], "<string>", "exec")
+        # exec code in globals(), locals()
+        print "running simulation"
     #######################################
 
     def modelCodeTextEdit_Changed(self):
@@ -238,8 +250,18 @@ class MyWindowClass(QMainWindow, form_class):
 
     #######################################
 
-    def simulationScriptTextEdit_Changed(self):
-        self.workingData["simulationScript"] = str(self.simulationScriptTextEdit.toPlainText())
+    def simulationTextEdit_Changed(self):
+        self.workingData["simulationCode"] = str(self.simulationTextEdit.toPlainText())
+
+    #######################################
+
+    def initialisationTextEdit_Changed(self):
+        self.workingData["initialisationCode"] = str(self.initialisationTextEdit.toPlainText())
+
+    #######################################
+
+    def analysisTextEdit_Changed(self):
+        self.workingData["analysisCode"] = str(self.analysisTextEdit.toPlainText())
 
     #######################################
 
