@@ -1,8 +1,5 @@
 
 model labourmarket [
-    messageboards [
-        householdIds (1,1)
-    ]
     variables [
         meanWeeksEmployed
         meanReserveWages
@@ -21,15 +18,13 @@ model labourmarket [
             minWages
         ]
         equations [
+            minWages[t+1] = minWages[t]
             states[t+1][:] = 0, where (reserveWages[t] >= (minWages[t] + 100)) & (states[t] == 1)
             reserveWages[t+1] = reserveWages[t] * 1.1, where states[t] == 1
             weeksEmployed[t+1] = weeksEmployed[t] + 1, where states[t] == 1
-            minWages[t+1] = minWages[t]
-
             states[t+1][:] = 1, where (reserveWages[t] < minWages[t]) & (states[t] == 0)
             reserveWages[t+1] = reserveWages[t] * 0.9, where states[t] == 0
             weeksEmployed[t+1] = weeksEmployed[t], where states[t] == 0
-            minWages[t+1] = minWages[t]
         ]
     ]
 ]

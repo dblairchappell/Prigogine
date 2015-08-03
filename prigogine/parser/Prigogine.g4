@@ -10,7 +10,7 @@ filestart
     ;
 
 model
-    : 'model' ID '[' (msgboardlist variablelist equationlist population+) ']'
+    : 'model' ID '[' (msgboardlist* variablelist equationlist population+) ']'
     ;
 
 simulation

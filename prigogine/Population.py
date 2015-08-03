@@ -92,10 +92,7 @@ class Population:
 
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval("self.%s[readIndex].copy()" % variableName)
-        nv = eval(newValue)
-        # if type(nv) is np.ndarray:
-        #     nv = nv[0]
-        newVals.fill(nv)
+        newVals.fill(eval(newValue))
         trueFalse = eval(conditionalCheck)
         result = self.calculateNewArray(oldVals, newVals, trueFalse)
 

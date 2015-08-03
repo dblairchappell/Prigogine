@@ -5,6 +5,39 @@ import sys
 import json
 
 form_class = uic.loadUiType("Prigogine.ui")[0]
+popname_class = uic.loadUiType("namePopulationPopup.ui")[0]
+loader_class = uic.loadUiType("PrigogineLoader.ui")[0]
+
+########################################
+
+class NamePopulationPopup(QDialog, popname_class):
+
+    def __init__(self, parent):
+        self.mainWindow = parent
+        QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        self.setupUi(self)
+        self.popNameButtonBox.accepted.connect(self.addPopulation)
+
+    def addPopulation(self):
+        popName = self.popNameLineEdit.text()
+        if popName != "":
+            self.mainWindow.addChild(self.mainWindow.modelRoot, popName)
+
+########################################
+
+class LoaderPopup(QDialog, loader_class):
+
+    def __init__(self, parent):
+        QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        self.setupUi(self)
+        p = self.palette()
+        p.setColor(self.backgroundRole(), QtCore.Qt.white)
+        self.setPalette(p)
+        myPixmap = QPixmap('Prigogine Logo.png')
+        myScaledPixmap = myPixmap.scaled(self.imageLabel.size(), QtCore.Qt.KeepAspectRatio)
+        self.imageLabel.setPixmap(myScaledPixmap)
+
+########################################
 
 class MyWindowClass(QMainWindow, form_class):
 
@@ -20,8 +53,14 @@ class MyWindowClass(QMainWindow, form_class):
 
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
+
+        # myPixmap = QPixmap('Prigogine Logo.png')
+        # myScaledPixmap = myPixmap.scaled(self.logoLabel.size(), QtCore.Qt.KeepAspectRatio)
+        # self.logoLabel.setPixmap(myScaledPixmap)
+
         self.showMaximized()
-        #self.addPopulationButton.clicked.connect(self.actionAddPopulationButton_clicked)
+        self.showLoaderPopup()
+
         self.actionQuit.triggered.connect(app.quit)
         self.actionNew.triggered.connect(self.newFileButton_Clicked)
         self.actionOpen.triggered.connect(self.openFileButton_Clicked)
@@ -31,8 +70,9 @@ class MyWindowClass(QMainWindow, form_class):
         self.modelCodeTextEdit.textChanged.connect(self.modelCodeTextEdit_Changed)
         self.simulationScriptTextEdit.textChanged.connect(self.simulationScriptTextEdit_Changed)
         self.clearTerminalPushButton.clicked.connect(self.actionClearTerminalPushButton_clicked)
+        self.actionAboutPrigogine.triggered.connect(self.showLoaderPopup)
 
-        self.modelRoot = self.addRoot("Under Development")
+        self.modelRoot = self.addRoot("ModelName")
         self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.addPopAction = QAction("Add Population", self)
         self.delPopAction = QAction("Delete Population", self)
@@ -41,31 +81,45 @@ class MyWindowClass(QMainWindow, form_class):
 
         self.populationTreeWidget.itemChanged.connect(self.treeWidgetChanged)
 
-        self.variableListWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
-        self.addVarAction = QAction("Add Variable", self)
-        self.delVarAction = QAction("Delete Variable", self)
-        self.variableListWidget.addAction(self.addVarAction)
-        self.variableListWidget.addAction(self.delVarAction)
+        #self.variableListWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        #self.addVarAction = QAction("Add Variable", self)
+        #self.delVarAction = QAction("Delete Variable", self)
+        #self.variableListWidget.addAction(self.addVarAction)
+        #self.variableListWidget.addAction(self.delVarAction)
 
-        self.addPopAction.triggered.connect(self.addPopulation)
+        self.addPopAction.triggered.connect(self.showAddPopName)
         self.delPopAction.triggered.connect(self.delPopulation)
+        #self.addPopAction.triggered.connect(self.btn1, SIGNAL("clicked()"), self.doit)
 
     #######################################
 
     def treeWidgetChanged(self, item, column):
         if item.parent() is not None:
-            # self.workingData[str(item.parent().text(0))].[item.parent().text(0)]
-            print ""
+            print "changed"
+        else:
+            self.workingData[str(item.text(0))] ={}
 
-    def addPopulation(self):
-        self.addChild(self.modelRoot, "New Population")
+    #######################################
+
+    def showLoaderPopup(self):
+        self.w = LoaderPopup(self)
+        self.w.show()
+
+    #######################################
+
+    def showAddPopName(self):
+        self.w = NamePopulationPopup(self)
+        self.w.show()
 
     #######################################
 
     def delPopulation(self):
         item = self.populationTreeWidget.currentItem()
         if self.populationTreeWidget.currentItem().parent() is not None:
+            self.workingData
+            del self.workingData[str(item.text(0))]
             self.populationTreeWidget.currentItem().parent().removeChild(item)
+            print self.workingData
 
     #######################################
 
