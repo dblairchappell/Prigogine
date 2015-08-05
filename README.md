@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/dblairchappell/Prigogine/master/prigogine/PrigogineLogo.png)
+![Prigogine Logo](https://raw.githubusercontent.com/dblairchappell/Prigogine/master/prigogine/PrigogineLogo.png)
 
 ## Overview of the Project:
 
