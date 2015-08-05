@@ -1,5 +1,7 @@
 ![Prigogine Logo](https://raw.githubusercontent.com/dblairchappell/Prigogine/master/prigogine/PrigogineLogo.png)
 
+[Website](http://www.prigogine.org/)
+
 ## Overview of the Project:
 
 Prigogine is a domain-specific language and development environment for researchers wanting to develop large-scale multi-agent and discrete-time models but lacking the knowledge necessary to take advantage of high performance computing technology.
