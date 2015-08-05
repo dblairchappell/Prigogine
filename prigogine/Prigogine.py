@@ -50,7 +50,7 @@ class LoaderPopup(QDialog, loader_class):
         p = self.palette()
         p.setColor(self.backgroundRole(), QtCore.Qt.white)
         self.setPalette(p)
-        myPixmap = QPixmap('Prigogine Logo.png')
+        myPixmap = QPixmap('PrigogineLogo.png')
         myScaledPixmap = myPixmap.scaled(self.imageLabel.size(), QtCore.Qt.KeepAspectRatio)
         self.imageLabel.setPixmap(myScaledPixmap)
 

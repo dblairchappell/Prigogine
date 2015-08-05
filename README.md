@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/dblairchappell/Prigogine/master/prigogine/PrigogineLogo.png)
+
 ## Overview of the Project:
 
 Prigogine is a domain-specific language and development environment for researchers wanting to develop large-scale multi-agent and discrete-time models but lacking the knowledge necessary to take advantage of high performance computing technology.
@@ -11,9 +13,6 @@ The project is at a relatively early stage and is presently focussed on getting 
 ##### Model Definition Script
 
     model labourmarket [
-        messageboards [
-            householdIds (1,1)
-        ]
         variables [
             meanWeeksEmployed
             meanReserveWages
