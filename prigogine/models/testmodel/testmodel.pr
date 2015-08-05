@@ -1,0 +1,1 @@
+{'analysisCode': 'test analysis script', 'model': {'variables': ['var', 'variable2', 'asda'], 'modelName': 'model', 'equations': '', 'populations': {'ouboib': {'variables': [], 'equations': ''}, 'popul': {'variables': [], 'equations': ''}}}, 'simulationCode': 'test simulation run', 'notes': 'test analysis script'}

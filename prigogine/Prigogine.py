@@ -3,9 +3,11 @@ from PyQt4 import QtCore, uic
 from PyQt4.QtGui import *
 import sys
 import json
+import ast
 
 form_class = uic.loadUiType("Prigogine.ui")[0]
 popname_class = uic.loadUiType("namePopulationPopup.ui")[0]
+varname_class = uic.loadUiType("nameVariablePopup.ui")[0]
 loader_class = uic.loadUiType("PrigogineLoader.ui")[0]
 
 ########################################
@@ -16,12 +18,27 @@ class NamePopulationPopup(QDialog, popname_class):
         self.mainWindow = parent
         QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
         self.setupUi(self)
-        self.popNameButtonBox.accepted.connect(self.addPopulation)
+        self.popNameButtonBox.accepted.connect(self.addPop)
 
-    def addPopulation(self):
+    def addPop(self):
         popName = self.popNameLineEdit.text()
         if popName != "":
-            self.mainWindow.addChild(self.mainWindow.modelRoot, popName)
+            self.mainWindow.addPopulation(self.mainWindow.modelRoot, popName)
+
+########################################
+
+class NameVariablePopup(QDialog, varname_class):
+
+    def __init__(self, parent):
+        self.mainWindow = parent
+        QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        self.setupUi(self)
+        self.varNameButtonBox.accepted.connect(self.addVar)
+
+    def addVar(self):
+        varName = self.varNameLineEdit.text()
+        if varName != "":
+            self.mainWindow.addVariable(self.mainWindow.modelRoot, varName)
 
 ########################################
 
@@ -47,9 +64,12 @@ class MyWindowClass(QMainWindow, form_class):
 
         sys.stdout = EmittingStream(textWritten=self.normalOutputWritten) # Install the custom output stream
         sys.stderr = EmittingStream(textWritten=self.errorOutputWritten)
+
         self.currentProject = None
-        self.workingData = {"modelCode" : "", "simulationScript" : ""}
+        self.workingData = {"model" : {"populations" : {}, "variables" : [], "equations" : "", "modelName" : ""}, "simulationCode" : "", "analysisCode" : "", "notes" : ""}
+
         self.selectedPopulation = ""
+        self.modelRoot = None
 
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
@@ -62,34 +82,27 @@ class MyWindowClass(QMainWindow, form_class):
         self.actionSave_As.triggered.connect(self.saveAsButton_Clicked)
         self.actionSave.triggered.connect(self.saveButton_Clicked)
         self.simulationRunPushButton.clicked.connect(self.simulationRunPushButton_Clicked)
-        self.modelCodeTextEdit.textChanged.connect(self.modelCodeTextEdit_Changed)
+        self.equationTextEdit.textChanged.connect(self.equationTextEdit_Changed)
 
-        self.initialisationTextEdit.textChanged.connect(self.initialisationTextEdit_Changed)
         self.simulationTextEdit.textChanged.connect(self.simulationTextEdit_Changed)
         self.analysisTextEdit.textChanged.connect(self.analysisTextEdit_Changed)
+        self.notesTextEdit.textChanged.connect(self.notesTextEdit_Changed)
 
         self.clearTerminalPushButton.clicked.connect(self.actionClearTerminalPushButton_clicked)
         self.actionAboutPrigogine.triggered.connect(self.showLoaderPopup)
 
-        self.modelRoot = self.addRoot("ModelName")
-        self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
-
         self.addPopAction = QAction("Add Population", self)
-        self.delPopAction = QAction("Delete Population", self)
+        self.addVarAction = QAction("Add Variable", self)
+        self.delAction = QAction("Delete", self)
+
+        self.populationTreeWidget.setDragDropMode(QAbstractItemView.InternalMove)
         self.populationTreeWidget.addAction(self.addPopAction)
-        self.populationTreeWidget.addAction(self.delPopAction)
-
-        self.populationTreeWidget.itemChanged.connect(self.treeWidgetChanged)
-
-        #self.variableListWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
-        #self.addVarAction = QAction("Add Variable", self)
-        #self.delVarAction = QAction("Delete Variable", self)
-        #self.variableListWidget.addAction(self.addVarAction)
-        #self.variableListWidget.addAction(self.delVarAction)
+        self.populationTreeWidget.addAction(self.addVarAction)
+        self.populationTreeWidget.addAction(self.delAction)
 
         self.addPopAction.triggered.connect(self.showAddPopName)
-        self.delPopAction.triggered.connect(self.delPopulation)
-        #self.addPopAction.triggered.connect(self.btn1, SIGNAL("clicked()"), self.doit)
+        self.addVarAction.triggered.connect(self.showAddVarName)
+        self.delAction.triggered.connect(self.deleteFromTree)
 
     #######################################
 
@@ -113,127 +126,158 @@ class MyWindowClass(QMainWindow, form_class):
 
     #######################################
 
-    def delPopulation(self):
+    def showAddVarName(self):
+        self.w = NameVariablePopup(self)
+        self.w.show()
+
+    #######################################
+
+    def deleteFromTree(self):
         item = self.populationTreeWidget.currentItem()
         if self.populationTreeWidget.currentItem().parent() is not None:
-            self.workingData
-            del self.workingData[str(item.text(0))]
-            self.populationTreeWidget.currentItem().parent().removeChild(item)
+            #self.workingData
+            #del self.workingData[str(item.text(0))]
+            #self.populationTreeWidget.currentItem().parent().removeChild(item)
             print self.workingData
 
     #######################################
 
     def addRoot(self, name):
+
         item = QTreeWidgetItem(self.populationTreeWidget)
         item.setText(0, name)
         item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+        item.setIcon(0, QIcon(QtCore.QString.fromUtf8("model_icon.png")))
         self.populationTreeWidget.addTopLevelItem(item)
-        self.workingData[name] = {}
+        #self.workingData[name] = {}
+        self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+
         return item
 
     #######################################
 
-    def addChild(self, parent, name):
+    def addPopulation(self, parent, name):
         item = QTreeWidgetItem()
         item.setText(0, name)
         item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+        item.setIcon(0, QIcon(QtCore.QString.fromUtf8("population_icon.png")))
         parent.addChild(item)
         parent.text(0)
-        self.workingData[str(parent.text(0))][name] = {}
-        #print self.workingData
+        self.workingData["model"]["populations"][str(name)] = {"variables" : [], "equations" : ""}
+
+    #######################################
+
+    def addVariable(self, parent, name):
+        item = QTreeWidgetItem()
+        item.setText(0, name)
+        item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+        item.setIcon(0, QIcon(QtCore.QString.fromUtf8("variable_icon.png")))
+        parent.addChild(item)
+        parent.text(0)
+        self.workingData["model"]["variables"].append(str(name))
 
     #######################################
 
     def actionClearTerminalPushButton_clicked(self):
         self.terminalOutTextEdit.clear()
 
-    # def actionAddPopulationButton_clicked(self):
-    #     populationName = self.addPopulationLineEdit.text()
-    #     populationName = populationName.replace(" ", "")
-    #     if populationName != "":
-    #         self.workingData["populationCode"][populationName] = ""
-    #         population = QListWidgetItem(populationName)
-    #         self.populationListWidget.addItem(population)
-
     #######################################
 
     def newFileButton_Clicked(self):
         self.showNewFileDialog()
 
+    #######################################
+
     def showNewFileDialog(self):
+
         fileDialog = QFileDialog()
-        fileName = fileDialog.getSaveFileName(self, 'New File', '.','*.pr')
+        fileName = str(fileDialog.getSaveFileName(self, 'New File', '.','*.pr'))
+
         with open(fileName, 'w') as outfile:
            with open(fileName) as infile:
                 for line in infile:
                     outfile.write(line)
-        #self.addRoot("Model")
+
+        windowTitle = "Prigogine - " + str(fileName)
+        self.setWindowTitle(windowTitle)
+        self.currentProject = fileName
+
+        self.populationTreeWidget.clear()
+        self.equationTextEdit.clear()
+        self.simulationTextEdit.clear()
+        self.analysisTextEdit.clear()
+        self.notesTextEdit.clear()
+
+        self.modelRoot = self.addRoot("model")
+
+        self.workingData["model"] = {"populations" : {}, "variables" : [], "equations" : "", "modelName" : "model"}
+        self.workingData["simulationCode"] = ""
+        self.workingData["analysisCode"] = ""
+        self.workingData["notes"] = ""
+
+        with open(fileName, 'w') as outfile:
+            json.dump(self.workingData, outfile)
 
     #######################################
 
     def openFileButton_Clicked(self):
         self.showOpenFileDialog()
 
+    #######################################
+
     def showOpenFileDialog(self):
 
         fileDialog = QFileDialog()
-        filename = QFileDialog.getOpenFileName(fileDialog, 'Open Project', '.','*.pr')
+        filename = str(QFileDialog.getOpenFileName(fileDialog, 'Open Project', '.','*.pr'))
         self.currentProject = filename
+
+        self.populationTreeWidget.clear()
+        self.equationTextEdit.clear()
+        self.simulationTextEdit.clear()
+        self.analysisTextEdit.clear()
+        self.notesTextEdit.clear()
 
         with open(filename, 'r') as inData:
 
-            self.modelCodeTextEdit.clear()
-            self.simulationScriptTextEdit.clear()
-            data = json.load(inData)
+            dataToLoad = ast.literal_eval(inData.read())
+            self.modelRoot = self.addRoot(dataToLoad["model"]["modelName"])
 
-            self.initialisationTextEdit.insertPlainText(data["initialisationCode"])
-            self.simulationTextEdit.insertPlainText(data["simulationCode"])
-            self.analysisTextEdit.insertPlainText(data["analysisCode"])
+            for varName in dataToLoad["model"]["variables"]:
+                self.addVariable(self.modelRoot, varName)
 
-            self.workingData["initialisationCode"] = data["initialisationCode"]
-            self.workingData["simulationCode"] = data["simulationCode"]
-            self.workingData["analysisCode"] = data["analysisCode"]
+            for popName, value in dataToLoad["model"]["populations"].items():
+                self.addPopulation(self.modelRoot, popName)
+
+            self.simulationTextEdit.insertPlainText(dataToLoad["simulationCode"])
+            self.analysisTextEdit.insertPlainText(dataToLoad["analysisCode"])
+            self.notesTextEdit.insertPlainText(dataToLoad["notes"])
+            self.workingData = dataToLoad
+
+        windowTitle = "Prigogine - " + str(filename)
+        self.setWindowTitle(windowTitle)
 
     #######################################
 
     def saveAsButton_Clicked(self):
         self.showSaveAsDialog()
 
+    #######################################
+
     def showSaveAsDialog(self):
 
         fileDialog = QFileDialog()
         filename = QFileDialog.getSaveFileName(fileDialog, 'Save Project', '.','*.pr')
         self.currentProject = filename
-
-        initCode = str(self.initialisationTextEdit.toPlainText())
-        self.workingData["initialisationCode"] = initCode
-
-        simCode = str(self.simulationTextEdit.toPlainText())
-        self.workingData["simulationCode"] = simCode
-
-        analysisCode = str(self.analysisTextEdit.toPlainText())
-        self.workingData["analysisCode"] = analysisCode
-
         with open(filename, 'w') as outfile:
-            json.dump(self.workingData, outfile)
+            outfile.write(str(self.workingData))
 
     #######################################
 
     def saveButton_Clicked(self):
 
         filename = self.currentProject
-
-        initCode = str(self.initialisationTextEdit.toPlainText())
-        self.workingData["initialisationCode"] = initCode
-
-        simCode = str(self.simulationTextEdit.toPlainText())
-        self.workingData["simulationCode"] = simCode
-
-        analysisCode = str(self.analysisTextEdit.toPlainText())
-        self.workingData["analysisCode"] = analysisCode
-
         with open(filename, 'w') as outfile:
-            json.dump(self.workingData, outfile)
+            outfile.write(str(self.workingData))
 
     #######################################
 
@@ -243,10 +287,12 @@ class MyWindowClass(QMainWindow, form_class):
         # code = compile(self.workingData["simulationScript"], "<string>", "exec")
         # exec code in globals(), locals()
         print "running simulation"
+
     #######################################
 
-    def modelCodeTextEdit_Changed(self):
-        self.workingData["modelCode"] = str(self.modelCodeTextEdit.toPlainText())
+    def equationTextEdit_Changed(self):
+        #self.workingData["modelCode"] = str(self.equationTextEdit.toPlainText())
+        print "editing equations"
 
     #######################################
 
@@ -255,18 +301,17 @@ class MyWindowClass(QMainWindow, form_class):
 
     #######################################
 
-    def initialisationTextEdit_Changed(self):
-        self.workingData["initialisationCode"] = str(self.initialisationTextEdit.toPlainText())
-
-    #######################################
-
     def analysisTextEdit_Changed(self):
         self.workingData["analysisCode"] = str(self.analysisTextEdit.toPlainText())
 
     #######################################
 
+    def notesTextEdit_Changed(self):
+        self.workingData["notes"] = str(self.analysisTextEdit.toPlainText())
+
+    #######################################
+
     def __del__(self):
-        # Restore sys.stdout
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
 
