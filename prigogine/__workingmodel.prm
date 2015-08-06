@@ -1,0 +1,35 @@
+model labourmarket [
+variables [
+meanWeeksEmployed
+meanReserveWages
+meanMinWages
+]
+
+equations [
+meanWeeksEmployed[t+1] = households.weeksEmployed[t].mean()
+meanReserveWages[t+1] = households.reserveWages[t].mean()
+meanMinWages[t+1] = households.minWages[t].mean()
+]
+
+population households [
+
+variables [
+states
+reserveWages
+weeksEmployed
+minWages
+]
+
+equations [
+minWages[t+1] = minWages[t]
+
+states[t+1][:] = 0, where (reserveWages[t] >= (minWages[t] + 100)) & (states[t] == 1)
+reserveWages[t+1] = reserveWages[t] * 10.1, where states[t] == 1
+weeksEmployed[t+1] = weeksEmployed[t] + 1, where states[t] == 1
+
+states[t+1][:] = 1, where (reserveWages[t] < minWages[t]) & (states[t] == 0)
+reserveWages[t+1] = reserveWages[t] * 0.9, where states[t] == 0
+weeksEmployed[t+1] = weeksEmployed[t], where states[t] == 0
+]
+]
+]

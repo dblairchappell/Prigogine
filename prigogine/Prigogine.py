@@ -1,4 +1,5 @@
 from prigogine.PrigogineCore import *
+# import prigogine.prigogineCore.loadModelFromGUI
 from PyQt4 import QtCore, uic
 from PyQt4.QtGui import *
 import sys
@@ -66,8 +67,8 @@ class MyWindowClass(QMainWindow, form_class):
         sys.stdout = EmittingStream(textWritten=self.normalOutputWritten) # Install the custom output stream
         sys.stderr = EmittingStream(textWritten=self.errorOutputWritten)
 
-        self.currentProject = None
-        self.workingData = {"model" : {"populations" : {}, "variables" : [], "equations" : "", "modelName" : ""}, "simulationCode" : "", "analysisCode" : "", "notes" : ""}
+        self.currentProject = ""
+        self.workingData = {"model" : {"populations" : {}, "variables" : [], "equations" : "", "modelName" : ""}, "simulationCode" : "", "analysisCode" : "", "notes" : "", "modelCode" : ""}
 
         self.selectedPopulation = ""
         self.modelRoot = None
@@ -220,8 +221,6 @@ class MyWindowClass(QMainWindow, form_class):
                             self.workingData["model"]["populations"][str(item.parent().text(0))]["variables"].remove(entry)
                             self.populationTreeWidget.currentItem().parent().removeChild(item)
 
-        print self.workingData["model"]
-
     #######################################
 
     def addRoot(self, name):
@@ -286,30 +285,32 @@ class MyWindowClass(QMainWindow, form_class):
         fileDialog = QFileDialog()
         fileName = str(fileDialog.getSaveFileName(self, 'New File', '.','*.pr'))
 
-        with open(fileName, 'w') as outfile:
-           with open(fileName) as infile:
-                for line in infile:
-                    outfile.write(line)
+        if fileName != "":
+            with open(fileName, 'w') as outfile:
+               with open(fileName) as infile:
+                    for line in infile:
+                        outfile.write(line)
 
-        windowTitle = "Prigogine - " + str(fileName)
-        self.setWindowTitle(windowTitle)
-        self.currentProject = fileName
+            windowTitle = "Prigogine - " + str(fileName)
+            self.setWindowTitle(windowTitle)
+            self.currentProject = fileName
 
-        self.populationTreeWidget.clear()
-        self.equationTextEdit.clear()
-        self.simulationTextEdit.clear()
-        self.analysisTextEdit.clear()
-        self.notesTextEdit.clear()
+            self.populationTreeWidget.clear()
+            self.equationTextEdit.clear()
+            self.simulationTextEdit.clear()
+            self.analysisTextEdit.clear()
+            self.notesTextEdit.clear()
 
-        self.modelRoot = self.addRoot("model")
+            self.modelRoot = self.addRoot("model")
 
-        self.workingData["model"] = {"populations" : {}, "variables" : [], "equations" : "", "modelName" : "model"}
-        self.workingData["simulationCode"] = ""
-        self.workingData["analysisCode"] = ""
-        self.workingData["notes"] = ""
+            self.workingData["model"] = {"populations" : {}, "variables" : [], "equations" : "", "modelName" : "model"}
+            self.workingData["simulationCode"] = ""
+            self.workingData["modelCode"] = ""
+            self.workingData["analysisCode"] = ""
+            self.workingData["notes"] = ""
 
-        with open(fileName, 'w') as outfile:
-            json.dump(self.workingData, outfile)
+            with open(fileName, 'w') as outfile:
+                json.dump(self.workingData, outfile)
 
         self.equationTextEdit.blockSignals(False)
 
@@ -334,26 +335,27 @@ class MyWindowClass(QMainWindow, form_class):
         self.analysisTextEdit.clear()
         self.notesTextEdit.clear()
 
-        with open(filename, 'r') as inData:
+        if filename != "":
+            with open(filename, 'r') as inData:
 
-            dataToLoad = ast.literal_eval(inData.read())
-            self.modelRoot = self.addRoot(dataToLoad["model"]["modelName"])
+                dataToLoad = ast.literal_eval(inData.read())
+                self.modelRoot = self.addRoot(dataToLoad["model"]["modelName"])
 
-            for varName in dataToLoad["model"]["variables"]:
-                self.addVariable(self.modelRoot, varName)
+                for varName in dataToLoad["model"]["variables"]:
+                    self.addVariable(self.modelRoot, varName)
 
-            for popName, value in dataToLoad["model"]["populations"].items():
-                pop = self.addPopulation(self.modelRoot, popName)
-                for varName in dataToLoad["model"]["populations"][popName]["variables"]:
-                    self.addVariable(pop, varName)
+                for popName, value in dataToLoad["model"]["populations"].items():
+                    pop = self.addPopulation(self.modelRoot, popName)
+                    for varName in dataToLoad["model"]["populations"][popName]["variables"]:
+                        self.addVariable(pop, varName)
 
-            self.simulationTextEdit.insertPlainText(dataToLoad["simulationCode"])
-            self.analysisTextEdit.insertPlainText(dataToLoad["analysisCode"])
-            self.notesTextEdit.insertPlainText(dataToLoad["notes"])
-            self.workingData = dataToLoad
+                self.simulationTextEdit.insertPlainText(dataToLoad["simulationCode"])
+                self.analysisTextEdit.insertPlainText(dataToLoad["analysisCode"])
+                self.notesTextEdit.insertPlainText(dataToLoad["notes"])
+                self.workingData = dataToLoad
 
-        windowTitle = "Prigogine - " + str(filename)
-        self.setWindowTitle(windowTitle)
+            windowTitle = "Prigogine - " + str(filename)
+            self.setWindowTitle(windowTitle)
         self.equationTextEdit.blockSignals(False)
 
     #######################################
@@ -368,25 +370,58 @@ class MyWindowClass(QMainWindow, form_class):
         fileDialog = QFileDialog()
         filename = QFileDialog.getSaveFileName(fileDialog, 'Save Project', '.','*.pr')
         self.currentProject = filename
-        with open(filename, 'w') as outfile:
-            outfile.write(str(self.workingData))
+        if filename != "":
+            with open(filename, 'w') as outfile:
+                outfile.write(str(self.workingData))
 
     #######################################
 
     def saveButton_Clicked(self):
 
         filename = self.currentProject
-        with open(filename, 'w') as outfile:
-            outfile.write(str(self.workingData))
+        if filename != "":
+            with open(filename, 'w') as outfile:
+                outfile.write(str(self.workingData))
+
+    #######################################
+
+    def constructModelCode(self):
+
+        codeToParse = "model %(modelName)s [" % {"modelName" : self.workingData["model"]["modelName"]}
+
+        codeToParse += "\nvariables [\n"
+        for var in self.workingData["model"]["variables"]:
+            codeToParse += "%(varName)s\n" % {"varName" : str(var)}
+        codeToParse += "]\n"
+
+        codeToParse += "\nequations [\n"
+        codeToParse += self.workingData["model"]["equations"] + "\n"
+        codeToParse += "]\n"
+
+        for popName in self.workingData["model"]["populations"]:
+            codeToParse += "\npopulation %(popName)s [\n" % {"popName" : popName}
+
+            codeToParse += "\nvariables [\n"
+            for var in self.workingData["model"]["populations"][popName]["variables"]:
+                codeToParse += "%(varName)s\n" % {"varName" : str(var)}
+            codeToParse += "]\n"
+
+            codeToParse += "\nequations [\n"
+            codeToParse += self.workingData["model"]["populations"][popName]["equations"] + "\n"
+            codeToParse += "]\n"
+        codeToParse += "]\n"
+        codeToParse += "]\n"
+
+        return codeToParse
 
     #######################################
 
     def simulationRunPushButton_Clicked(self):
-        # codeToParse = self.workingData["modelCode"] #+ "\n\n" + self.workingData["simulationScript"]
-        # prigogine.loadModelFromGUI(codeToParse)
-        # code = compile(self.workingData["simulationScript"], "<string>", "exec")
-        # exec code in globals(), locals()
-        print "running simulation"
+        modelCode = self.constructModelCode()
+        simulationCode = self.workingData["simulationCode"]
+        prigogine.loadModelFromGUI(modelCode)
+        code = compile(simulationCode, "<string>", "exec")
+        exec code in locals(), globals()
 
     #######################################
 

@@ -41,6 +41,7 @@ class ListenerBuilder(PrigogineListener):
     def enterModel(self, ctx):
 
         modelName = ctx.getChild(1).getText().encode("ascii")
+        #print modelName
         exec "self.%s = Model()" % modelName
         self.currentModel = modelName
 
@@ -150,7 +151,6 @@ class ListenerBuilder(PrigogineListener):
                 codeToPass = "updateMap(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
                 exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
-                print codeToPass
 
     #########################
 
