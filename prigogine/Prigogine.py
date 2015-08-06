@@ -232,7 +232,6 @@ class MyWindowClass(QMainWindow, form_class):
         item.itemType = "modelroot"
         self.populationTreeWidget.addTopLevelItem(item)
         self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
-
         return item
 
     #######################################
@@ -308,6 +307,16 @@ class MyWindowClass(QMainWindow, form_class):
             self.workingData["modelCode"] = ""
             self.workingData["analysisCode"] = ""
             self.workingData["notes"] = ""
+            
+            topLevelItem = self.populationTreeWidget.topLevelItem(0)
+            self.populationTreeWidget.setItemSelected(topLevelItem, True)
+            self.populationTreeWidget.setCurrentItem(topLevelItem, True)
+            self.equationTextEdit.blockSignals(True)
+
+            self.equationTextEdit.clear()
+            self.selectedItemName = str(topLevelItem.text(0))
+            self.equationTextEdit.insertPlainText(self.workingData["model"]["equations"])
+            self.equationTextEdit.blockSignals(False)
 
             with open(fileName, 'w') as outfile:
                 json.dump(self.workingData, outfile)
@@ -353,6 +362,16 @@ class MyWindowClass(QMainWindow, form_class):
                 self.analysisTextEdit.insertPlainText(dataToLoad["analysisCode"])
                 self.notesTextEdit.insertPlainText(dataToLoad["notes"])
                 self.workingData = dataToLoad
+
+                topLevelItem = self.populationTreeWidget.topLevelItem(0)
+                self.populationTreeWidget.setItemSelected(topLevelItem, True)
+                self.populationTreeWidget.setCurrentItem(topLevelItem, True)
+                self.equationTextEdit.blockSignals(True)
+
+                self.equationTextEdit.clear()
+                self.selectedItemName = str(topLevelItem.text(0))
+                self.equationTextEdit.insertPlainText(self.workingData["model"]["equations"])
+                self.equationTextEdit.blockSignals(False)
 
             windowTitle = "Prigogine - " + str(filename)
             self.setWindowTitle(windowTitle)
