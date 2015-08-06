@@ -84,8 +84,8 @@ class MyWindowClass(QMainWindow, form_class):
         self.actionSave_As.triggered.connect(self.saveAsButton_Clicked)
         self.actionSave.triggered.connect(self.saveButton_Clicked)
         self.simulationRunPushButton.clicked.connect(self.simulationRunPushButton_Clicked)
-        self.equationTextEdit.textChanged.connect(self.equationTextEdit_Changed)
 
+        self.equationTextEdit.textChanged.connect(self.equationTextEdit_Changed)
         self.simulationTextEdit.textChanged.connect(self.simulationTextEdit_Changed)
         self.analysisTextEdit.textChanged.connect(self.analysisTextEdit_Changed)
         self.notesTextEdit.textChanged.connect(self.notesTextEdit_Changed)
@@ -98,7 +98,7 @@ class MyWindowClass(QMainWindow, form_class):
         self.delAction = QAction("Delete", self)
 
         self.populationTreeWidget.itemClicked.connect(self.treeWidgetClicked)
-        self.populationTreeWidget.itemDoubleClicked.connect(self.treeWidgetDoubleClicked)
+        # self.populationTreeWidget.itemDoubleClicked.connect(self.treeWidgetDoubleClicked)
         self.populationTreeWidget.itemChanged.connect(self.treeWidgetChanged)
 
         self.populationTreeWidget.addAction(self.addPopAction)
@@ -113,32 +113,35 @@ class MyWindowClass(QMainWindow, form_class):
 
     def treeWidgetClicked(self, item, column):
         if item.parent() is not None:
-            if item.itemType == "variable":
+            if item.itemType == "population":
+                popName = str(item.text(0))
+                self.equationTextEdit.blockSignals(True)
+                self.equationTextEdit.clear()
                 self.selectedItemName = str(item.text(0))
-                # print self.selectedItemName
-            elif item.itemType == "population":
-                self.selectedItemName = str(item.text(0))
-                # print self.selectedItemName
+                self.equationTextEdit.insertPlainText(self.workingData["model"]["populations"][popName]["equations"])
+                self.equationTextEdit.blockSignals(False)
+
         else:
+            self.equationTextEdit.blockSignals(True)
+            self.equationTextEdit.clear()
             self.selectedItemName = str(item.text(0))
-            print self.selectedItemName
+            self.equationTextEdit.insertPlainText(self.workingData["model"]["equations"])
+            self.equationTextEdit.blockSignals(False)
 
     #######################################
 
-    def treeWidgetDoubleClicked(self, item, column):
-        if item.parent() is not None:
-            if item.itemType == "variable":
-                print "" #item.text(0)
-            elif item.itemType == "population":
-                print "" #item.text(0)
-        else:
-            print "" #item.text(0)
+    # def treeWidgetDoubleClicked(self, item, column):
+    #     if item.parent() is not None:
+    #         if item.itemType == "variable":
+    #             print ""
+    #         elif item.itemType == "population":
+    #             print ""
+    #     else:
+    #         print ""
 
     #######################################
 
     def treeWidgetChanged(self, item, column):
-
-        print item.text(0)
 
         if item.parent() is not None: # if not the root model
 
@@ -229,10 +232,6 @@ class MyWindowClass(QMainWindow, form_class):
         item.setIcon(0, QIcon(QtCore.QString.fromUtf8("modelhome_icon.png")))
         item.itemType = "modelroot"
         self.populationTreeWidget.addTopLevelItem(item)
-        # varFolder = QTreeWidgetItem()
-        # varFolder.setText(0, "variables")
-        # varFolder.setIcon(0, QIcon(QtCore.QString.fromUtf8("folder_icon.png")))
-        # item.addChild(varFolder)
         self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
 
         return item
@@ -267,7 +266,6 @@ class MyWindowClass(QMainWindow, form_class):
         item.itemType = "variable"
         parent.addChild(item)
         parent.text(0)
-        print self.workingData["model"]
 
     #######################################
 
@@ -282,6 +280,8 @@ class MyWindowClass(QMainWindow, form_class):
     #######################################
 
     def showNewFileDialog(self):
+
+        self.equationTextEdit.blockSignals(True)
 
         fileDialog = QFileDialog()
         fileName = str(fileDialog.getSaveFileName(self, 'New File', '.','*.pr'))
@@ -311,6 +311,8 @@ class MyWindowClass(QMainWindow, form_class):
         with open(fileName, 'w') as outfile:
             json.dump(self.workingData, outfile)
 
+        self.equationTextEdit.blockSignals(False)
+
     #######################################
 
     def openFileButton_Clicked(self):
@@ -319,6 +321,8 @@ class MyWindowClass(QMainWindow, form_class):
     #######################################
 
     def showOpenFileDialog(self):
+
+        self.equationTextEdit.blockSignals(True)
 
         fileDialog = QFileDialog()
         filename = str(QFileDialog.getOpenFileName(fileDialog, 'Open Project', '.','*.pr'))
@@ -350,6 +354,7 @@ class MyWindowClass(QMainWindow, form_class):
 
         windowTitle = "Prigogine - " + str(filename)
         self.setWindowTitle(windowTitle)
+        self.equationTextEdit.blockSignals(False)
 
     #######################################
 
@@ -386,8 +391,12 @@ class MyWindowClass(QMainWindow, form_class):
     #######################################
 
     def equationTextEdit_Changed(self):
-        #self.workingData["modelCode"] = str(self.equationTextEdit.toPlainText())
-        print "editing equations"
+
+        if self.populationTreeWidget.currentItem().itemType == "population":
+            popName = str(self.populationTreeWidget.currentItem().text(0))
+            self.workingData["model"]["populations"][popName]["equations"] = str(self.equationTextEdit.toPlainText())
+        elif self.populationTreeWidget.currentItem().itemType == "modelroot":
+            self.workingData["model"]["equations"] = str(self.equationTextEdit.toPlainText())
 
     #######################################
 
@@ -402,7 +411,7 @@ class MyWindowClass(QMainWindow, form_class):
     #######################################
 
     def notesTextEdit_Changed(self):
-        self.workingData["notes"] = str(self.analysisTextEdit.toPlainText())
+        self.workingData["notes"] = str(self.notesTextEdit.toPlainText())
 
     #######################################
 
