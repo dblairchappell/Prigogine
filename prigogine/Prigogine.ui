@@ -236,6 +236,12 @@
             <layout class="QGridLayout" name="gridLayout_9">
              <item row="0" column="0">
               <widget class="QTextEdit" name="notesTextEdit">
+               <property name="font">
+                <font>
+                 <family>Courier New</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>

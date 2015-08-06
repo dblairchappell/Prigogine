@@ -37,8 +37,9 @@ class NameVariablePopup(QDialog, varname_class):
 
     def addVar(self):
         varName = self.varNameLineEdit.text()
+        selectedItem = self.mainWindow.populationTreeWidget.currentItem()
         if varName != "":
-            self.mainWindow.addVariable(self.mainWindow.modelRoot, varName)
+            self.mainWindow.addVariable(selectedItem, varName)
 
 ########################################
 
@@ -70,6 +71,7 @@ class MyWindowClass(QMainWindow, form_class):
 
         self.selectedPopulation = ""
         self.modelRoot = None
+        self.selectedItemName = ""
 
         QMainWindow.__init__(self, parent)
         self.setupUi(self)
@@ -95,7 +97,10 @@ class MyWindowClass(QMainWindow, form_class):
         self.addVarAction = QAction("Add Variable", self)
         self.delAction = QAction("Delete", self)
 
-        self.populationTreeWidget.setDragDropMode(QAbstractItemView.InternalMove)
+        self.populationTreeWidget.itemClicked.connect(self.treeWidgetClicked)
+        self.populationTreeWidget.itemDoubleClicked.connect(self.treeWidgetDoubleClicked)
+        self.populationTreeWidget.itemChanged.connect(self.treeWidgetChanged)
+
         self.populationTreeWidget.addAction(self.addPopAction)
         self.populationTreeWidget.addAction(self.addVarAction)
         self.populationTreeWidget.addAction(self.delAction)
@@ -106,11 +111,55 @@ class MyWindowClass(QMainWindow, form_class):
 
     #######################################
 
-    def treeWidgetChanged(self, item, column):
+    def treeWidgetClicked(self, item, column):
         if item.parent() is not None:
-            print "changed"
+            if item.itemType == "variable":
+                self.selectedItemName = str(item.text(0))
+                print self.selectedItemName
+            elif item.itemType == "population":
+                self.selectedItemName = str(item.text(0))
+                print self.selectedItemName
         else:
-            self.workingData[str(item.text(0))] ={}
+            self.selectedItemName = str(item.text(0))
+            print self.selectedItemName
+
+    #######################################
+
+    def treeWidgetDoubleClicked(self, item, column):
+        if item.parent() is not None:
+            if item.itemType == "variable":
+                print "" #item.text(0)
+            elif item.itemType == "population":
+                print "" #item.text(0)
+        else:
+            print "" #item.text(0)
+
+    #######################################
+
+    def treeWidgetChanged(self, item, column):
+
+        print item.text(0)
+
+        if item.parent() is not None: # if not the root model
+
+            if item.itemType == "variable":
+                if item.parent().itemType == "population":
+                    print "population variable"
+                else:
+                    print self.workingData["model"]["variables"]
+                    oldName = self.selectedItemName
+                    newName = str(item.text(0))
+                    self.workingData["model"]["variables"].remove(oldName)
+                    self.workingData["model"]["variables"].remove(newName)
+                    print self.workingData["model"]["variables"]
+
+            elif item.itemType == "population":
+                oldName = self.selectedItemName
+                newName = str(item.text(0))
+                self.workingData["model"]["populations"][newName] = self.workingData["model"]["populations"].pop(oldName)
+
+        else:
+            self.workingData["model"]["modelName"] = str(item.text(0))
 
     #######################################
 
@@ -133,12 +182,34 @@ class MyWindowClass(QMainWindow, form_class):
     #######################################
 
     def deleteFromTree(self):
+
+        print self.workingData["model"]
+
         item = self.populationTreeWidget.currentItem()
         if self.populationTreeWidget.currentItem().parent() is not None:
-            #self.workingData
-            #del self.workingData[str(item.text(0))]
-            #self.populationTreeWidget.currentItem().parent().removeChild(item)
-            print self.workingData
+
+            if item.itemType == "population":
+                popName = str(item.text(0))
+                del self.workingData["model"]["populations"][popName]
+                self.populationTreeWidget.currentItem().parent().removeChild(item)
+
+            elif item.itemType == "variable":
+
+                if item.parent().itemType == "modelroot":
+                    varName = str(item.text(0))
+                    for entry in self.workingData["model"]["variables"]:
+                        if entry == varName:
+                            self.workingData["model"]["variables"].remove(entry)
+                            self.populationTreeWidget.currentItem().parent().removeChild(item)
+
+                elif item.parent().itemType == "population":
+                    varName = str(item.text(0))
+                    for entry in self.workingData["model"]["populations"][str(item.parent().text(0))]["variables"]:
+                        if entry == varName:
+                            self.workingData["model"]["populations"][str(item.parent().text(0))]["variables"].remove(entry)
+                            self.populationTreeWidget.currentItem().parent().removeChild(item)
+
+        print self.workingData["model"]
 
     #######################################
 
@@ -147,9 +218,13 @@ class MyWindowClass(QMainWindow, form_class):
         item = QTreeWidgetItem(self.populationTreeWidget)
         item.setText(0, name)
         item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
-        item.setIcon(0, QIcon(QtCore.QString.fromUtf8("model_icon.png")))
+        item.setIcon(0, QIcon(QtCore.QString.fromUtf8("modelhome_icon.png")))
+        item.itemType = "modelroot"
         self.populationTreeWidget.addTopLevelItem(item)
-        #self.workingData[name] = {}
+        # varFolder = QTreeWidgetItem()
+        # varFolder.setText(0, "variables")
+        # varFolder.setIcon(0, QIcon(QtCore.QString.fromUtf8("folder_icon.png")))
+        # item.addChild(varFolder)
         self.populationTreeWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
 
         return item
@@ -161,20 +236,30 @@ class MyWindowClass(QMainWindow, form_class):
         item.setText(0, name)
         item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
         item.setIcon(0, QIcon(QtCore.QString.fromUtf8("population_icon.png")))
+        item.itemType = "population"
         parent.addChild(item)
         parent.text(0)
         self.workingData["model"]["populations"][str(name)] = {"variables" : [], "equations" : ""}
+        return item
 
     #######################################
 
     def addVariable(self, parent, name):
+
+        if parent.itemType == "modelroot":
+            self.workingData["model"]["variables"].append(str(name))
+
+        if parent.itemType == "population":
+            self.workingData["model"]["populations"][str(parent.text(0))]["variables"].append(str(name))
+
         item = QTreeWidgetItem()
         item.setText(0, name)
         item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
         item.setIcon(0, QIcon(QtCore.QString.fromUtf8("variable_icon.png")))
+        item.itemType = "variable"
         parent.addChild(item)
         parent.text(0)
-        self.workingData["model"]["variables"].append(str(name))
+        print self.workingData["model"]
 
     #######################################
 
@@ -246,7 +331,9 @@ class MyWindowClass(QMainWindow, form_class):
                 self.addVariable(self.modelRoot, varName)
 
             for popName, value in dataToLoad["model"]["populations"].items():
-                self.addPopulation(self.modelRoot, popName)
+                pop = self.addPopulation(self.modelRoot, popName)
+                for varName in dataToLoad["model"]["populations"][popName]["variables"]:
+                    self.addVariable(pop, varName)
 
             self.simulationTextEdit.insertPlainText(dataToLoad["simulationCode"])
             self.analysisTextEdit.insertPlainText(dataToLoad["analysisCode"])
