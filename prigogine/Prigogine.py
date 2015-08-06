@@ -115,10 +115,10 @@ class MyWindowClass(QMainWindow, form_class):
         if item.parent() is not None:
             if item.itemType == "variable":
                 self.selectedItemName = str(item.text(0))
-                print self.selectedItemName
+                # print self.selectedItemName
             elif item.itemType == "population":
                 self.selectedItemName = str(item.text(0))
-                print self.selectedItemName
+                # print self.selectedItemName
         else:
             self.selectedItemName = str(item.text(0))
             print self.selectedItemName
@@ -143,15 +143,23 @@ class MyWindowClass(QMainWindow, form_class):
         if item.parent() is not None: # if not the root model
 
             if item.itemType == "variable":
+
                 if item.parent().itemType == "population":
-                    print "population variable"
-                else:
-                    print self.workingData["model"]["variables"]
+                    popName = str(item.parent().text(0))
                     oldName = self.selectedItemName
                     newName = str(item.text(0))
-                    self.workingData["model"]["variables"].remove(oldName)
-                    self.workingData["model"]["variables"].remove(newName)
-                    print self.workingData["model"]["variables"]
+                    for entry in self.workingData["model"]["populations"][popName]["variables"]:
+                        if entry == oldName:
+                            self.workingData["model"]["populations"][popName]["variables"].remove(entry)
+                            self.workingData["model"]["populations"][popName]["variables"].append(newName)
+
+                else:
+                    oldName = self.selectedItemName
+                    newName = str(item.text(0))
+                    for entry in self.workingData["model"]["variables"]:
+                        if entry == oldName:
+                            self.workingData["model"]["variables"].remove(entry)
+                            self.workingData["model"]["variables"].append(newName)
 
             elif item.itemType == "population":
                 oldName = self.selectedItemName
