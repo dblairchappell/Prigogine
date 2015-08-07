@@ -95,7 +95,7 @@ parameter
     ;
 
 timeindex
-    : ('[' timevar (SUB INT)* ']' | '[:]')+
+    : ('[' timevar (SUB INT)* ']' | '[:]' | '[n]')+
     ;
 
 timevar

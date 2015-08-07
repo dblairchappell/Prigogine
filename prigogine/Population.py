@@ -74,6 +74,12 @@ class Population:
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval(newValues)
         trueFalse = eval(conditionalCheck)
+
+        if type(trueFalse) is bool:
+            trueFalse2Array = newVals.copy()
+            trueFalse2Array.fill(trueFalse)
+            trueFalse = trueFalse2Array.astype(bool)
+
         result = self.calculateNewArray(oldVals, newVals, trueFalse)
         codeblock = "self.%(variableName)s[%(writeIndex)d] = result" % \
              {"variableName" : variableName, "result" : result, "writeIndex" : writeIndex}
@@ -82,7 +88,7 @@ class Population:
 
     #########################
 
-    def updateMap(self, variableName, newValue, conditionalCheck, t):
+    def updateMap(self, variableName, equationCode, conditionalCheck, t):
         readIndex = self.parent.readIndex
         writeIndex = self.parent.writeIndex
         t = readIndex
@@ -97,7 +103,7 @@ class Population:
 
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval("self.%s[readIndex].copy()" % variableName)
-        newVals.fill(eval(newValue))
+        newVals.fill(eval(equationCode))
         trueFalse = eval(conditionalCheck)
 
         if type(trueFalse) is bool:
@@ -114,7 +120,7 @@ class Population:
 
     #########################
 
-    def updatePerAgent(self, variableName, newValue, conditionalCheck, t):
+    def updatePerAgent(self, variableName, equationCode, conditionalCheck, t):
         readIndex = self.parent.readIndex
         writeIndex = self.parent.writeIndex
         t = readIndex
@@ -130,8 +136,20 @@ class Population:
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval("self.%s[readIndex].copy()" % variableName)
 
-        newValsFunc = eval("np.vectorize(lambda x : %(newValue)s)" % {"newValue" : newValue})
-        newVals = newValsFunc(newVals)
+        for n, entry in enumerate(newVals):
+            newVals[n] = eval(equationCode)
+
+        # print equationCode
+        # codeline = "newValsFunc = np.vectorize(lambda x : %(equationCode)s)" % \
+        #            {"equationCode" : equationCode}
+        # code = compile(codeline, "<string>", "exec")
+        # exec code in locals(), globals()
+        #
+        # exec "print newValsFunc"
+        # codeline = "newVals = newValsFunc(newVals)"
+        # code = compile(codeline, "<string>", "exec")
+        # exec code in locals(), globals()
+
         trueFalse = eval(conditionalCheck)
 
         if type(trueFalse) is bool:

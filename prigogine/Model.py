@@ -1,5 +1,6 @@
 from Population import Population
 from numpy import *
+import numpy as np
 from matplotlib.pyplot import *
 import time
 

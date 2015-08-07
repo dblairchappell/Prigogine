@@ -7,7 +7,7 @@ testmodel = prigogine.loadmodel("testModel.prm")
 popsize = 10
 testmodel.testpop.create(popsize)
 testmodel.testpop.testvar[0] = np.ones(popsize)
-
+print testmodel.testpop.testvar[testmodel.readIndex]
 for i in range(5):
     testmodel.runModel(1)
     print testmodel.testpop.testvar[testmodel.readIndex]
