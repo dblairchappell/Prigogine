@@ -143,12 +143,37 @@ class ListenerBuilder(PrigogineListener):
 
                 variableName = equationline.getChild(0).getText().encode('ascii')
                 equationInterval = equationline.expression().getSourceInterval()
-                conditionInterval = equationline.conditional(0).getSourceInterval()
+                conditionCode = ""
+
+                for child in equationline.children:
+
+                    if type(child) is PrigogineParser.ConditionalContext:
+                        conditionInterval = equationline.conditional(0).getSourceInterval()
+                        conditionCode = str(self.tokens.getText(conditionInterval))
+                    else:
+                        conditionCode = "True"
 
                 equationCode = str(self.tokens.getText(equationInterval))
-                conditionCode = str(self.tokens.getText(conditionInterval))
-
                 codeToPass = "updateMap(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
+                exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
+                     {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
+
+            for equationline in ctx.nIndexedEquation():
+
+                variableName = equationline.getChild(0).getText().encode('ascii')
+                equationInterval = equationline.expression().getSourceInterval()
+                conditionCode = ""
+
+                for child in equationline.children:
+
+                    if type(child) is PrigogineParser.ConditionalContext:
+                        conditionInterval = equationline.conditional(0).getSourceInterval()
+                        conditionCode = str(self.tokens.getText(conditionInterval))
+                    else:
+                        conditionCode = "True"
+
+                equationCode = str(self.tokens.getText(equationInterval))
+                codeToPass = "updatePerAgent(\"" + variableName + "\", \"" + equationCode + "\", \"" + conditionCode + "\", self.t)"
                 exec "self.%(currentmodel)s.%(population)s.updateCode.append('%(codeToPass)s')" % \
                      {"currentmodel" : self.currentModel, "population" : self.currentPopulation, "codeToPass" : codeToPass}
 

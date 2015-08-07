@@ -40,6 +40,11 @@ class PrigogineVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by PrigogineParser#nIndexedEquation.
+    def visitNIndexedEquation(self, ctx):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by PrigogineParser#assignment.
     def visitAssignment(self, ctx):
         return self.visitChildren(ctx)

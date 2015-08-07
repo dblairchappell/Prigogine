@@ -23,7 +23,7 @@ codeinsert
     ;
 
 equationlist
-    : 'equations' '[' (elementwiseEquation | mapEquation)* ']'
+    : 'equations' '[' (elementwiseEquation | mapEquation | nIndexedEquation)* ']'
     ;
 
 elementwiseEquation
@@ -34,6 +34,11 @@ elementwiseEquation
 mapEquation
     : ID '[t+1]' '[:]''=' expression (',' 'where' conditional)*
     | ID ('.' ID)* '[t+1]' '[:]' '=' expression (',' 'where' conditional)*
+    ;
+
+nIndexedEquation
+    : ID '[t+1]' '[n]''=' expression (',' 'where' conditional)*
+    | ID ('.' ID)* '[t+1]' '[n]' '=' expression (',' 'where' conditional)*
     ;
 
 assignment

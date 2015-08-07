@@ -1,0 +1,14 @@
+model testmodel [
+    variables [
+    ]
+    equations [
+    ]
+    population testpop [
+        variables [
+            testvar
+        ]
+        equations [
+            testvar[t+1][:] = np.random.randint(100)
+        ]
+    ]
+]

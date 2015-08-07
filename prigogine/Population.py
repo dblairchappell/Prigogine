@@ -37,8 +37,13 @@ class Population:
     #########################
 
     def evalUpdateCode(self):
+
         update = lambda variableName, value, conditionalCheck, t: self.update(variableName, value, conditionalCheck, self.parent.t)
+
         updateMap = lambda variableName, value, conditionalCheck, t: self.updateMap(variableName, value, conditionalCheck, self.parent.t)
+
+        updatePerAgent = lambda variableName, value, conditionalCheck, t: self.updatePerAgent(variableName, value, conditionalCheck, self.parent.t)
+
         for code in self.updateCode:
             exec code in globals(), locals()
 
@@ -94,10 +99,50 @@ class Population:
         newVals = eval("self.%s[readIndex].copy()" % variableName)
         newVals.fill(eval(newValue))
         trueFalse = eval(conditionalCheck)
+
+        if type(trueFalse) is bool:
+            trueFalse2Array = newVals.copy()
+            trueFalse2Array.fill(trueFalse)
+            trueFalse = trueFalse2Array.astype(bool)
+
         result = self.calculateNewArray(oldVals, newVals, trueFalse)
 
         codeblock = "self.%(variableName)s[%(writeIndex)d] = result" % \
              {"variableName" : variableName, "result" : result, "writeIndex" : writeIndex}
+        code = compile(codeblock, "<string>", "exec")
+        exec code in locals(), globals()
+
+    #########################
+
+    def updatePerAgent(self, variableName, newValue, conditionalCheck, t):
+        readIndex = self.parent.readIndex
+        writeIndex = self.parent.writeIndex
+        t = readIndex
+
+        for varName in self.variables:
+            codeline = "%(variable)s = self.%(variable)s" % \
+                       {"variable" : varName}
+            code = compile(codeline, "<string>", "exec")
+            exec code in locals()
+
+        exec "parent = self.parent" in locals()
+
+        oldVals = eval("self.%s[readIndex]" % variableName)
+        newVals = eval("self.%s[readIndex].copy()" % variableName)
+
+        newValsFunc = eval("np.vectorize(lambda x : %(newValue)s)" % {"newValue" : newValue})
+        newVals = newValsFunc(newVals)
+        trueFalse = eval(conditionalCheck)
+
+        if type(trueFalse) is bool:
+            trueFalse2Array = newVals.copy()
+            trueFalse2Array.fill(trueFalse)
+            trueFalse = trueFalse2Array.astype(bool)
+
+        result = self.calculateNewArray(oldVals, newVals, trueFalse)
+
+        codeblock = "self.%(variableName)s[%(writeIndex)d] = result" % \
+                    {"variableName" : variableName, "result" : result, "writeIndex" : writeIndex}
         code = compile(codeblock, "<string>", "exec")
         exec code in locals(), globals()
 

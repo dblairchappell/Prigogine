@@ -307,7 +307,7 @@ class MyWindowClass(QMainWindow, form_class):
             self.workingData["modelCode"] = ""
             self.workingData["analysisCode"] = ""
             self.workingData["notes"] = ""
-            
+
             topLevelItem = self.populationTreeWidget.topLevelItem(0)
             self.populationTreeWidget.setItemSelected(topLevelItem, True)
             self.populationTreeWidget.setCurrentItem(topLevelItem, True)

@@ -67,6 +67,15 @@ class PrigogineListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PrigogineParser#nIndexedEquation.
+    def enterNIndexedEquation(self, ctx):
+        pass
+
+    # Exit a parse tree produced by PrigogineParser#nIndexedEquation.
+    def exitNIndexedEquation(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by PrigogineParser#assignment.
     def enterAssignment(self, ctx):
         pass
