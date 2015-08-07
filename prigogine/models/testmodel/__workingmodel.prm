@@ -8,7 +8,7 @@ model testmodel [
             testvar
         ]
         equations [
-            testvar[t+1][n] = testvar[t][n] + np.random.randint(100)
+            testvar[t+1] = testvar[t] + 10 #np.random.randint(100), where testvar[t] < 50
         ]
     ]
 ]

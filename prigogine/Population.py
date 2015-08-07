@@ -1,5 +1,7 @@
 
 import numpy as np
+from numba import jit
+
 class Population:
 
     #########################
@@ -120,35 +122,55 @@ class Population:
 
     #########################
 
+    # @jit
+    # def calcForEachAgent(self, newVals, equationCode, t):
+    #
+    #     for varName in self.variables:
+    #         codeline = "%(variable)s = self.%(variable)s" % \
+    #                    {"variable" : varName}
+    #         code = compile(codeline, "<string>", "exec")
+    #         exec code in locals()
+    #
+    #     for n, entry in enumerate(newVals):
+    #         newVals[n] = eval(equationCode)
+
+    #########################
+
     def updatePerAgent(self, variableName, equationCode, conditionalCheck, t):
+
         readIndex = self.parent.readIndex
         writeIndex = self.parent.writeIndex
         t = readIndex
 
-        for varName in self.variables:
-            codeline = "%(variable)s = self.%(variable)s" % \
-                       {"variable" : varName}
-            code = compile(codeline, "<string>", "exec")
-            exec code in locals()
+        # for varName in self.variables:
+        #     codeline = "%(variable)s = self.%(variable)s" % \
+        #                {"variable" : varName}
+        #     code = compile(codeline, "<string>", "exec")
+        #     exec code in locals()
 
         exec "parent = self.parent" in locals()
 
         oldVals = eval("self.%s[readIndex]" % variableName)
         newVals = eval("self.%s[readIndex].copy()" % variableName)
 
-        for n, entry in enumerate(newVals):
-            newVals[n] = eval(equationCode)
+        print newVals
 
-        # print equationCode
-        # codeline = "newValsFunc = np.vectorize(lambda x : %(equationCode)s)" % \
-        #            {"equationCode" : equationCode}
-        # code = compile(codeline, "<string>", "exec")
-        # exec code in locals(), globals()
-        #
-        # exec "print newValsFunc"
-        # codeline = "newVals = newValsFunc(newVals)"
-        # code = compile(codeline, "<string>", "exec")
-        # exec code in locals(), globals()
+        # @jit
+        def calcForEachAgent(self, newVals, equationCode, t):
+
+            for varName in self.variables:
+                codeline = "%(variable)s = self.%(variable)s" % \
+                           {"variable" : varName}
+                code = compile(codeline, "<string>", "exec")
+                exec code in locals()
+
+            for n, entry in enumerate(newVals):
+                newVals[n] = eval(equationCode)
+
+        calcForEachAgent(self, newVals, equationCode, t)
+
+        # for n, entry in enumerate(newVals):
+        #     newVals[n] = eval(equationCode)
 
         trueFalse = eval(conditionalCheck)
 
