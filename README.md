@@ -8,7 +8,7 @@ Prigogine is a domain-specific language and development environment for research
 
 By utilising Python's NumPy package for n-dimensional arrays, it is hoped that the performance capabilities of modelling frameworks like Repast HPC and FLAME, and the productiveness associated with Python's high-level syntax, can be brought together in one convenient package.
 
-The project is at a relatively early stage and is presently focussed on getting single-core functionality up and running. The target timeframe for getting the first version released is mid-September 2015.
+The project was part of an undergraduate computing module that ended in mid-September 2015. It is unlikely that further development will take place in the forseable future.
 
 #### Example of Working Model:
 
